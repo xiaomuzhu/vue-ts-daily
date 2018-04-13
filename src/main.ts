@@ -1,6 +1,7 @@
 import Vue from 'vue';
 
 import FastClick from 'fastclick';
+import VueLazyload from 'vue-lazyload';
 
 import App from './App.vue';
 import router from './router';
@@ -13,6 +14,8 @@ if ('addEventListener' in document) {
       (FastClick as any).attach(document.body);
   }, false);
 }
+
+Vue.use(VueLazyload, { preLoad: 1 });
 
 Vue.config.productionTip = false;
 
