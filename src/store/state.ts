@@ -20,7 +20,7 @@ export interface HabitList {
   // 习惯日志
   habitLog: {
     // 总共坚持练习了多少天
-    totalHabitDays: number;
+    totalHabitDays: string;
     // 当前连续联系了多少天
     currentConsecutiveDays: number;
     // 历史上最多连续练习多少天
@@ -111,7 +111,7 @@ const state: State = {
   },
   habitList: [{
     id: 0,
-    iconName: 'writing',
+    iconName: 'taiyang',
     color: '#ffe884',
     habitInfo: {
       // 习惯名称
@@ -127,7 +127,7 @@ const state: State = {
     },
     habitLog: {
       // 总共坚持练习了多少天
-      totalHabitDays: 0,
+      totalHabitDays: '0天',
       // 当前连续联系了多少天
       currentConsecutiveDays: 0,
       // 历史上最多连续练习多少天

@@ -12,6 +12,7 @@ export default {
         })
     },
 
+    // 切换header上图标
     changeHeaderState(state: State, id: number) {
         const { headerInfo } = state;
         switch (id) {
@@ -32,4 +33,6 @@ export default {
             break;
         }
     },
+
+
 }

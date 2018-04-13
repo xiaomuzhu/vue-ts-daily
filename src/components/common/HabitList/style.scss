@@ -1,7 +1,7 @@
 @import '../../../style/mixin';
 .habit {
     box-sizing: border-box;
-    padding: 0.5rem 0;
+    margin: 1.5rem 0;
     aside {
         height: 100%;
         background-color: $warn;
@@ -27,4 +27,17 @@
     border: solid;
     width: 95%;
     border-width: 0.08rem;
+    justify-content: space-between;
+    align-items: center;
+    @include font(1.2rem, 1rem);
+    svg {
+        width: 2rem;
+        height: 2rem;
+        margin-right: 1rem;
+    }
+    span {
+        display: inline-block;
+        transform: translateY(-35%);
+        @include font(1.2rem, 1rem);
+    }
 }
