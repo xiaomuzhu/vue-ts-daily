@@ -5,16 +5,18 @@ import About from './views/About.vue';
 
 Vue.use(Router);
 
-export default new Router({
+export default new Router(
+  {
+  mode: 'history',
   routes: [
     {
-      path: '/',
-      name: 'home',
+      path: '/today',
+      name: 'today',
       component: Home,
     },
     {
-      path: '/about',
-      name: 'about',
+      path: '/habit',
+      name: 'habit',
       component: About,
     },
   ],
