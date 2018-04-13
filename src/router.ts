@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home.vue';
-import About from './views/About.vue';
+import Habit from './views/Habit.vue';
 
 Vue.use(Router);
 
@@ -17,7 +17,7 @@ export default new Router(
     {
       path: '/habit',
       name: 'habit',
-      component: About,
+      component: Habit,
     },
   ],
 });
