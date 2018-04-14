@@ -29,6 +29,7 @@ export interface HabitList {
     createdTime: string;
     // 创建此习惯至今多少天
     totalDays: number;
+    date: string[] | never[];
   }
 }
 
@@ -136,6 +137,8 @@ const state: State = {
       createdTime: '0',
       // 创建此习惯至今多少天
       totalDays: 0,
+      // 坚持的日期
+      date: [],
     },
 }],
   user: {

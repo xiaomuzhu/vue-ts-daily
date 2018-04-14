@@ -1,27 +1,70 @@
 <template>
     <header>
-        <Icon v-if="!!headerInfo.left" :name="headerInfo.left"></Icon>
+        <Icon v-if="!!headerInfo.left"  :name="headerInfo.left"></Icon>
         <div v-else></div>
         <h3>{{headerInfo.title}}</h3>
-        <Icon v-if="!!headerInfo.right" :name="headerInfo.right"></Icon>
+        <aside v-if="!!headerInfo.right" @click="rightHandle">
+        <Icon :name="headerInfo.right"></Icon>
+        </aside>
         <div v-else></div>
+        <Popup></Popup>
     </header>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { State } from 'vuex-class';
+// import { Popup } from 'vant';
 
 import { HeaderInfo, PageInfo } from '@/store/state';
 import Icon from './common/Icon/HeaderIcon';
+import Popup from './common/Popup/Popup.vue';
 
 @Component({
     components: {
         Icon,
+        Popup,
     },
 })
 export default class Header extends Vue {
+
     @State private headerInfo!: HeaderInfo;
+
+    public data() {
+    return {
+      show: false,
+    }
+  }
+
+    // private leftHandle() {
+    //     const { left } = this.headerInfo;
+    //     switch (left) {
+    //         case value:
+
+    //             break;
+
+    //         default:
+    //             break;
+    //     }
+    // }
+    private rightHandle() {
+        const { right } = this.headerInfo;
+
+        switch (right) {
+            case 'new':
+            this.newHabit();
+            break;
+
+            default:
+                break;
+        }
+    }
+
+    public newHabit() {
+        this.show = true;
+        console.log(this.show);
+    }
+
 }
 </script>
 
@@ -36,5 +79,11 @@ header {
     min-height: 8%;
     background-color: #fff;
 }
+
+.van-popup {
+    width: 100%;
+    height: 100%;
+}
+
 </style>
 
