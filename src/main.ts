@@ -5,6 +5,7 @@ import VueLazyload from 'vue-lazyload';
 import VueIconFont from 'vue-icon-font';
 
 import 'normalize.css';
+import 'vue2-animate/dist/vue2-animate.min.css';
 
 import App from './App.vue';
 import router from './router';

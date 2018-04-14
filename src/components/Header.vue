@@ -67,8 +67,9 @@ export default class Header extends Vue {
     }
 
     private newHabit() {
-        this.show = true;
-        this.habitLibrary = this.navTitle.habit.habitLibrary;
+        this.$router.push({path: '/new/library'})
+        // this.show = true;
+        // this.habitLibrary = this.navTitle.habit.habitLibrary;
     }
 
     private hide() {

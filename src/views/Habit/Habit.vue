@@ -1,7 +1,6 @@
 <template>
   <div class="habit">
-    <List v-for="item in habitList" :key="item.id" :color="item.color"  :habitLog="item.habitLog" :habitInfo="item.habitInfo" :iconName="item.iconName">
-    </List>
+    <List v-for="item in habitList" :key="item.id" :color="item.color"  :habitLog="item.habitLog" :habitInfo="item.habitInfo" :iconName="item.iconName" />
   </div>
 </template>
 
@@ -30,12 +29,12 @@ export default class Habit extends Vue {
 
 </script>
 <style lang="scss" scoped>
-@import '../style/mixin';
+@import '../../style/mixin';
 
 .habit {
   width: 100%;
   height: calc(100vh - 7rem);
-  dispaly: flex;
+  display: flex;
   justify-content: flex-start;
   flex-direction: column;
 }

@@ -77,7 +77,7 @@ const state: State = {
         defaultName: 'today-o',
         activedName: 'today',
       },
-      path: 'today',
+      path: '/today',
       tagName: '日常',
     },
     {
@@ -87,7 +87,7 @@ const state: State = {
         defaultName: 'habit-o',
         activedName: 'habit',
       },
-      path: 'habit',
+      path: '/habit',
       tagName: '习惯',
     },
     {
@@ -97,7 +97,7 @@ const state: State = {
         defaultName: 'setting-o',
         activedName: 'setting',
       },
-      path: 'setting',
+      path: '/setting',
       tagName: '更多',
     },
   ],

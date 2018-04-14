@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <img src="../assets/logo.png">
+    1
   </div>
 </template>
 
@@ -13,3 +13,14 @@ import { Component, Vue } from 'vue-property-decorator'; // @ is an alias to /sr
 })
 export default class Home extends Vue {}
 </script>
+<style lang="scss" scoped>
+@import '../../style/mixin';
+
+.home {
+  height: calc(100vh - 7rem);
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+
+</style>

@@ -1,10 +1,13 @@
 <template>
   <main id="app">
-    <Header></Header>
-    <content>
-      <router-view />
-    </content>
-    <Footer></Footer>
+    <div v-if="$route.meta.main">
+      <Header></Header>
+        <router-view />
+      <Footer></Footer>
+    </div>
+    <div v-if="!$route.meta.main">
+    <router-view />
+    </div>
   </main>
 </template>
 
@@ -22,8 +25,7 @@
       Footer,
     },
   })
-  export default class App extends Vue {
-  }
+  export default class App extends Vue {}
 </script>
 
 <style lang="scss">
@@ -49,5 +51,15 @@
         color: #42b983;
       }
     }
+  }
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity .5s;
+  }
+  .fade-enter,
+  .fade-leave-to
+  /* .fade-leave-active below version 2.1.8 */
+  {
+    opacity: 0;
   }
 </style>
