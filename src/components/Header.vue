@@ -7,7 +7,7 @@
         <Icon :name="headerInfo.right"></Icon>
         </aside>
         <div v-else></div>
-        <Popup :show="show"></Popup>
+        <Popup :show="show" @hide="hide" :title="habitLibrary" ></Popup>
     </header>
 </template>
 
@@ -17,6 +17,7 @@ import { State } from 'vuex-class';
 // import { Popup } from 'vant';
 
 import { HeaderInfo, PageInfo } from '@/store/state';
+import config from '@/config';
 import Icon from './common/Icon/HeaderIcon';
 import Popup from './common/Popup/Popup.vue';
 
@@ -31,6 +32,15 @@ export default class Header extends Vue {
     @State private headerInfo: HeaderInfo;
 
     private show: boolean;
+    private habitLibrary?: string = '';
+    private navTitle: any;
+
+    private data() {
+        return {
+            show: false,
+            navTitle: (config as any).navTitle,
+        };
+    }
 
     // private leftHandle() {
     //     const { left } = this.headerInfo;
@@ -58,6 +68,11 @@ export default class Header extends Vue {
 
     private newHabit() {
         this.show = true;
+        this.habitLibrary = this.navTitle.habit.habitLibrary;
+    }
+
+    private hide() {
+        this.show = false;
     }
 
 }

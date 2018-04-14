@@ -48,6 +48,12 @@ $warn: #ff4149;
     transform: translateX(-50%);
 }
 
+// 图标大小
+@mixin iconSize($size: 1rem) {
+    width: $size;
+    height: $size;
+}
+
 //宽高
 @mixin wh($width, $height) {
     width: $width;
@@ -55,7 +61,7 @@ $warn: #ff4149;
 }
 
 //字体大小、行高、字体
-@mixin font($size, $line-height, $family: 'Microsoft YaHei') {
+@mixin font($size: 1rem, $line-height: 100%, $family: 'Microsoft YaHei') {
     font: #{$size}/#{$line-height} $family;
 }
 

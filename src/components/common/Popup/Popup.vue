@@ -1,7 +1,13 @@
 <template>
     <div class="popup">
         <van-popup v-model="show" :show="show" position="right">
-            <van-nav-bar title="标题" left-text="返回" right-text="按钮" left-arrow @click-left="onClickLeft" @click-right="onClickRight" />
+            <van-nav-bar @click-left="onClickLeft">
+                <icon name="left-arrow" slot="left" />
+                <h3 v-if="!!title" slot="title">{{title}}</h3>
+            </van-nav-bar>
+            <main>
+                <slot></slot>
+            </main>
         </van-popup>
     </div>
 </template>
@@ -17,6 +23,7 @@
     import {
         Popup,
         NavBar,
+        Toast,
     } from 'vant';
     @Component({
         components: {
@@ -27,12 +34,9 @@
     export default class PopupNav extends Vue {
         @Prop()
         private show: boolean;
+        @Prop()
+        private title: string;
 
-        // private data() {
-        //     return {
-        //         show: this.show,
-        //     }
-        // }
 
 // public mounted() {
 //     console.log(this.$props);
@@ -42,18 +46,18 @@
         // private handleShow() {
         //     this.show = true;
         // }
-        // @Watch('show')
-        // private changeShow(val: boolean, oldVal: boolean) {
-        //     console.log(val);
-
-        //     this.show = val
-        // }
-        // private onClickLeft() {
-        //     Toast('返回');
-        // }
-        // private onClickRight() {
-        //     Toast('按钮');
-        // }
+        @Watch('show')
+        private changeShow(val: boolean, oldVal: boolean) {
+            this.show = val
+        }
+        @Emit('hide')
+        private onClickLeft() {
+            Toast('返回');
+            console.log(this.title)
+        }
+        private onClickRight() {
+            Toast('按钮');
+        }
     }
 </script>
 
