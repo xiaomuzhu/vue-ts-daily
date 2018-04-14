@@ -18,7 +18,7 @@ import Icon from './common/Icon/FooterIcon';
     },
 })
 export default class Footer extends Vue {
-    @State private activePage!: PageInfo[];
+    @State private activePage: PageInfo[];
 
     // public mounted() {
     //     console.log(this.activePage);

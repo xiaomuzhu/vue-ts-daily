@@ -48,7 +48,7 @@
     "node-sass": "^4.7.2",
     "sass-loader": "^6.0.6",
     "ts-jest": "^22.0.1",
-    "typescript": "^2.8.1",
+    "typescript": "^2.6.2",
     "vue-template-compiler": "^2.5.13"
   },
   "browserslist": [

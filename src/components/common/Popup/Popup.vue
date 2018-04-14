@@ -12,6 +12,7 @@
         Prop,
         Vue,
         Emit,
+        Watch,
     } from 'vue-property-decorator';
     import {
         Popup,
@@ -25,18 +26,18 @@
     })
     export default class PopupNav extends Vue {
         @Prop()
-        private show!: boolean;
-        @Prop()
-        private path!: string;
-        private data() {
-            return {
-                show: true,
-            }
-        }
-        public mounted() {
-            console.log(this);
+        private show: boolean;
 
-        }
+        // private data() {
+        //     return {
+        //         show: this.show,
+        //     }
+        // }
+
+// public mounted() {
+//     console.log(this.$props);
+
+// }
         // @Emit('handleShow')
         // private handleShow() {
         //     this.show = true;
@@ -47,12 +48,12 @@
 
         //     this.show = val
         // }
-        private onClickLeft() {
-            Toast('返回');
-        }
-        private onClickRight() {
-            Toast('按钮');
-        }
+        // private onClickLeft() {
+        //     Toast('返回');
+        // }
+        // private onClickRight() {
+        //     Toast('按钮');
+        // }
     }
 </script>
 

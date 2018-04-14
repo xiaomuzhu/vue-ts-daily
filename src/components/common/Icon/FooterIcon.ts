@@ -10,17 +10,17 @@ import template from './Icon.vue';
 })
 export default class FooterIcon extends Vue {
     @Prop()
-    private name!: object;
+    private name: object;
     @Prop()
-    private path!: string;
+    private path: string;
     @Prop()
-    private id!: number;
+    private id: number;
     @Prop()
-    private isActived!: boolean;
+    private isActived: boolean;
     @Prop()
-    private tagName!: string;
-    @Mutation private getActivePage!: (pageName: number) => void
-    @Mutation private changeHeaderState!: (pageName: number) => void
+    private tagName: string;
+    @Mutation private getActivePage: (pageName: number) => void
+    @Mutation private changeHeaderState: (pageName: number) => void
 
     private changeActivePage() {
         const id = this.id;

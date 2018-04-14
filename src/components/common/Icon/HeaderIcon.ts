@@ -10,9 +10,9 @@ import template from './Icon.vue';
 })
 export default class FooterIcon extends Vue {
     @Prop()
-    private name!: string;
+    private name: string;
     @Prop()
-    private path!: string;
+    private path: string;
 
     private data() {
         return {

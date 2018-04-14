@@ -7,7 +7,7 @@
         <Icon :name="headerInfo.right"></Icon>
         </aside>
         <div v-else></div>
-        <Popup></Popup>
+        <Popup :show="show"></Popup>
     </header>
 </template>
 
@@ -28,13 +28,9 @@ import Popup from './common/Popup/Popup.vue';
 })
 export default class Header extends Vue {
 
-    @State private headerInfo!: HeaderInfo;
+    @State private headerInfo: HeaderInfo;
 
-    public data() {
-    return {
-      show: false,
-    }
-  }
+    private show: boolean;
 
     // private leftHandle() {
     //     const { left } = this.headerInfo;
@@ -48,7 +44,7 @@ export default class Header extends Vue {
     //     }
     // }
     private rightHandle() {
-        const { right } = this.headerInfo;
+        const right = this.headerInfo.right;
 
         switch (right) {
             case 'new':
@@ -60,9 +56,8 @@ export default class Header extends Vue {
         }
     }
 
-    public newHabit() {
+    private newHabit() {
         this.show = true;
-        console.log(this.show);
     }
 
 }

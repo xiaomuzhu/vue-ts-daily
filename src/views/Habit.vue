@@ -20,7 +20,7 @@ import List from '@/components/common/HabitList/List.vue'; // @ is an alias to /
   },
 })
 export default class Habit extends Vue {
-    @State private habitList!: HabitListState[];
+    @State private habitList: HabitListState[];
 
 // public mounted() {
 //   console.log(this.habitList);

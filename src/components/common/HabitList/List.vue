@@ -44,16 +44,14 @@
   })
   export default class HabitList extends Vue {
     @Prop()
-    private habitInfo!: object;
+    private habitInfo: object;
     @Prop()
-    private habitLog!: object;
+    private habitLog: object;
     @Prop()
-    private iconName!: string;
+    private iconName: string;
     @Prop()
-    private color!: string;
-    public mounted() {
-      console.log(this.habitInfo)
-    }
+    private color: string;
+
   }
 </script>
 
