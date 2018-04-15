@@ -1,0 +1,15 @@
+@import '../../../style/mixin';
+.checked {
+    background-color: $green;
+}
+
+div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: solid 0.05rem;
+    @include borderRadius(5%);
+    width: 6rem;
+    height: 6rem;
+    @include font(1rem);
+}

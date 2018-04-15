@@ -17,7 +17,7 @@
     <section>
       <h4>从库中挑选习惯</h4>
       <van-list>
-        <router-link v-for="item in habitLibrary" :key="item.id" :to="{name: item.title,path:'store',query:{id:item.id}}">
+        <router-link v-for="item in habitLibrary" :key="item.id" :to="{path:'habit',query:{id:item.id}}">
           <van-cell :value="item.title">
             <icon :name="item.name" slot="icon" />
           </van-cell>
@@ -48,6 +48,7 @@ import config from '@/config';
         habitLibrary: (config as any).habitLibrary,
       }
     }
+
     private onClickLeft() {
       this.$router.go(-1);
     }

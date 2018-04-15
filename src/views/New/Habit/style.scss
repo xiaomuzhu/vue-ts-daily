@@ -1,0 +1,45 @@
+@import '../../../style/mixin';
+svg {
+    @include iconSize(5rem);
+}
+
+.button {
+    width: 80%;
+    height: 3rem;
+    background-color: $edit;
+    color: #fff;
+    position: relative;
+    top: 5rem;
+}
+
+.van-cell {
+    height: 3.5rem;
+    @include font(1rem);
+}
+
+.van-popup {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    p {
+        margin-top: -3rem;
+        @include font(0.8rem);
+    }
+    aside {
+        display: inherit;
+        justify-content: space-around;
+        flex: none;
+        flex-wrap: wrap;
+        width: 60vw;
+        height: 70vh;
+    }
+    .van-button {
+        width: 80%;
+        height: 3rem;
+        background-color: $edit;
+        color: #fff;
+    }
+}

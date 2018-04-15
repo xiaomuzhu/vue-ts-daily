@@ -2,10 +2,11 @@
 p {
     @include font(1rem, 120%);
     height: 2.5rem;
+    padding: 0.3rem;
 }
 
 h4 {
-    height: 2rem;
+    height: 1.6rem;
     background-color: $grey;
     margin: 0;
     display: flex;
