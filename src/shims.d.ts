@@ -8,3 +8,5 @@ declare module 'fastclick';
 declare module 'vue-lazyload';
 
 declare module 'vue-icon-font';
+
+declare module 'vue-event-calendar';

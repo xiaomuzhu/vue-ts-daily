@@ -3,9 +3,12 @@ import Vue from 'vue';
 import FastClick from 'fastclick';
 import VueLazyload from 'vue-lazyload';
 import VueIconFont from 'vue-icon-font';
+import vueEventCalendar from 'vue-event-calendar';
 
 import 'normalize.css';
 import 'vue2-animate/dist/vue2-animate.min.css';
+import 'vue-event-calendar/dist/style.css';
+
 
 import App from './App.vue';
 import router from './router';
@@ -20,6 +23,7 @@ if ('addEventListener' in document) {
   }, false);
 }
 
+Vue.use(vueEventCalendar, {locale: 'zh'});
 Vue.use(VueIconFont);
 Vue.use(VueLazyload, { preLoad: 1 });
 
