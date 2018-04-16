@@ -82,10 +82,12 @@ export default new Router(
         },
         {
           path: 'times',
+          name: '选择习惯时段',
           component: Times,
         },
         {
           path: 'manage',
+          name: '时段管理',
           component: Manage,
         },
       ],

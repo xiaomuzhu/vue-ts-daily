@@ -8,4 +8,8 @@ export default {
     });
     return uuid;
 },
+
+    getDate(str: string) {
+        return str.replace(/['星期']/g, ' ');
+    },
 };

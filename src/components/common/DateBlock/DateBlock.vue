@@ -17,7 +17,7 @@
 
         private data() {
             return {
-                checked: false,
+                checked: true,
             }
         }
 

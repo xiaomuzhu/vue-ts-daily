@@ -42,6 +42,12 @@ import config from '@/config';
     }
   }
 
+
+public mounted() {
+  const { path, query } = this.$route;
+  const s = query ? `${path}?mode=${query.mode}` : path
+  console.log(s)
+}
     // public changeValue(value) {
     //   console.log(value);
 

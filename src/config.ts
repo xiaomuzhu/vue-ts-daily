@@ -5,7 +5,7 @@ export default {
             newHabit: '新的习惯',
         },
     },
-
+    newHabit: {id: 0, name: 'diy', title: '自定义习惯'},
     habitLibrary: [
         {id: 1, name: 'yingtao', title: '吃水果'},
         {id: 2, name: 'gongshangyinhang', title: '记账'},

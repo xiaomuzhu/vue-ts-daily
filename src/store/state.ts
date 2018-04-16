@@ -1,4 +1,8 @@
-
+export interface RepeatingDateState {
+  id: number;
+  date: string;
+  checked: true;
+}
 // 单个习惯的状态信息
 export interface HabitList {
   id: number;
@@ -9,7 +13,7 @@ export interface HabitList {
     // 习惯名称
     habitName: string;
     // 重复练习的日期
-    RepeatingDate: string[];
+    RepeatingDate: RepeatingDateState[];
     // 练习的时间段
     timeSlot: string;
     // 提醒的时间
@@ -118,7 +122,7 @@ const state: State = {
       // 习惯名称
       habitName: '背单词',
       // 重复练习的日期
-      RepeatingDate: ['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'],
+      RepeatingDate: [{id: 0, date: '星期一', checked: true}, {id: 1, date: '星期二', checked: true}, {id: 2, date: '星期三', checked: true}, {id: 3, date: '星期四', checked: true}, {id: 4, date: '星期五', checked: true}, {id: 5, date: '星期六', checked: true}, {id: 6, date: '星期日', checked: true}],
       // 练习的时间段
       timeSlot: '任意时段',
       // 提醒的时间

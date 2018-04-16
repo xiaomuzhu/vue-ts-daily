@@ -2,35 +2,30 @@
   <div class="habit">
     <!-- 习惯图标 -->
     <section>
-        <icon :name="name" />
+      <icon :name="name" />
     </section>
     <!-- 输入习惯名称 -->
     <section class="field">
-        <van-field  placeholder="请输入名称" />
+      <van-field placeholder="请输入名称" />
     </section>
     <!-- 习惯设置 -->
     <section>
-        <van-cell-group>
-            <van-cell clickable is-link center  @click="handleShow" title="习惯的重复" value="内容" />
-            <van-cell center title="重复的时段" value="内容" />
-            <van-cell center title="提醒的时间" value="内容" />
-            <van-cell center title="激励的话" value="内容" />
-        </van-cell-group>
-            <van-popup v-model="show" position="right">
-                <h2>选择重复的日期</h2>
-                <p>您希望在一周里那几天执行这个习惯?</p>
-                <aside>
-                    <DateBlock title="周一见"/>
-                    <DateBlock title="周一见"/>
-                    <DateBlock title="周一见"/>
-                    <DateBlock title="周一见"/>
-                    <DateBlock title="周一见"/>
-                    <DateBlock title="周一见"/>
-                </aside>
-                <van-button @click="handleShow" size="large">保存</van-button>
-            </van-popup>
+      <van-cell-group>
+        <van-cell clickable is-link center @click="handleShow" title="习惯的重复" :value="dateComputed" />
+        <router-link :to="{path:'/edit/times/',query:{mode: 'new'}}"><van-cell center title="重复的时段" value="内容" /></router-link>
+        <van-cell center title="提醒的时间" value="内容" />
+        <van-cell center title="激励的话" value="内容" />
+      </van-cell-group>
+      <van-popup v-model="show" position="right">
+        <h2>选择重复的日期</h2>
+        <p>您希望在一周里那几天执行这个习惯?</p>
+        <aside>
+          <DateBlock v-for="(item) in RepeatingDate" :key="item.id" :checked="item.checked" :title="item.date" @click.native="selectDate(item.id)" />
+        </aside>
+        <van-button @click="handleShow" size="large">保存</van-button>
+      </van-popup>
     </section>
-    <van-button  class="button" size="large">新建</van-button>
+    <van-button @click="handleNew" class="button" size="large">新建</van-button>
   </div>
 </template>
 
@@ -40,6 +35,8 @@ import { Field, Cell, CellGroup, Popup, Button } from 'vant';
 
 import DateBlock from '@/components/common/DateBlock/DateBlock.vue';
 import config from '@/config';
+import utils from '@/utils';
+import { RepeatingDateState, HabitList } from '@/store/state';
 
 @Component({
   components: {
@@ -55,24 +52,81 @@ import config from '@/config';
     private name ?: string;
     private show ?: boolean;
     private habitLibrary: object[];
+    private RepeatingDate: RepeatingDateState[];
     private data() {
       const id: number = parseInt(this.$route.query.id, 10);
-      const name = config.habitLibrary[id - 1].name
-      const title = config.habitLibrary[id - 1].title
+      let name, title;// tslint:disable
+      if (id !== 0) {
+        name = config.habitLibrary[id - 1].name
+        title = config.habitLibrary[id - 1].title
+      } else {
+        name = (config as any).newHabit.name;
+        title = (config as any).newHabit.title;
+      }
       return {
         name,
         title,
         show: false,
+        RepeatingDate: [{
+          id: 0,
+          date: '星期一',
+          checked: true
+        }, {
+          id: 1,
+          date: '星期二',
+          checked: true
+        }, {
+          id: 2,
+          date: '星期三',
+          checked: true
+        }, {
+          id: 3,
+          date: '星期四',
+          checked: true
+        }, {
+          id: 4,
+          date: '星期五',
+          checked: true
+        }, {
+          id: 5,
+          date: '星期六',
+          checked: true
+        }, {
+          id: 6,
+          date: '星期日',
+          checked: true
+        }],
       }
     }
-
-    private handleShow() {
-        this.show = !this.show;
+    private get dateComputed() {
+      const dates = this.RepeatingDate;
+      let value: string = '';
+      for (let i = 0; i < dates.length; i++) {
+        if (dates[i]['checked']) {
+          let result = utils.getDate(dates[i]['date'])
+          value += result
+        }
+      }
+      return value;
     }
-
-
+    private handleShow() {
+      this.show = !this.show;
+      console.log(this.RepeatingDate);
+    }
+    private selectDate(id: number) {
+      console.log(2);
+      this.RepeatingDate.forEach(item => {
+        if (item.id === id) {
+          item.checked = false;
+        }
+      });
+      console.log(this.RepeatingDate);
+    }
+    private handleNew() {
+      this.$router.go(-2);
+    }
     private onClickLeft() {
-      this.$router.go(-1);
+      this.$router.go(-2);
     }
   }
 </script>

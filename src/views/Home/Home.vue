@@ -19,7 +19,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { Collapse, CollapseItem } from 'vant';
-import Circles from '@/components/common/Circle/Circle.vue'
+import Circles from '@/components/common/Circle/Circle.vue';
 
 @Component({
   components: {

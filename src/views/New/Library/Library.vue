@@ -9,9 +9,11 @@
     <!-- 新建习惯 -->
     <section>
       <h4>自定义习惯</h4>
-      <van-cell value="自定义习惯">
-        <icon name="diy" slot="icon" />
-      </van-cell>
+      <router-link :to="{path:'habit',query:{id: newHabit.id}}">
+        <van-cell :value="newHabit.title">
+          <icon :name="newHabit.name" slot="icon" />
+        </van-cell>
+      </router-link>
     </section>
     <!-- 习惯库 -->
     <section>
@@ -46,6 +48,7 @@ import config from '@/config';
       return {
         title: this.$route.name,
         habitLibrary: (config as any).habitLibrary,
+        newHabit: (config as any).newHabit,
       }
     }
 
