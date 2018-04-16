@@ -1,49 +1,87 @@
 <template>
-  <div class="home">
-    <h1>sd</h1>
-        <vue-event-calendar :events="demoEvents"       @day-changed="handleDayChanged"
-      @month-changed="handleMonthChanged"></vue-event-calendar>
+  <div class="today">
+    <section>
+      <van-collapse v-model="activeNames">
+        <van-collapse-item name="1">
+          <p slot="title">
+            <icon name="time" />起床</p>
+          <aside @click="finish">
+            <Circles radius="3.5rem" :activeColor="color">
+              <icon name="wudao" slot="icon" />
+            </Circles>
+          </aside>
+        </van-collapse-item>
+      </van-collapse>
+    </section>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'; // @ is an alias to /src
+import { Component, Vue } from 'vue-property-decorator';
+import { Collapse, CollapseItem } from 'vant';
+import Circles from '@/components/common/Circle/Circle.vue'
 
 @Component({
   components: {
+      [Collapse.name]: Collapse,
+      [CollapseItem.name]: CollapseItem,
+      Circles,
   },
 })
-export default class Home extends Vue {
-    public data() {
-    return {
-      demoEvents: [{
-        date: '2018/4/12', // 必填
-        title: 'Foo', // 必填
-      }, {
-        date: '2018/4/15',
-        title: 'Bar',
-        desc: 'description',
-        customClass: 'highlight', // 自定义日历单元格的Class，会加到对应的日历单元格上
-      }],
+  export default class Today extends Vue {
+    private color: string;
+    private data() {
+      return {
+        activeNames: ['1'],
+        color: '#fff',
+      }
+    }
+    private finish() {
+      if (this.color === 'yellow') {
+        this.color = '#fff'
+      } else {
+        this.color = 'yellow'
+      }
     }
   }
-
-    public handleDayChanged(data) {
-      console.log('date-changed', data)
-    }
-    public handleMonthChanged(data) {
-      console.log('month-changed', data)
-    }
-}
 </script>
+
 <style lang="scss" scoped>
-@import '../../style/mixin';
-
-.home {
-  height: calc(100vh - 7rem);
-  display: flex;
-  justify-content: flex-start;
-  flex-direction: column;
-}
-
+  @import '../../style/mixin';
+  .today {
+    height: calc(100vh - 7rem);
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    .van-collapse-item {
+      margin-bottom: 1rem;
+      p {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        @include font(1rem);
+        svg {
+          width: 1.2rem;
+          height: 1.2rem;
+          margin-right: 0.5rem;
+        }
+      }
+      aside {
+        min-height: 5rem;
+        div {
+          border: solid 0.05rem black;
+          border-radius: 50%;
+          width: 3rem;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          box-shadow: 0 0 3px 3px rgba(130, 130, 130, 0.3);
+          svg {
+            width: 3rem;
+            height: 3rem;
+          }
+        }
+      }
+    }
+  }
 </style>
