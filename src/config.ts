@@ -30,4 +30,14 @@ export default {
         {id: 21, name: 'zixi', title: '自习'},
         {id: 22, name: 'xiezuo', title: '写作'},
     ],
+
+    defaultTimes: [
+        {id: 0, isActive: true, title: '起床之后'},
+        {id: 1, isActive: false, title: '晨间习惯'},
+        {id: 2, isActive: false, title: '中午时分'},
+        {id: 3, isActive: false, title: '午间习惯'},
+        {id: 4, isActive: false, title: '晚间习惯'},
+        {id: 5, isActive: false, title: '睡觉之前'},
+        {id: 6, isActive: false, title: '任意时间'},
+    ],
 };

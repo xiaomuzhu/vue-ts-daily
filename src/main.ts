@@ -3,11 +3,11 @@ import Vue from 'vue';
 import FastClick from 'fastclick';
 import VueLazyload from 'vue-lazyload';
 import VueIconFont from 'vue-icon-font';
-import vueEventCalendar from 'vue-event-calendar';
+import vueEventCalendar from 'vue2-event-calendar-pro';
 
 import 'normalize.css';
 import 'vue2-animate/dist/vue2-animate.min.css';
-import 'vue-event-calendar/dist/style.css';
+import 'vue2-event-calendar-pro/dist/style.css';
 
 
 import App from './App.vue';
@@ -23,7 +23,7 @@ if ('addEventListener' in document) {
   }, false);
 }
 
-Vue.use(vueEventCalendar, {locale: 'zh'});
+Vue.use(vueEventCalendar, {locale: 'zh', weekStartOn: 1})
 Vue.use(VueIconFont);
 Vue.use(VueLazyload, { preLoad: 1 });
 

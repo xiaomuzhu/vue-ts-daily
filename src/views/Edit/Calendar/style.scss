@@ -1,0 +1,63 @@
+@import '../../../style/mixin';
+.edit {
+    margin-top: 1rem;
+    section {
+        margin: 1rem 0;
+    }
+    .panel {
+        li {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 1rem;
+            @include font(1rem, 300%);
+            svg {
+                margin-right: 1rem;
+                @include iconSize(1.2rem);
+            }
+        }
+    }
+}
+
+.highlight {
+    background-color: red;
+}
+
+.van-popup {
+    border: solid 0.1rem;
+    @include borderRadius(3%);
+    .clock {
+        width: 60vw;
+        height: 55vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        p {
+            border: solid 0.1rem;
+            width: 60%;
+            height: 1.5rem;
+            margin: 0;
+            background-color: hsl(60, 97%, 65%);
+        }
+        svg {
+            width: 2.5rem;
+            height: 2.5rem;
+        }
+        .van-field {
+            height: 50%;
+            background-color: transparent;
+            width: 100%;
+        }
+        div {
+            width: 70%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+    }
+}
+
+.button {
+    background-color: $edit;
+    color: #fff;
+}

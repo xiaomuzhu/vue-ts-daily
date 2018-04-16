@@ -1,0 +1,17 @@
+@import '../../style/mixin';
+.van-popup {
+    @include wh(100%, 100%);
+    main {
+        @include wh(100%, 100%);
+    }
+}
+
+.van-nav-bar {
+    height: 3.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    svg {
+        @include iconSize(1.4rem);
+    }
+}

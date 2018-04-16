@@ -1,0 +1,35 @@
+@import '../../../style/mixin';
+.van-popup {
+    border: solid 0.1rem;
+    @include borderRadius(3%);
+    .clock {
+        width: 60vw;
+        height: 55vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        p {
+            border: solid 0.1rem;
+            width: 60%;
+            height: 1.5rem;
+            margin: 0;
+            background-color: hsl(60, 97%, 65%);
+        }
+        svg {
+            width: 2.5rem;
+            height: 2.5rem;
+        }
+        .van-field {
+            height: 50%;
+            background-color: transparent;
+            width: 100%;
+        }
+        div {
+            width: 70%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+    }
+}

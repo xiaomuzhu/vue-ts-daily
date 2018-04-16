@@ -1,0 +1,30 @@
+@import '../../../style/mixin';
+aside {
+    height: 100%;
+    background-color: $edit;
+    width: 3.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $font-o;
+    font-weight: bold;
+}
+
+.delete {
+    background-color: $warn;
+}
+
+section {
+    width: 95%;
+    justify-content: space-between;
+    align-items: center;
+    svg {
+        width: 1.5rem;
+        height: 1.5rem;
+        margin-right: 1rem;
+    }
+    span {
+        display: inline-block;
+        transform: translateY(-35%);
+    }
+}
