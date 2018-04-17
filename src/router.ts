@@ -6,7 +6,6 @@ import Setting from './views/Setting/Setting.vue';
 import New from './views/New/New.vue';
 import Edit from './views/Edit/Edit.vue';
 
-
 const Library = (r: any) =>
 (require as any).ensure([], () => r(require('@/views/New/Library/Library'), 'Library'))   // 菜单
 
@@ -27,6 +26,10 @@ const Remind = (r: any) =>
 
 const IconSetting = (r: any) =>
 (require as any).ensure([], () => r(require('@/views/Edit/IconSetting/IconSetting'), 'IconSetting'))   // 菜单
+
+const Recycle = (r: any) =>
+(require as any).ensure([], () => r(require('@/views/Edit/Recycle/Recycle'), 'Recycle'))   // 菜单
+
 
 
 Vue.use(Router);
@@ -55,10 +58,9 @@ export default new Router(
       ],
     },
     {
-      path: '/setting',
-      name: 'setting',
-      component: Setting,
-      meta: {main: true},
+      path: '/recycle',
+      name: '已归档习惯',
+      component: Recycle,
     },
     {
       path: '/new',
@@ -86,6 +88,11 @@ export default new Router(
           path: 'calendar',
           name: '习惯记录',
           component: Calendar,
+        },
+        {
+          path: 'recycle',
+          name: '已归档习惯',
+          component: Recycle,
         },
         {
           path: 'icon',

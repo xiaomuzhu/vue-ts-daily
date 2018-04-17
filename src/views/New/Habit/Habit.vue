@@ -2,7 +2,7 @@
   <div class="habit">
     <!-- 习惯图标 -->
     <section class="icon">
-      <router-link :to="{path:'/edit/icon/',query:{mode: 'new'}}">
+      <router-link v-if="!!colorComputed" :to="{path:'/edit/icon/',query:{mode: 'new'}}">
         <div class="cir">
           <Circles radius="3.5rem" :activeColor="colorComputed">
             <icon :name="iconComputed" slot="icon" />
@@ -65,14 +65,16 @@ import { HabitList as HabitListState } from '@/store/state';
 })
   export default class Habit extends Vue {
     @State private habitList: HabitListState[];
-    @Mutation private selectDate: (id: number) => void;
-    @Mutation private changeName: (value: string) => void;
-    @Mutation private changInspire: (value: string) => void;
-    @Mutation private changeMode: (value: string) => void;
+    @Mutation private selectDate: (habitId: number, id: number) => void;
+    @Mutation private changeName: (id: number, value: string) => void;
+    @Mutation private changInspire: (id: number, value: string) => void;
+    @Mutation private changeMode: (id: number, value: string) => void;
     private show ?: boolean;
     private value ?: string;
     private name ?: string;
     private habitLibrary: object[];
+    private id: number;
+    private index: number;
     private data() {
       const id: number = parseInt(this.$route.query.id, 10);
       let title; // tslint:disable
@@ -88,56 +90,70 @@ import { HabitList as HabitListState } from '@/store/state';
         show: false,
       }
     }
+
+        // 获取当前习惯的id
+    private created() {
+      const list = this.habitList;
+  
+      for (let index = 0; index < list.length; index++) {
+        const element = list[index];
+        if (element.mode === 'creating') {
+        this.id = element.id;
+        this.index = index;        
+        return;  
+        }
+      }
+      this.id = -1;
+    }
     private get nameComputed() {
       const len = this.habitList.length;
-      const habit = this.habitList[len - 1];
+      const habit = this.habitList[this.index];
       return habit.habitInfo.habitName
     }
     private set nameComputed(name) {
-      this.changeName(name)
+      this.changeName(this.id, name)
     }
     private get inspireComputed() {
       const len = this.habitList.length;
-      const habit = this.habitList[len - 1];
+      const habit = this.habitList[this.index];
       return habit.habitInfo.inspire
     }
     private set inspireComputed(name) {
-      this.changInspire(name)
+      this.changInspire(this.id, name)
     }
+
     // 计算当前颜色
     private get iconComputed() {
-      const len = this.habitList.length;
-      const habit = this.habitList[len - 1];
+      const habit = this.habitList[this.index];
       return habit.iconName;
     }
     // 计算重复时间段
     private get repeatComputed() {
-      const len = this.habitList.length;
       const {
         activeTimes,
         timeSlotList
-      } = this.habitList[len - 1].habitInfo;
+      } = this.habitList[this.index].habitInfo;
       return timeSlotList.find((item: any) => item.id === activeTimes).title;
     }
     // 计算提醒个数
     private get remindComputed() {
-      const len = this.habitList.length;
       const {
         remind
-      } = this.habitList[len - 1].habitInfo;
+      } = this.habitList[this.index].habitInfo;
       const num = (remind as any[]).filter(item => item.open === true).length;
       return num;
     }
     // 计算当前颜色
     private get colorComputed() {
-      const len = this.habitList.length;
-      const habit = this.habitList[len - 1];
+      const habit = this.habitList[this.index];
+      console.log(habit);
+      
       return habit.color;
     }
     // 通过计算属性获取当前每周哪几天需要重复训练
     private get dateComputed() {
       const length = this.habitList.length
-      const dates = this.habitList[length - 1].habitInfo.RepeatingDate;
+      const dates = this.habitList[this.index].habitInfo.RepeatingDate;
       let value: string = '';
       for (let i = 0; i < dates.length; i++) {
         if (dates[i]['checked']) {
@@ -156,10 +172,10 @@ import { HabitList as HabitListState } from '@/store/state';
     }
     // 重复的日期选择
     private select(id: number) {
-      this.selectDate(id);
+      this.selectDate(this.id, id);
     }
     private handleNew() {
-      this.changeMode('done')
+      this.changeMode(this.id, 'done')
       this.$router.go(-2);
     }
   }

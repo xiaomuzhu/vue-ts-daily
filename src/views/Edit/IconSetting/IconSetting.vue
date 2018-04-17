@@ -40,8 +40,10 @@ import { HabitList as HabitListState } from '@/store/state';
 })
     export default class IconSetting extends Vue {
         @State private habitList: HabitListState[];
-        @Mutation private selectColor: (color: string) => void
-        @Mutation private selectIcon: (icon: string) => void
+        @Mutation private selectColor: (id: number, color: string) => void
+        @Mutation private selectIcon: (id: number, icon: string) => void
+        private id: number;
+        private index: number;
 
         private iconSetting: string[];
         private colorSetting: string[];
@@ -52,10 +54,23 @@ import { HabitList as HabitListState } from '@/store/state';
                 colorSetting: (config as any).colorSetting,
             }
         }
+            // 获取当前习惯的id
+    private created() {
+      const list = this.habitList;
+      for (let index = 0; index < list.length; index++) {
+        const element = list[index];
+        if (element.mode === 'creating' || element.mode === 'editing') {
+        this.id = element.id;
+        this.index = index;
+        return;
+        }
+      }
+      this.id = -1;
+    }
         // 计算当前icon名称
         private get iconComputed() {
             const len = this.habitList.length;
-            const iconName = this.habitList[len - 1].iconName;
+            const iconName = this.habitList[this.index].iconName;
             return iconName;
         }
         // 计算当前背景颜色
@@ -63,14 +78,14 @@ import { HabitList as HabitListState } from '@/store/state';
             const len = this.habitList.length;
             const {
                 color,
-            } = this.habitList[len - 1];
+            } = this.habitList[this.index];
             return color;
         }
         private handleColor(color: string) {
-            this.selectColor(color);
+            this.selectColor(this.id, color);
         }
         private handleIcon(name: string) {
-            this.selectIcon(name);
+            this.selectIcon(this.id, name);
         }
     }
 </script>

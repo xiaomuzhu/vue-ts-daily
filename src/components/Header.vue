@@ -1,6 +1,9 @@
 <template>
     <header>
-        <Icon v-if="!!headerInfo.left"  :name="headerInfo.left"></Icon>
+                <aside v-if="!!headerInfo.left" @click="leftHandle" >
+        <Icon :name="headerInfo.left"></Icon>
+        </aside>
+        
         <div v-else></div>
         <h3>{{headerInfo.title}}</h3>
         <aside v-if="!!headerInfo.right" @click="rightHandle">
@@ -42,17 +45,20 @@ export default class Header extends Vue {
         };
     }
 
-    // private leftHandle() {
-    //     const { left } = this.headerInfo;
-    //     switch (left) {
-    //         case value:
+    // 针对不同的左侧按钮触发不同操作
+    private leftHandle() {
+        const { left } = this.headerInfo;
 
-    //             break;
+        switch (left) {
+            case 'file':
+            this.toRcycle();
+            break;
 
-    //         default:
-    //             break;
-    //     }
-    // }
+            default:
+                break;
+        }
+    }
+    // 针对不同的右侧按钮触发不同操作
     private rightHandle() {
         const right = this.headerInfo.right;
 
@@ -60,10 +66,17 @@ export default class Header extends Vue {
             case 'new':
             this.newHabit();
             break;
+            // case 'file':
+            // this.newHabit();
+            // break;
 
             default:
                 break;
         }
+    }
+
+    private toRcycle() {
+        this.$router.push({ path: '/edit/recycle'});
     }
 
     private newHabit() {

@@ -33,18 +33,33 @@ import config from '@/config';
 })
   export default class Calendar extends Vue {
     @State private habitList: HabitListState[];
-    @Mutation private switchRemind: (id: number) => void
+    @Mutation private switchRemind: (habitId: number, id: number) => void;
+    private id: number;
+    private index: number;
 
+    // 获取当前习惯的id
+    private mounted() {
+      const list = this.habitList;
+      for (let index = 0; index < list.length; index++) {
+        const element = list[index];
+        if (element.mode === 'creating' || element.mode === 'editing') {
+        this.id = element.id;
+        this.index = index;
+        return;
+        }
+      }
+      this.id = -1;
+    }
 
     // 计算属性得到remind相关数据
     private get remindComputed() {
       const len = this.habitList.length;
-      const habit = this.habitList[len - 1];
+      const habit = this.habitList[this.index];
       return habit.habitInfo.remind;
     }
     // 切换switch按钮的状态
     private change(id: number) {
-      this.switchRemind(id);
+      this.switchRemind(this.id, id);
     }
 
   }

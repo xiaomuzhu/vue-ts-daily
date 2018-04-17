@@ -1,7 +1,7 @@
 <template>
   <div class="habitList">
     <van-cell-swipe :right-width="65" :left-width="65" class="listSwipe">
-      <aside class="edit" slot="left">编辑</aside>
+      <aside class="edit" v-if="leftValue" slot="left" @click="$emit('click-left', id)" >{{leftValue}}</aside>
       <van-cell-group class="listGroup">
         <van-cell class="listCell" :value="habitLog.totalHabitDays" :style="{ background: color }" >
           <template slot="title">
@@ -10,7 +10,7 @@
           </template>
         </van-cell>
       </van-cell-group>
-      <aside slot="right">归档</aside>
+      <aside v-if="rightValue" slot="right" @click="$emit('click-right', id)">{{rightValue}}</aside>
     </van-cell-swipe>
   </div>
 </template>
@@ -51,6 +51,12 @@
     private iconName: string;
     @Prop()
     private color: string;
+    @Prop()
+    private id: number;
+    @Prop()
+    private rightValue?: string;
+    @Prop()
+    private leftValue?: string;
 
   }
 </script>

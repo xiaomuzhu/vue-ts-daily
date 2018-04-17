@@ -1,3 +1,5 @@
+import { State, HabitList } from '@/store/state';
+
 function add0(m) {return m < 10 ? '0' + m : m }
 
 export default {
@@ -22,6 +24,17 @@ export default {
           } else {
               return true;
           }
+    },
+
+    find(arr: HabitList[], id: number) {
+        let obj;
+        for (let index = 0; index < arr.length; index++) {
+            const element = arr[index];
+            if (element.id === id) {
+                obj = element;
+            }
+        }
+        return obj;
     },
 
 };

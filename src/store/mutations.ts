@@ -2,6 +2,7 @@ import moment from 'moment';
 
 import { State, HabitList } from './state';
 import config from '@/config';
+import _ from '@/utils';
 
 
 export default {
@@ -38,86 +39,14 @@ export default {
         }
     },
 
-    // 切换活动图标的状态
-    createHabit(state: State, id: number) {
-        const timestamp = ( new Date()).valueOf();
-        console.log(timestamp);
-        
-        const iconInfo = id === 0 ? config.newHabit : config.habitLibrary.find((item) => item.id === id);
-        const habit = {
-            id: timestamp,
-            iconName: iconInfo!.name,
-            color: '#ffe884',
-            isCreating: true,
-            habitInfo: {
-              // 习惯名称
-              habitName: iconInfo!.title,
-              // 重复练习的日期
-              RepeatingDate: [{id: 0, date: '星期一', checked: true}, {id: 1, date: '星期二', checked: true}, {id: 2, date: '星期三', checked: true}, {id: 3, date: '星期四', checked: true}, {id: 4, date: '星期五', checked: true}, {id: 5, date: '星期六', checked: true}, {id: 6, date: '星期日', checked: true}],
-              // 练习的时间段
-              activeTimes: 0,
-              timeSlotList: [{
-                id: 0,
-                isActive: true,
-                title: '起床之后',
-            },
-            {
-                id: 1,
-                isActive: false,
-                title: '晨间习惯',
-            },
-            {
-                id: 2,
-                isActive: false,
-                title: '中午时分',
-            },
-            {
-                id: 3,
-                isActive: false,
-                title: '午间习惯',
-            },
-            {
-                id: 4,
-                isActive: false,
-                title: '晚间习惯',
-            },
-            {
-                id: 5,
-                isActive: false,
-                title: '睡觉之前',
-            },
-            {
-                id: 6,
-                isActive: false,
-                title: '任意时间',
-            },
-        ],
-              // 提醒的时间
-              remind: [],
-              // 激励自己的话
-              inspire: '',
-            },
-            habitLog: {
-              // 总共坚持练习了多少天
-              totalHabitDays: '0天',
-              // 当前连续联系了多少天
-              currentConsecutiveDays: 0,
-              // 历史上最多连续练习多少天
-              mostConsecutiveDays: 0,
-              // 创建日期
-              createdTime: moment(timestamp).format('YYYY-MM-DD'),
-              // 创建此习惯至今多少天
-              totalDays: parseInt(moment(timestamp).fromNow(true)),
-              // 坚持的日期
-              date: [],
-            },
-        };
+    // 创建习惯
+    createHabit(state: State, habit: HabitList) {
         state.habitList.push(habit);
     },
-    selectDate(state: State, id: number) {
+    selectDate(state: State, habitId: number, id: number) {
         const list = state.habitList
         const len = list.length;
-        const {RepeatingDate} = list[len - 1].habitInfo;
+        const {RepeatingDate} =  _.find(list, habitId)!.habitInfo;
 
         (RepeatingDate as any[]).forEach((element) => {
             if (element.id === id) {
@@ -126,49 +55,63 @@ export default {
         });
 
     },
-    changeTimes(state: State, id: number) {
+    changeTimes(state: State, habitId: number, id: number) {
         const list = state.habitList
-        const len = list.length;
+        const habit = _.find(list, habitId);
 
-        list[len - 1].habitInfo.activeTimes = id;
+        habit!.habitInfo.activeTimes = id;
     },
 
-    selectColor(state: State, color: string) {
+    selectColor(state: State, id: number, color: string) {
         const list = state.habitList
-        const len = list.length;
+        const habit = _.find(list, id);
 
-        list[len - 1].color = color;
+        habit!.color = color;
     },
-    selectIcon(state: State, icon: string) {
+    selectIcon(state: State, id: number, icon: string) {
         const list = state.habitList
-        const len = list.length;
+        const habit = _.find(list, id);
 
-        list[len - 1].iconName = icon;
+        habit!.iconName = icon;
     },
-    switchRemind(state: State, id: number) {
+    switchRemind(state: State, habitId: number, id: number) {
         const list = state.habitList
-        const len = list.length;
-        const {remind} =  list[len - 1].habitInfo;
+        const {remind} = _.find(list, habitId)!.habitInfo;
         (remind as any[]).forEach((item) => {
             if (item.id === id) {
                 item.isOpen = !item.isOpen
             }
         })
     },
+    // 习惯名称
+    changeName(state: State, id: number, value: string) {
+        const list = state.habitList
+        const habit = _.find(list, id);
+        habit!.habitInfo.habitName = value;
+    },
+    // 绑定激励的话
+    changInspire(state: State, id: number, value: string) {
+        const list = state.habitList
+        const habit = _.find(list, id);
+        habit!.habitInfo.inspire = value;
+    },
+    // 将处于创建状态的习惯切换到完成状态
+    changeMode(state: State, id: number, value: string) {
+        const list = state.habitList
+        const habit = _.find(list, id);
+        habit!.isActive = true;
+        habit!.mode = value;
+    },
+    // 将此习惯归档
+    deleteHabit(state: State, id: number) {
+        const list = state.habitList
+        const habit = _.find(list, id);
+        habit!.isActive = false;
+    },
+    // 删除此习惯
+    removeHabit(state: State, id: number) {
+        const list: HabitList[] = state.habitList
+        state.habitList = list.filter((item) => item.id !== id)
+    },
 
-    changeName(state: State, value: string) {
-        const list = state.habitList
-        const len = list.length;
-        list[len - 1].habitInfo.habitName = value;
-    },
-    changInspire(state: State, value: string) {
-        const list = state.habitList
-        const len = list.length;
-        list[len - 1].habitInfo.inspire = value;
-    },
-    changeMode(state: State, value: 'creating' | 'done' | 'editing') {
-        const list = state.habitList
-        const len = list.length;
-        list[len - 1].mode = value;
-    },
 }
