@@ -2,27 +2,33 @@
     <div class="iconSetting">
         <!-- 当前图表 -->
         <section class="icon">
-            <Circles  class="cir" radius="3.5rem" :activeColor="color"><icon :name="name" slot="icon" /></Circles>
+            <Circles class="cir" radius="3.5rem" :activeColor="colorComputed">
+                <icon :name="iconComputed" slot="icon" />
+            </Circles>
         </section>
         <!-- 备选图标 -->
         <section class="alternative">
-            <div class="alternativeIcon" v-for="(item, index) in iconSetting" :key="index" @click="selectIcon(item)"><icon :name="item" /></div>
+            <div class="alternativeIcon" v-for="(item, index) in iconSetting" :key="index" @click="handleIcon(item)">
+                <icon :name="item" />
+            </div>
         </section>
         <!-- 图标背景 -->
         <section class="colorSetting">
-            <div class="background" v-for="(item, index) in colorSetting" :key="index" @click="selectColor(item)"><div v-bind:style="{ backgroundColor: item }" ></div></div>            
+            <div class="background" v-for="(item, index) in colorSetting" :key="index" @click="handleColor(item)">
+                <div v-bind:style="{ backgroundColor: item }"></div>
+            </div>
         </section>
-  </div>
+    </div>
 </template>
 
 <script lang="ts">
-
 import { Component, Vue } from 'vue-property-decorator';
 import { CellSwipe, Cell, CellGroup } from 'vant';
+import { State, Mutation } from 'vuex-class';
 
 import config from '@/config';
 import Circles from '@/components/common/Circle/Circle.vue';
-
+import { HabitList as HabitListState } from '@/store/state';
 
 @Component({
   components: {
@@ -33,31 +39,39 @@ import Circles from '@/components/common/Circle/Circle.vue';
   },
 })
     export default class IconSetting extends Vue {
-        private color: string;
-        private name: string;
+        @State private habitList: HabitListState[];
+        @Mutation private selectColor: (color: string) => void
+        @Mutation private selectIcon: (icon: string) => void
+
         private iconSetting: string[];
         private colorSetting: string[];
         private data() {
-            // const name = 'diy'
+
             return {
-                color: '#e2e3e8',
-                name: 'diy',
                 iconSetting: (config as any).iconSetting,
                 colorSetting: (config as any).colorSetting,
             }
         }
-
-        private selectColor(color: string) {
-            this.color = color;
+        // 计算当前icon名称
+        private get iconComputed() {
+            const len = this.habitList.length;
+            const iconName = this.habitList[len - 1].iconName;
+            return iconName;
         }
-
-private selectIcon(name: string) {
-            this.name = name;
-            console.log(name);
-
+        // 计算当前背景颜色
+        private get colorComputed() {
+            const len = this.habitList.length;
+            const {
+                color,
+            } = this.habitList[len - 1];
+            return color;
         }
-
-
+        private handleColor(color: string) {
+            this.selectColor(color);
+        }
+        private handleIcon(name: string) {
+            this.selectIcon(name);
+        }
     }
 </script>
 

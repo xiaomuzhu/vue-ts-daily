@@ -53,7 +53,43 @@ export default {
               // 重复练习的日期
               RepeatingDate: [{id: 0, date: '星期一', checked: true}, {id: 1, date: '星期二', checked: true}, {id: 2, date: '星期三', checked: true}, {id: 3, date: '星期四', checked: true}, {id: 4, date: '星期五', checked: true}, {id: 5, date: '星期六', checked: true}, {id: 6, date: '星期日', checked: true}],
               // 练习的时间段
-              timeSlot: '任意时段',
+              activeTimes: 0,
+              timeSlotList: [{
+                id: 0,
+                isActive: true,
+                title: '起床之后',
+            },
+            {
+                id: 1,
+                isActive: false,
+                title: '晨间习惯',
+            },
+            {
+                id: 2,
+                isActive: false,
+                title: '中午时分',
+            },
+            {
+                id: 3,
+                isActive: false,
+                title: '午间习惯',
+            },
+            {
+                id: 4,
+                isActive: false,
+                title: '晚间习惯',
+            },
+            {
+                id: 5,
+                isActive: false,
+                title: '睡觉之前',
+            },
+            {
+                id: 6,
+                isActive: false,
+                title: '任意时间',
+            },
+        ],
               // 提醒的时间
               remind: [],
               // 激励自己的话
@@ -87,5 +123,24 @@ export default {
               }
         });
 
+    },
+    changeTimes(state: State, id: number) {
+        const list = state.habitList
+        const len = list.length;
+
+        list[len - 1].habitInfo.activeTimes = id;
+    },
+
+    selectColor(state: State, color: string) {
+        const list = state.habitList
+        const len = list.length;
+
+        list[len - 1].color = color;
+    },
+    selectIcon(state: State, icon: string) {
+        const list = state.habitList
+        const len = list.length;
+
+        list[len - 1].iconName = icon;
     },
 }

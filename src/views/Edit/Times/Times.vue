@@ -6,9 +6,9 @@
     </section>
     <!-- 删除按钮 -->
     <section class="list">
-        <van-radio-group v-model="radio">
+        <van-radio-group v-model='radio' @change="change">
             <van-cell-group>
-                <van-cell v-for="item in times" :key="item.id">
+                <van-cell v-for="item in timesComputed.timeSlotList" :key="item.id">
                     <van-radio :name="item.id">{{item.title}}</van-radio>
                 </van-cell>
             </van-cell-group>
@@ -22,9 +22,8 @@ import { Component, Vue } from 'vue-property-decorator';
 import { Radio, Cell, CellGroup, RadioGroup } from 'vant';
 import { State, Mutation } from 'vuex-class';
 
-
 import { HabitList as HabitListState } from '@/store/state';
-import config from '@/config';
+
 
 @Component({
   components: {
@@ -36,28 +35,33 @@ import config from '@/config';
 })
   export default class Calendar extends Vue {
     @State private habitList: HabitListState[];
-    private times: any[];
-    private radio: string;
-
-  public data() {
-    return {
-      times: (config as any).defaultTimes,
-      radio: 0,
+    @Mutation private changeTimes: (id: number) => void
+    private radio: number;
+    public data() {
+      return {
+        radio: -1,
+      }
     }
-  }
+    // 加载完毕后将radio重新赋值
+    public mounted() {
+      this.radio = this.timesComputed.radio
+    }
 
+    // 计算当前时间段的状态
+    private get timesComputed() {
+      const len = this.habitList.length;
+      const habit = this.habitList[len - 1];
+      const activeTimes = habit.habitInfo
+      return {
+        timeSlotList: habit.habitInfo!.timeSlotList,
+        radio: habit.habitInfo.activeTimes,
+      }
+    }
 
-public mounted() {
-  const { path, query } = this.$route;
-  const s = query ? `${path}?mode=${query.mode}` : path
-  console.log(s)
-}
-    // public changeValue(value) {
-    //   console.log(value);
-
-    //   this.message = value;
-    // }
-
+    // 选择时段后触发vuex进行变动
+    private change(id: number) {
+      this.changeTimes(id)
+    }
 
   }
 </script>
