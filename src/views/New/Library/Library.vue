@@ -9,8 +9,8 @@
     <!-- 新建习惯 -->
     <section>
       <h4>自定义习惯</h4>
-      <router-link @click="create(newHabit.id)" :to="{path:'habit',query:{id: newHabit.id}}">
-        <van-cell :value="newHabit.title">
+      <router-link :to="{path:'habit',query:{id: newHabit.id}}">
+        <van-cell @click="create(newHabit.id)" :value="newHabit.title">
           <icon :name="newHabit.name" slot="icon" />
         </van-cell>
       </router-link>
@@ -20,7 +20,7 @@
       <h4>从库中挑选习惯</h4>
       <van-list>
         <router-link v-for="item in habitLibrary" :key="item.id" :to="{path:'habit',query:{id:item.id}}">
-          <van-cell :value="item.title">
+          <van-cell @click="create(item.id)" :value="item.title">
             <icon :name="item.name" slot="icon" />
           </van-cell>
         </router-link>
@@ -55,12 +55,11 @@ import config from '@/config';
     }
 
     private create(id: number) {
+      console.log(id);
+
       this.createHabit(id);
     }
 
-    private onClickLeft() {
-      this.$router.go(-1);
-    }
   }
 </script>
 

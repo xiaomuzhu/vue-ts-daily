@@ -12,20 +12,20 @@
     </section>
     <!-- 输入习惯名称 -->
     <section class="field">
-      <van-field placeholder="请输入名称" />
+      <van-field v-model="nameComputed" placeholder="请输入名称" />
     </section>
     <!-- 习惯设置 -->
     <section>
       <van-cell-group>
         <van-cell clickable is-link center @click="handleShow" title="习惯的重复" :value="dateComputed.value" />
         <router-link :to="{path:'/edit/times/',query:{mode: 'new'}}">
-          <van-cell center title="重复的时段" value="内容" />
+          <van-cell center title="重复的时段" :value="repeatComputed" />
         </router-link>
         <router-link :to="{path:'/edit/remind/',query:{mode: 'new'}}">
-          <van-cell center title="提醒的时间" value="内容" />
+          <van-cell center title="提醒的时间" :value="`${remindComputed}个提醒`" />
         </router-link>
         <van-cell center title="激励的话">
-          <input v-model="value" style="float: right" placeholder="输入一句激励的话" />
+          <input v-model="inspireComputed" style="float: right" placeholder="输入一句激励的话" />
         </van-cell>
       </van-cell-group>
       <van-popup v-model="show" position="right">
@@ -65,33 +65,69 @@ import { HabitList as HabitListState } from '@/store/state';
 })
   export default class Habit extends Vue {
     @State private habitList: HabitListState[];
-    @Mutation private selectDate: (id: number) => void
+    @Mutation private selectDate: (id: number) => void;
+    @Mutation private changeName: (value: string) => void;
+    @Mutation private changInspire: (value: string) => void;
+    @Mutation private changeMode: (value: string) => void;
     private show ?: boolean;
     private value ?: string;
+    private name ?: string;
     private habitLibrary: object[];
     private data() {
       const id: number = parseInt(this.$route.query.id, 10);
-      let  title;// tslint:disable
+      let title; // tslint:disable
       if (id !== 0) {
         title = config.habitLibrary[id - 1].title
       } else {
         title = (config as any).newHabit.title;
       }
       return {
+        name,
         title,
         value: '',
         show: false,
       }
     }
-
+    private get nameComputed() {
+      const len = this.habitList.length;
+      const habit = this.habitList[len - 1];
+      return habit.habitInfo.habitName
+    }
+    private set nameComputed(name) {
+      this.changeName(name)
+    }
+    private get inspireComputed() {
+      const len = this.habitList.length;
+      const habit = this.habitList[len - 1];
+      return habit.habitInfo.inspire
+    }
+    private set inspireComputed(name) {
+      this.changInspire(name)
+    }
     // 计算当前颜色
     private get iconComputed() {
       const len = this.habitList.length;
       const habit = this.habitList[len - 1];
       return habit.iconName;
     }
-
-
+    // 计算重复时间段
+    private get repeatComputed() {
+      const len = this.habitList.length;
+      const {
+        activeTimes,
+        timeSlotList
+      } = this.habitList[len - 1].habitInfo;
+      return timeSlotList.find((item: any) => item.id === activeTimes).title;
+    }
+    // 计算提醒个数
+    private get remindComputed() {
+      const len = this.habitList.length;
+      const {
+        remind
+      } = this.habitList[len - 1].habitInfo;
+      const num = (remind as any[]).filter(item => item.open === true).length;
+      return num;
+    }
     // 计算当前颜色
     private get colorComputed() {
       const len = this.habitList.length;
@@ -109,7 +145,10 @@ import { HabitList as HabitListState } from '@/store/state';
           value += result
         }
       }
-      return {value, dates};
+      return {
+        value,
+        dates
+      };
     }
     // 对话框控制
     private handleShow() {
@@ -120,9 +159,7 @@ import { HabitList as HabitListState } from '@/store/state';
       this.selectDate(id);
     }
     private handleNew() {
-      this.$router.go(-2);
-    }
-    private onClickLeft() {
+      this.changeMode('done')
       this.$router.go(-2);
     }
   }

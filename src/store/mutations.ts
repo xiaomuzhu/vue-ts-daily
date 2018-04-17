@@ -41,6 +41,8 @@ export default {
     // 切换活动图标的状态
     createHabit(state: State, id: number) {
         const timestamp = ( new Date()).valueOf();
+        console.log(timestamp);
+        
         const iconInfo = id === 0 ? config.newHabit : config.habitLibrary.find((item) => item.id === id);
         const habit = {
             id: timestamp,
@@ -152,5 +154,21 @@ export default {
                 item.isOpen = !item.isOpen
             }
         })
+    },
+
+    changeName(state: State, value: string) {
+        const list = state.habitList
+        const len = list.length;
+        list[len - 1].habitInfo.habitName = value;
+    },
+    changInspire(state: State, value: string) {
+        const list = state.habitList
+        const len = list.length;
+        list[len - 1].habitInfo.inspire = value;
+    },
+    changeMode(state: State, value: 'creating' | 'done' | 'editing') {
+        const list = state.habitList
+        const len = list.length;
+        list[len - 1].mode = value;
     },
 }

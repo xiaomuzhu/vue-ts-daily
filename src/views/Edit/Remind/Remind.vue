@@ -35,12 +35,14 @@ import config from '@/config';
     @State private habitList: HabitListState[];
     @Mutation private switchRemind: (id: number) => void
 
+
+    // 计算属性得到remind相关数据
     private get remindComputed() {
       const len = this.habitList.length;
       const habit = this.habitList[len - 1];
       return habit.habitInfo.remind;
     }
-
+    // 切换switch按钮的状态
     private change(id: number) {
       this.switchRemind(id);
     }

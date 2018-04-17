@@ -19,7 +19,7 @@ export interface HabitList {
   id: number;
   iconName: string;
   color: string;
-  isCreating: boolean;
+  mode: 'creating' | 'done' | 'editing';
   // 关于习惯的基本信息
   habitInfo: {
     // 习惯名称
@@ -131,7 +131,7 @@ const state: State = {
     id: 0,
     iconName: 'taiyang',
     color: '#ffe884',
-    isCreating: false,
+    mode: 'done',
     habitInfo: {
       // 习惯名称
       habitName: '背单词',
