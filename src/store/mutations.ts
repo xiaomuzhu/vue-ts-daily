@@ -143,4 +143,14 @@ export default {
 
         list[len - 1].iconName = icon;
     },
+    switchRemind(state: State, id: number) {
+        const list = state.habitList
+        const len = list.length;
+        const {remind} =  list[len - 1].habitInfo;
+        (remind as any[]).forEach((item) => {
+            if (item.id === id) {
+                item.isOpen = !item.isOpen
+            }
+        })
+    },
 }

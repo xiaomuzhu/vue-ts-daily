@@ -5,7 +5,7 @@
       <router-link :to="{path:'/edit/icon/',query:{mode: 'new'}}">
         <div class="cir">
           <Circles radius="3.5rem" :activeColor="colorComputed">
-            <icon :name="name" slot="icon" />
+            <icon :name="iconComputed" slot="icon" />
           </Circles>
         </div>
       </router-link>
@@ -66,32 +66,32 @@ import { HabitList as HabitListState } from '@/store/state';
   export default class Habit extends Vue {
     @State private habitList: HabitListState[];
     @Mutation private selectDate: (id: number) => void
-    private name ?: string;
     private show ?: boolean;
     private value ?: string;
     private habitLibrary: object[];
     private data() {
       const id: number = parseInt(this.$route.query.id, 10);
-      let name, title;// tslint:disable
+      let  title;// tslint:disable
       if (id !== 0) {
-        name = config.habitLibrary[id - 1].name
         title = config.habitLibrary[id - 1].title
       } else {
-        name = (config as any).newHabit.name;
         title = (config as any).newHabit.title;
       }
       return {
-        name,
         title,
         value: '',
         show: false,
       }
     }
-    // private get RepeatingComputed() {
-    //   const len = this.habitList.length;
-    //   const habit = this.habitList[len - 1];
-    //   return habit.habitInfo.RepeatingDate;
-    // }
+
+    // 计算当前颜色
+    private get iconComputed() {
+      const len = this.habitList.length;
+      const habit = this.habitList[len - 1];
+      return habit.iconName;
+    }
+
+
     // 计算当前颜色
     private get colorComputed() {
       const len = this.habitList.length;
@@ -120,8 +120,6 @@ import { HabitList as HabitListState } from '@/store/state';
       this.selectDate(id);
     }
     private handleNew() {
-      const timestamp = (new Date()).valueOf();
-      this.habitList.id = timestamp;
       this.$router.go(-2);
     }
     private onClickLeft() {

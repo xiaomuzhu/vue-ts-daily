@@ -4,6 +4,7 @@ export interface TimeSlotList {
 }
 
 export interface RemindState {
+  id: number;
   remind: string;
   isOpen: boolean;
 }
@@ -169,7 +170,7 @@ const state: State = {
     },
 ],
       // 提醒的时间
-      remind: [],
+      remind: [{id: 0, remind: '12:00', isOpen: false}],
       // 激励自己的话
       inspire: '坚持的路上没有捷径',
     },
