@@ -1,0 +1,4 @@
+@import '../../../style/mixin';
+.van-cell-group {
+    @include font(1.5rem);
+}

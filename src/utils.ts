@@ -12,4 +12,13 @@ export default {
     getDate(str: string) {
         return str.replace(/['星期']/g, ' ');
     },
+
+    getStr(str: string) {
+        const reg = /^[a-zA-Z0-9_\u4e00-\u9fa5]{2,6}$/;
+        if (!reg.test(str.trim())) {
+            return false;
+          } else {
+              return true;
+          }
+    },
 };

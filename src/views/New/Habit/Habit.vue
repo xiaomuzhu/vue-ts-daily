@@ -2,7 +2,7 @@
   <div class="habit">
     <!-- 习惯图标 -->
     <section>
-      <icon :name="name" />
+      <router-link :to="{path:'/edit/icon/',query:{mode: 'new'}}"><icon :name="name" /></router-link>
     </section>
     <!-- 输入习惯名称 -->
     <section class="field">
@@ -13,8 +13,10 @@
       <van-cell-group>
         <van-cell clickable is-link center @click="handleShow" title="习惯的重复" :value="dateComputed" />
         <router-link :to="{path:'/edit/times/',query:{mode: 'new'}}"><van-cell center title="重复的时段" value="内容" /></router-link>
-        <van-cell center title="提醒的时间" value="内容" />
-        <van-cell center title="激励的话" value="内容" />
+        <router-link :to="{path:'/edit/remind/',query:{mode: 'new'}}"><van-cell center title="提醒的时间" value="内容" /></router-link>
+        <van-cell center title="激励的话" >
+          <input v-model="value" style="float: right" placeholder="输入一句激励的话" />
+        </van-cell>
       </van-cell-group>
       <van-popup v-model="show" position="right">
         <h2>选择重复的日期</h2>
@@ -32,6 +34,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { Field, Cell, CellGroup, Popup, Button } from 'vant';
+import { State } from 'vuex-class';
 
 import DateBlock from '@/components/common/DateBlock/DateBlock.vue';
 import config from '@/config';
@@ -49,8 +52,10 @@ import { RepeatingDateState, HabitList } from '@/store/state';
   },
 })
   export default class Habit extends Vue {
+    private habitList: HabitList;
     private name ?: string;
     private show ?: boolean;
+    private value ?: string;
     private habitLibrary: object[];
     private RepeatingDate: RepeatingDateState[];
     private data() {
@@ -66,6 +71,7 @@ import { RepeatingDateState, HabitList } from '@/store/state';
       return {
         name,
         title,
+        value: '',
         show: false,
         RepeatingDate: [{
           id: 0,
@@ -98,6 +104,8 @@ import { RepeatingDateState, HabitList } from '@/store/state';
         }],
       }
     }
+
+    // 通过计算属性获取当前每周哪几天需要重复训练
     private get dateComputed() {
       const dates = this.RepeatingDate;
       let value: string = '';
@@ -109,12 +117,12 @@ import { RepeatingDateState, HabitList } from '@/store/state';
       }
       return value;
     }
+    // 对话框控制
     private handleShow() {
       this.show = !this.show;
-      console.log(this.RepeatingDate);
     }
+    // 重复的日期选择
     private selectDate(id: number) {
-      console.log(2);
       this.RepeatingDate.forEach(item => {
         if (item.id === id) {
           item.checked = false;
@@ -123,6 +131,9 @@ import { RepeatingDateState, HabitList } from '@/store/state';
       console.log(this.RepeatingDate);
     }
     private handleNew() {
+      const timestamp = ( new Date()).valueOf();
+      this.habitList.id = timestamp;
+
       this.$router.go(-2);
     }
     private onClickLeft() {

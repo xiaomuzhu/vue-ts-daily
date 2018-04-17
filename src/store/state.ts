@@ -1,3 +1,8 @@
+export interface remindState {
+  remind: string;
+  isOpen: boolean;
+}
+
 export interface RepeatingDateState {
   id: number;
   date: string;
@@ -17,7 +22,7 @@ export interface HabitList {
     // 练习的时间段
     timeSlot: string;
     // 提醒的时间
-    remind: string;
+    remind: remindState[] | never[];
     // 激励自己的话
     inspire: string;
   };
@@ -126,7 +131,7 @@ const state: State = {
       // 练习的时间段
       timeSlot: '任意时段',
       // 提醒的时间
-      remind: '12',
+      remind: [],
       // 激励自己的话
       inspire: '坚持的路上没有捷径',
     },

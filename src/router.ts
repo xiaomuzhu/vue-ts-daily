@@ -6,6 +6,7 @@ import Setting from './views/Setting/Setting.vue';
 import New from './views/New/New.vue';
 import Edit from './views/Edit/Edit.vue';
 
+
 const Library = (r: any) =>
 (require as any).ensure([], () => r(require('@/views/New/Library/Library'), 'Library'))   // 菜单
 
@@ -20,6 +21,12 @@ const Times = (r: any) =>
 
 const Manage = (r: any) =>
 (require as any).ensure([], () => r(require('@/views/Edit/Manage/Manage'), 'Manage'))   // 菜单
+
+const Remind = (r: any) =>
+(require as any).ensure([], () => r(require('@/views/Edit/Remind/Remind'), 'Remind'))   // 菜单
+
+const IconSetting = (r: any) =>
+(require as any).ensure([], () => r(require('@/views/Edit/IconSetting/IconSetting'), 'IconSetting'))   // 菜单
 
 
 Vue.use(Router);
@@ -81,6 +88,11 @@ export default new Router(
           component: Calendar,
         },
         {
+          path: 'icon',
+          name: '图表设置',
+          component: IconSetting,
+        },
+        {
           path: 'times',
           name: '选择习惯时段',
           component: Times,
@@ -89,6 +101,11 @@ export default new Router(
           path: 'manage',
           name: '时段管理',
           component: Manage,
+        },
+        {
+          path: 'remind',
+          name: '提醒设置',
+          component: Remind,
         },
       ],
     },

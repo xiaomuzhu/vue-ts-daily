@@ -1,5 +1,5 @@
 <template>
-    <div class="[circle]" :style="styleObj">
+    <div class="circle" :style="styleObj">
         <slot name="icon"></slot>
     </div>
 </template>
@@ -39,8 +39,9 @@
 
 <style src="./style.scss" lang="scss" scoped>
     .circle {
-        border: solid 1px black;
+        border: solid 2px black;
         border-radius: 50%;
+        margin: 0;
         background: #fff;
         display: flex;
         justify-content: center;

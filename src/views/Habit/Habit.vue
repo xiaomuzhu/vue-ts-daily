@@ -11,7 +11,7 @@ import { State } from 'vuex-class';
 
 import { HabitList as HabitListState } from '@/store/state';
 
-import List from '@/components/common/HabitList/List.vue'; // @ is an alias to /src
+import List from '@/components/common/HabitList/List.vue';
 
 @Component({
   components: {
