@@ -1,4 +1,10 @@
-export interface remindState {
+export interface TimeSoltList {
+  id: number;
+  isActive: boolean;
+  title: string,
+}
+
+export interface RemindState {
   remind: string;
   isOpen: boolean;
 }
@@ -6,23 +12,25 @@ export interface remindState {
 export interface RepeatingDateState {
   id: number;
   date: string;
-  checked: true;
+  checked: boolean;
 }
 // 单个习惯的状态信息
 export interface HabitList {
   id: number;
   iconName: string;
   color: string;
+  isCreating: boolean;
   // 关于习惯的基本信息
   habitInfo: {
     // 习惯名称
     habitName: string;
     // 重复练习的日期
-    RepeatingDate: RepeatingDateState[];
+    RepeatingDate: RepeatingDateState[] | never[];
     // 练习的时间段
     timeSlot: string;
+    timeSlotList: TimeSoltList[] | never[];
     // 提醒的时间
-    remind: remindState[] | never[];
+    remind: RemindState[] | never[];
     // 激励自己的话
     inspire: string;
   };
@@ -67,7 +75,7 @@ export interface State {
   activePage: PageInfo[];
   headerInfo: HeaderInfo;
   card: Card;
-  habitList?: HabitList[];
+  habitList: HabitList[];
   user?: {
     username: string | undefined;
     id: number | null;
@@ -123,6 +131,7 @@ const state: State = {
     id: 0,
     iconName: 'taiyang',
     color: '#ffe884',
+    isCreating: false,
     habitInfo: {
       // 习惯名称
       habitName: '背单词',
@@ -130,6 +139,43 @@ const state: State = {
       RepeatingDate: [{id: 0, date: '星期一', checked: true}, {id: 1, date: '星期二', checked: true}, {id: 2, date: '星期三', checked: true}, {id: 3, date: '星期四', checked: true}, {id: 4, date: '星期五', checked: true}, {id: 5, date: '星期六', checked: true}, {id: 6, date: '星期日', checked: true}],
       // 练习的时间段
       timeSlot: '任意时段',
+      // 目前已存在的时间段
+      timeSlotList: [{
+        id: 0,
+        isActive: true,
+        title: '起床之后',
+    },
+    {
+        id: 1,
+        isActive: false,
+        title: '晨间习惯',
+    },
+    {
+        id: 2,
+        isActive: false,
+        title: '中午时分',
+    },
+    {
+        id: 3,
+        isActive: false,
+        title: '午间习惯',
+    },
+    {
+        id: 4,
+        isActive: false,
+        title: '晚间习惯',
+    },
+    {
+        id: 5,
+        isActive: false,
+        title: '睡觉之前',
+    },
+    {
+        id: 6,
+        isActive: false,
+        title: '任意时间',
+    },
+],
       // 提醒的时间
       remind: [],
       // 激励自己的话

@@ -1,4 +1,8 @@
-import { State } from './state';
+import moment from 'moment';
+
+import { State, HabitList } from './state';
+import config from '@/config';
+
 
 export default {
 
@@ -34,5 +38,54 @@ export default {
         }
     },
 
+    // 切换活动图标的状态
+    createHabit(state: State, id: number) {
+        const timestamp = ( new Date()).valueOf();
+        const iconInfo = id === 0 ? config.newHabit : config.habitLibrary.find((item) => item.id === id);
+        const habit = {
+            id: timestamp,
+            iconName: iconInfo!.name,
+            color: '#ffe884',
+            isCreating: true,
+            habitInfo: {
+              // 习惯名称
+              habitName: iconInfo!.title,
+              // 重复练习的日期
+              RepeatingDate: [{id: 0, date: '星期一', checked: true}, {id: 1, date: '星期二', checked: true}, {id: 2, date: '星期三', checked: true}, {id: 3, date: '星期四', checked: true}, {id: 4, date: '星期五', checked: true}, {id: 5, date: '星期六', checked: true}, {id: 6, date: '星期日', checked: true}],
+              // 练习的时间段
+              timeSlot: '任意时段',
+              // 提醒的时间
+              remind: [],
+              // 激励自己的话
+              inspire: '',
+            },
+            habitLog: {
+              // 总共坚持练习了多少天
+              totalHabitDays: '0天',
+              // 当前连续联系了多少天
+              currentConsecutiveDays: 0,
+              // 历史上最多连续练习多少天
+              mostConsecutiveDays: 0,
+              // 创建日期
+              createdTime: moment(timestamp).format('YYYY-MM-DD'),
+              // 创建此习惯至今多少天
+              totalDays: parseInt(moment(timestamp).fromNow(true)),
+              // 坚持的日期
+              date: [],
+            },
+        };
+        state.habitList.push(habit);
+    },
+    selectDate(state: State, id: number) {
+        const list = state.habitList
+        const len = list.length;
+        const {RepeatingDate} = list[len - 1].habitInfo;
 
+        (RepeatingDate as any[]).forEach((element) => {
+            if (element.id === id) {
+                element.checked = false;
+              }
+        });
+
+    },
 }

@@ -43,3 +43,26 @@ svg {
         color: #fff;
     }
 }
+
+.icon {
+    width: 100%;
+    height: 5rem;
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    .cir {
+        width: 3.5rem;
+        height: 3.5rem;
+        border-radius: 50%;
+        border: solid black 2px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        svg {
+            margin: 0;
+            width: 3.5rem;
+            height: 3.5rem;
+        }
+    }
+}

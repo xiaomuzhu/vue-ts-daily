@@ -1,3 +1,5 @@
+function add0(m) {return m < 10 ? '0' + m : m }
+
 export default {
     generateGuuId() {
     let d = new Date().getTime();
@@ -13,12 +15,13 @@ export default {
         return str.replace(/['星期']/g, ' ');
     },
 
-    getStr(str: string) {
-        const reg = /^[a-zA-Z0-9_\u4e00-\u9fa5]{2,6}$/;
+    getStr(str: string, min: number = 2, max: number = 6) {
+        const reg = /^[a-zA-Z0-9_\u4e00-\u9fa5]{min,max}$/;
         if (!reg.test(str.trim())) {
             return false;
           } else {
               return true;
           }
     },
+
 };

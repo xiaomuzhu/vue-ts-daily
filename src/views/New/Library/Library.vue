@@ -9,7 +9,7 @@
     <!-- 新建习惯 -->
     <section>
       <h4>自定义习惯</h4>
-      <router-link :to="{path:'habit',query:{id: newHabit.id}}">
+      <router-link @click="create(newHabit.id)" :to="{path:'habit',query:{id: newHabit.id}}">
         <van-cell :value="newHabit.title">
           <icon :name="newHabit.name" slot="icon" />
         </van-cell>
@@ -32,6 +32,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { List, Cell } from 'vant';
+import { Mutation } from 'vuex-class';
 
 import config from '@/config';
 
@@ -44,12 +45,17 @@ import config from '@/config';
   export default class Library extends Vue {
     private title ?: string;
     private habitLibrary: object[];
+    @Mutation private createHabit: (id: number) => void
     private data() {
       return {
         title: this.$route.name,
         habitLibrary: (config as any).habitLibrary,
         newHabit: (config as any).newHabit,
       }
+    }
+
+    private create(id: number) {
+      this.createHabit(id);
     }
 
     private onClickLeft() {

@@ -1,8 +1,14 @@
 <template>
   <div class="habit">
     <!-- 习惯图标 -->
-    <section>
-      <router-link :to="{path:'/edit/icon/',query:{mode: 'new'}}"><icon :name="name" /></router-link>
+    <section class="icon">
+      <router-link :to="{path:'/edit/icon/',query:{mode: 'new'}}">
+        <div class="cir">
+          <Circles radius="3.5rem" :activeColor="colorComputed">
+            <icon :name="name" slot="icon" />
+          </Circles>
+        </div>
+      </router-link>
     </section>
     <!-- 输入习惯名称 -->
     <section class="field">
@@ -11,10 +17,14 @@
     <!-- 习惯设置 -->
     <section>
       <van-cell-group>
-        <van-cell clickable is-link center @click="handleShow" title="习惯的重复" :value="dateComputed" />
-        <router-link :to="{path:'/edit/times/',query:{mode: 'new'}}"><van-cell center title="重复的时段" value="内容" /></router-link>
-        <router-link :to="{path:'/edit/remind/',query:{mode: 'new'}}"><van-cell center title="提醒的时间" value="内容" /></router-link>
-        <van-cell center title="激励的话" >
+        <van-cell clickable is-link center @click="handleShow" title="习惯的重复" :value="dateComputed.value" />
+        <router-link :to="{path:'/edit/times/',query:{mode: 'new'}}">
+          <van-cell center title="重复的时段" value="内容" />
+        </router-link>
+        <router-link :to="{path:'/edit/remind/',query:{mode: 'new'}}">
+          <van-cell center title="提醒的时间" value="内容" />
+        </router-link>
+        <van-cell center title="激励的话">
           <input v-model="value" style="float: right" placeholder="输入一句激励的话" />
         </van-cell>
       </van-cell-group>
@@ -22,7 +32,7 @@
         <h2>选择重复的日期</h2>
         <p>您希望在一周里那几天执行这个习惯?</p>
         <aside>
-          <DateBlock v-for="(item) in RepeatingDate" :key="item.id" :checked="item.checked" :title="item.date" @click.native="selectDate(item.id)" />
+          <DateBlock v-for="(item) in dateComputed.dates" :key="item.id" :checked="item.checked" :title="item.date" @click.native="select(item.id)" />
         </aside>
         <van-button @click="handleShow" size="large">保存</van-button>
       </van-popup>
@@ -34,12 +44,13 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { Field, Cell, CellGroup, Popup, Button } from 'vant';
-import { State } from 'vuex-class';
+import { State, Mutation } from 'vuex-class';
 
+import Circles from '@/components/common/Circle/Circle.vue';
 import DateBlock from '@/components/common/DateBlock/DateBlock.vue';
 import config from '@/config';
 import utils from '@/utils';
-import { RepeatingDateState, HabitList } from '@/store/state';
+import { HabitList as HabitListState } from '@/store/state';
 
 @Component({
   components: {
@@ -49,15 +60,16 @@ import { RepeatingDateState, HabitList } from '@/store/state';
       [Popup.name]: Popup,
       [Button.name]: Button,
       DateBlock,
+      Circles,
   },
 })
   export default class Habit extends Vue {
-    private habitList: HabitList;
+    @State private habitList: HabitListState[];
+    @Mutation private selectDate: (id: number) => void
     private name ?: string;
     private show ?: boolean;
     private value ?: string;
     private habitLibrary: object[];
-    private RepeatingDate: RepeatingDateState[];
     private data() {
       const id: number = parseInt(this.$route.query.id, 10);
       let name, title;// tslint:disable
@@ -73,41 +85,23 @@ import { RepeatingDateState, HabitList } from '@/store/state';
         title,
         value: '',
         show: false,
-        RepeatingDate: [{
-          id: 0,
-          date: '星期一',
-          checked: true
-        }, {
-          id: 1,
-          date: '星期二',
-          checked: true
-        }, {
-          id: 2,
-          date: '星期三',
-          checked: true
-        }, {
-          id: 3,
-          date: '星期四',
-          checked: true
-        }, {
-          id: 4,
-          date: '星期五',
-          checked: true
-        }, {
-          id: 5,
-          date: '星期六',
-          checked: true
-        }, {
-          id: 6,
-          date: '星期日',
-          checked: true
-        }],
       }
     }
-
+    // private get RepeatingComputed() {
+    //   const len = this.habitList.length;
+    //   const habit = this.habitList[len - 1];
+    //   return habit.habitInfo.RepeatingDate;
+    // }
+    // 计算当前颜色
+    private get colorComputed() {
+      const len = this.habitList.length;
+      const habit = this.habitList[len - 1];
+      return habit.color;
+    }
     // 通过计算属性获取当前每周哪几天需要重复训练
     private get dateComputed() {
-      const dates = this.RepeatingDate;
+      const length = this.habitList.length
+      const dates = this.habitList[length - 1].habitInfo.RepeatingDate;
       let value: string = '';
       for (let i = 0; i < dates.length; i++) {
         if (dates[i]['checked']) {
@@ -115,25 +109,19 @@ import { RepeatingDateState, HabitList } from '@/store/state';
           value += result
         }
       }
-      return value;
+      return {value, dates};
     }
     // 对话框控制
     private handleShow() {
       this.show = !this.show;
     }
     // 重复的日期选择
-    private selectDate(id: number) {
-      this.RepeatingDate.forEach(item => {
-        if (item.id === id) {
-          item.checked = false;
-        }
-      });
-      console.log(this.RepeatingDate);
+    private select(id: number) {
+      this.selectDate(id);
     }
     private handleNew() {
-      const timestamp = ( new Date()).valueOf();
+      const timestamp = (new Date()).valueOf();
       this.habitList.id = timestamp;
-
       this.$router.go(-2);
     }
     private onClickLeft() {

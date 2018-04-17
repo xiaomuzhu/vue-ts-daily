@@ -20,7 +20,10 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { Radio, Cell, CellGroup, RadioGroup } from 'vant';
+import { State, Mutation } from 'vuex-class';
 
+
+import { HabitList as HabitListState } from '@/store/state';
 import config from '@/config';
 
 @Component({
@@ -32,6 +35,7 @@ import config from '@/config';
   },
 })
   export default class Calendar extends Vue {
+    @State private habitList: HabitListState[];
     private times: any[];
     private radio: string;
 
