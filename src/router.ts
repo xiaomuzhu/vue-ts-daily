@@ -31,7 +31,11 @@ const IconSetting = (r: any) =>
 const Recycle = (r: any) =>
 (require as any).ensure([], () => r(require('@/views/Edit/Recycle/Recycle'), 'Recycle'))   // 菜单
 
+const Card = (r: any) =>
+(require as any).ensure([], () => r(require('@/views/Card/Card'), 'Card'))   // 菜单
 
+const Receive = (r: any) =>
+(require as any).ensure([], () => r(require('@/views/Card/Receive/Card'), 'Receive'))   // 菜单
 
 Vue.use(Router);
 
@@ -63,6 +67,18 @@ export default new Router(
       name: '设置',
       component: Setting,
       meta: {main: true},
+    },
+    {
+      path: '/card',
+      name: '今日卡片',
+      component: Card,
+      children: [
+        {
+          path: 'receive',
+          name: '习惯库',
+          component: Receive,
+        },
+      ],
     },
     {
       path: '/new',

@@ -99,9 +99,11 @@ export default {
         habit!.habitInfo.inspire = value;
     },
     // 将处于创建状态的习惯切换到完成状态
-    changeMode(state: State, id: number, value: string) {
+    changeMode(state: State, id: number, value: string = 'done') {
         const list = state.habitList
         const habit = _.find(list, id);
+        console.log(id, value);
+
         habit!.isActive = true;
         habit!.mode = value;
     },
@@ -134,5 +136,11 @@ export default {
             habit!.isFinished = !habit!.isFinished;
     },
 
+            // 领取卡片
+            receiveCard(state: State) {
+                const today = moment();
+                state.today.finishedDate.push(today);
+                state.today.isReceived = true;
 
+        },
 }

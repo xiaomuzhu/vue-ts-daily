@@ -64,6 +64,9 @@ import Circles from '@/components/common/Circle/Circle.vue';
       const currentList = [];
       for (let index = 0; index < list.length; index++) {
         const element = list[index];
+        const k = {
+              habits: [],
+            };
         for (let i = 0; i < current.length; ++i) {
           const item = current[i];
           const {
@@ -72,16 +75,18 @@ import Circles from '@/components/common/Circle/Circle.vue';
           } = item.habitInfo;
           const time = timeSlotList.find((e) => e.id === activeTimes);
           if (time.title === element) {
-            const k = {
-              habits: [],
-            };
+            if (k.title === time.title) {
+              k.habits.push(item);
+            } else {
             k.title = element;
             k.id = index;
             k.habits.push(item);
-            currentList.push(k)
+            currentList.push(k);
+            }
           }
         }
       }
+
       return {
         current,
         list,
@@ -111,6 +116,7 @@ import Circles from '@/components/common/Circle/Circle.vue';
     flex-direction: column;
     .van-collapse-item {
       margin-bottom: 1rem;
+
       p {
         display: flex;
         justify-content: flex-start;
@@ -124,6 +130,8 @@ import Circles from '@/components/common/Circle/Circle.vue';
       }
       aside {
         min-height: 5rem;
+        display: inline-flex;
+        margin: 0 1rem;
         div {
           border: solid 1px black;
           border-radius: 50%;

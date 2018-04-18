@@ -51,9 +51,10 @@ export default class Header extends Vue {
 
         switch (left) {
             case 'file':
-            this.toRcycle();
+            this.$router.push({ path: '/edit/recycle'});
             break;
-
+            case 'letter':
+            this.$router.push({ path: '/card/receive'});
             default:
                 break;
         }
@@ -73,10 +74,6 @@ export default class Header extends Vue {
             default:
                 break;
         }
-    }
-
-    private toRcycle() {
-        this.$router.push({ path: '/edit/recycle'});
     }
 
     private newHabit() {

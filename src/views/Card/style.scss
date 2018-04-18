@@ -1,0 +1,34 @@
+@import '../../style/mixin';
+.van-popup {
+    @include wh(100%, 100%);
+}
+
+.van-nav-bar {
+    height: 3.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    svg {
+        @include iconSize(1.4rem);
+    }
+}
+
+// .van-popup {
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     .van-field {
+//         margin: 3rem 0;
+//     }
+// }
+// .time {
+//     @include wh(100%, 30%);
+//     display: flex;
+//     flex-direction: column-reverse;
+//     align-items: center;
+//     .van-datetime-picker {
+//         .van-picker {
+//             width: 50rem;
+//         }
+//     }
+// }

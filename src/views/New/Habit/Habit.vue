@@ -169,6 +169,8 @@ import { HabitList as HabitListState } from '@/store/state';
     private select(id: number) {
       this.selectDate(this.id, id);
     }
+
+    // 创建此习惯
     private handleNew() {
       this.changeMode(this.id, 'done')
       this.$router.go(-2);

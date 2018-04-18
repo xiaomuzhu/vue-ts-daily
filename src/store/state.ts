@@ -88,7 +88,9 @@ export interface State {
   card: Card;
   habitList: HabitList[];
   today: {
-    active: string[] | never[] | number[],
+    active: string[] | never[] | number[];
+    finishedDate: string[] | never[];
+    isReceived: boolean;
   }
   user?: {
     username: string | undefined;
@@ -139,6 +141,8 @@ const state: State = {
   },
   today: {
     active: [0],
+    finishedDate: [],
+    isReceived: false,
   },
   card: {
       src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-5xlxmMc1UjkLOsMSPPX9sKgNr3XuCNHCCCwI__iXCx2zftWo',

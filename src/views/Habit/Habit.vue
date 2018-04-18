@@ -52,7 +52,8 @@ import List from '@/components/common/HabitList/List.vue';
         });
       })
       const tabs = [...new Set(total)];
-      tabs.unshift('全部')
+      tabs.unshift('全部');
+
       return tabs;
     }
     private onClick(index: number, title: string) {
