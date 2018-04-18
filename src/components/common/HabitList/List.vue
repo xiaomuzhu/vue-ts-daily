@@ -2,6 +2,7 @@
   <div class="habitList">
     <van-cell-swipe :right-width="65" :left-width="65" class="listSwipe">
       <aside class="edit" v-if="leftValue" slot="left" @click="$emit('click-left', id)" >{{leftValue}}</aside>
+      <slot v-else slot="left" @click="$emit('click-right', id)" name="act"></slot>
       <van-cell-group class="listGroup">
         <van-cell class="listCell" :value="habitLog.totalHabitDays" :style="{ background: color }" >
           <template slot="title">
@@ -10,7 +11,8 @@
           </template>
         </van-cell>
       </van-cell-group>
-      <aside v-if="rightValue" slot="right" @click="$emit('click-right', id)">{{rightValue}}</aside>
+      <aside class="delete" v-if="rightValue" slot="right" @click="$emit('click-right', id)">{{rightValue}}</aside>
+      <slot v-else slot="right" @click="$emit('click-right', id)" name="del"></slot>
     </van-cell-swipe>
   </div>
 </template>

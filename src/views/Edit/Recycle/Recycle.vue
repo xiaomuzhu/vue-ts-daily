@@ -1,6 +1,8 @@
 <template>
   <div class="recycle">
-    <List v-for="item in recycleList" :key="item.id" leftValue="激活" rightValue="删除" @click-left="activate" @click-right="remove" :id="item.id" :color="item.color" :habitLog="item.habitLog" :habitInfo="item.habitInfo" :iconName="item.iconName" />
+    <List v-for="item in recycleList" :key="item.id" :id="item.id" :color="item.color" :habitLog="item.habitLog" :habitInfo="item.habitInfo" :iconName="item.iconName">
+      <aside slot="del" @click="remove(item.id)" >删除</aside><aside @click="activate(item.id)" class="act" slot="act">激活</aside>
+    </List>
   </div>
 </template>
 
@@ -19,15 +21,17 @@ import List from '@/components/common/HabitList/List.vue';
 })
   export default class Recycle extends Vue {
     @State private habitList: HabitListState[];
-    @Mutation private deleteHabit: (id: number) => void;
+    @Mutation private removeHabit: (id: number) => void;
+    @Mutation private activateHabit: (id: number) => void;
     private currentTitle: string;
 
-    public activate() {
-      // this.$router.push
+    public activate(id: number) {
+      this.activateHabit(id);
+
     }
 
     public remove(id: number) {
-      this.deleteHabit(id);
+      this.removeHabit(id);
     }
 
     private onClick(index: number, title: string) {
@@ -48,12 +52,28 @@ import List from '@/components/common/HabitList/List.vue';
 
 <style lang="scss" scoped>
   @import '../../../style/mixin';
-  .habit {
+  .recycle {
+    overflow: auto;
     width: 100%;
     height: calc(100vh - 7rem);
     display: flex;
+    flex: none;
     justify-content: flex-start;
     flex-direction: column;
+    aside {
+      display: inline-flex;
+      background-color: $warn;
+      @include font(0.9rem);
+      color: #fff;
+      width: 3rem;
+      height: 100%;
+      margin: 0;
+      justify-content: center;
+      align-items: center;
+    }
+    .act {
+      background-color: $edit;
+    }
   }
 </style>
 

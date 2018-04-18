@@ -68,7 +68,7 @@ import utils from '@/utils';
                 default:
                     break;
             }
-            console.log(this.nextUrl);
+            
             return {
                 value: '',
                 timeSlotShow: false,

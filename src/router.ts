@@ -6,6 +6,7 @@ import Setting from './views/Setting/Setting.vue';
 import New from './views/New/New.vue';
 import Edit from './views/Edit/Edit.vue';
 
+
 const Library = (r: any) =>
 (require as any).ensure([], () => r(require('@/views/New/Library/Library'), 'Library'))   // 菜单
 

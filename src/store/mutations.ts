@@ -113,5 +113,11 @@ export default {
         const list: HabitList[] = state.habitList
         state.habitList = list.filter((item) => item.id !== id)
     },
+        // 重新激活此习惯
+        activateHabit(state: State, id: number) {
+            const list = state.habitList
+            const habit = _.find(list, id);
+            habit!.isActive = true;
+        },
 
 }
