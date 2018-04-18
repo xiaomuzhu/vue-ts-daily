@@ -14,12 +14,21 @@ export interface RepeatingDateState {
   date: string;
   checked: boolean;
 }
+
+// export interface TodayState {
+//   habits: {
+//     id
+//   }
+// }
+
+
 // 单个习惯的状态信息
 export interface HabitList {
   id: number;
   iconName: string;
   color: string;
   mode: string;
+  isFinished: boolean;
   // 是否可用,否则是被归档了
   isActive: boolean;
   // 关于习惯的基本信息
@@ -78,6 +87,9 @@ export interface State {
   headerInfo: HeaderInfo;
   card: Card;
   habitList: HabitList[];
+  today: {
+    active: string[] | never[] | number[],
+  }
   user?: {
     username: string | undefined;
     id: number | null;
@@ -125,6 +137,9 @@ const state: State = {
       title: 'TODAY',
       right: 'filter',
   },
+  today: {
+    active: [0],
+  },
   card: {
       src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-5xlxmMc1UjkLOsMSPPX9sKgNr3XuCNHCCCwI__iXCx2zftWo',
       content: '1',
@@ -134,6 +149,7 @@ const state: State = {
     iconName: 'taiyang',
     color: '#ffe884',
     mode: 'done',
+    isFinished: false,
     isActive: true,
     habitInfo: {
       // 习惯名称

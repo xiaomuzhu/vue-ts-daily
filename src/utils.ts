@@ -1,6 +1,42 @@
-import { State, HabitList } from '@/store/state';
+import moment from 'moment';
 
-function add0(m) {return m < 10 ? '0' + m : m }
+import { State, HabitList, RepeatingDateState } from '@/store/state';
+
+function getDateList(arr: RepeatingDateState[]) {
+    const list: string[] = [];
+    for (let index = 0; index < arr.length; index++) {
+        const element = arr[index];
+        if (element.checked) {
+            list.push(element.date)
+        }
+    }
+    return list;
+}
+
+    // 星期与数字相互转化
+function transformDate(date: string | number) {
+        const weekday = new Map([
+          [0, '星期日'],
+          [1, '星期一'],
+          [2, '星期二'],
+          [3, '星期三'],
+          [4, '星期四'],
+          [5, '星期五'],
+          [6, '星期六'],
+        ]);
+
+        if (typeof date === 'number') {
+          return weekday.get(date);
+        } else if (typeof date === 'string') {
+          for (const [key, value] of weekday) {
+            if (value === date) {
+              return key;
+            }
+          }
+        } else {
+          return null;
+        }
+      }
 
 export default {
     generateGuuId() {
@@ -25,7 +61,8 @@ export default {
               return true;
           }
     },
-
+    getDateList,
+    transformDate,
     find(arr: HabitList[], id: number) {
         let obj;
         for (let index = 0; index < arr.length; index++) {
@@ -35,6 +72,32 @@ export default {
             }
         }
         return obj;
+    },
+
+    /**
+     * 获取符合日期的习惯
+     *
+     * @param {HabitList[]} arr 存放习惯相关信息的数组
+     * @param {number} [preDay] 默认是当天日期,如果加上数字1就是一天前(昨天)
+     * @returns
+     */
+    dateComparison(arr: HabitList[], preDay: number = 0) {
+        let day: number;
+        if (!preDay) {
+            day = moment().day();
+        } else {
+            day = moment().add(preDay, 'days').day();
+        }
+        const current = transformDate(day);
+        const currentList: HabitList[] = [];
+        for (let index = 0; index < arr.length; index++) {
+            const habit = arr[index];
+            const element = arr[index].habitInfo.RepeatingDate;
+            if (getDateList(element).indexOf(current)) {
+                currentList.push(habit);
+            }
+        }
+        return currentList;
     },
 
 };

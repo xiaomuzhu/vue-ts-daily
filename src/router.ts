@@ -59,9 +59,10 @@ export default new Router(
       ],
     },
     {
-      path: '/recycle',
-      name: '已归档习惯',
-      component: Recycle,
+      path: '/setting',
+      name: '设置',
+      component: Setting,
+      meta: {main: true},
     },
     {
       path: '/new',

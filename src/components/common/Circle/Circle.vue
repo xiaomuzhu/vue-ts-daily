@@ -31,7 +31,6 @@
         @Watch('activeColor')
         private changeColor(val: string, old: string) {
             this.styleObj.background = val;
-            console.log(2);
 
         }
     }

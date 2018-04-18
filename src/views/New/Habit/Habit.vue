@@ -106,7 +106,6 @@ import { HabitList as HabitListState } from '@/store/state';
       this.id = -1;
     }
     private get nameComputed() {
-      const len = this.habitList.length;
       const habit = this.habitList[this.index];
       return habit.habitInfo.habitName
     }
@@ -114,7 +113,6 @@ import { HabitList as HabitListState } from '@/store/state';
       this.changeName(this.id, name)
     }
     private get inspireComputed() {
-      const len = this.habitList.length;
       const habit = this.habitList[this.index];
       return habit.habitInfo.inspire
     }
@@ -146,13 +144,10 @@ import { HabitList as HabitListState } from '@/store/state';
     // 计算当前颜色
     private get colorComputed() {
       const habit = this.habitList[this.index];
-      console.log(habit);
-      
       return habit.color;
     }
     // 通过计算属性获取当前每周哪几天需要重复训练
     private get dateComputed() {
-      const length = this.habitList.length
       const dates = this.habitList[this.index].habitInfo.RepeatingDate;
       let value: string = '';
       for (let i = 0; i < dates.length; i++) {

@@ -55,25 +55,28 @@ export default {
         });
 
     },
+    // 切换练习的时间段
     changeTimes(state: State, habitId: number, id: number) {
         const list = state.habitList
         const habit = _.find(list, habitId);
 
         habit!.habitInfo.activeTimes = id;
     },
-
+    // 选择图标背景
     selectColor(state: State, id: number, color: string) {
         const list = state.habitList
         const habit = _.find(list, id);
 
         habit!.color = color;
     },
+    // 选择图标
     selectIcon(state: State, id: number, icon: string) {
         const list = state.habitList
         const habit = _.find(list, id);
 
         habit!.iconName = icon;
     },
+    // 切换提醒时间
     switchRemind(state: State, habitId: number, id: number) {
         const list = state.habitList
         const {remind} = _.find(list, habitId)!.habitInfo;
@@ -113,11 +116,23 @@ export default {
         const list: HabitList[] = state.habitList
         state.habitList = list.filter((item) => item.id !== id)
     },
-        // 重新激活此习惯
-        activateHabit(state: State, id: number) {
+    // 重新激活此习惯
+    activateHabit(state: State, id: number) {
             const list = state.habitList
             const habit = _.find(list, id);
             habit!.isActive = true;
-        },
+    },
+    // 获取需要当天执行的习惯
+    changeCollapse(state: State, activeNames: number[] | never[]) {
+            const today = state.today
+            today.active = activeNames;
+    },
+        // 切换是否完成习惯
+    changeFinished(state: State, id: number) {
+            const list = state.habitList
+            const habit = _.find(list, id);
+            habit!.isFinished = !habit!.isFinished;
+    },
+
 
 }
