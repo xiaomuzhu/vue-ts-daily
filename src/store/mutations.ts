@@ -48,45 +48,45 @@ export default {
             .habitList
             .push(habit);
     },
-    selectDate(state: State, habitId: number, id: number) {
+    selectDate(state: State, payload: {habitId: number, id: number}) {
         const list = state.habitList
         const len = list.length;
-        const {RepeatingDate} = _.find(list, habitId)!.habitInfo;
+        const {RepeatingDate} = _.find(list, payload.habitId)!.habitInfo;
 
         (RepeatingDate as any[]).forEach((element) => {
-            if (element.id === id) {
+            if (element.id === payload.id) {
                 element.checked = false;
             }
         });
 
     },
     // 切换练习的时间段
-    changeTimes(state: State, habitId: number, id: number) {
+    changeTimes(state: State, payload: {habitId: number, id: number}) {
         const list = state.habitList
-        const habit = _.find(list, habitId);
+        const habit = _.find(list, payload.habitId);
 
-        habit !.habitInfo.activeTimes = id;
+        habit !.habitInfo.activeTimes = payload.id;
     },
     // 选择图标背景
-    selectColor(state: State, id: number, color: string) {
+    selectColor(state: State, payload: {id: number, color: string}) {
         const list = state.habitList
-        const habit = _.find(list, id);
+        const habit = _.find(list, payload.id);
 
-        habit !.color = color;
+        habit !.color = payload.color;
     },
     // 选择图标
-    selectIcon(state: State, id: number, icon: string) {
+    selectIcon(state: State, payload: {id: number, icon: string}) {
         const list = state.habitList
-        const habit = _.find(list, id);
+        const habit = _.find(list, payload.id);
 
-        habit !.iconName = icon;
+        habit !.iconName = payload.icon;
     },
     // 切换提醒时间
-    switchRemind(state: State, habitId: number, id: number) {
+    switchRemind(state: State, payload: {habitId: number, id: number}) {
         const list = state.habitList
-        const {remind} = _.find(list, habitId)!.habitInfo;
+        const {remind} = _.find(list, payload.habitId)!.habitInfo;
         (remind as any[]).forEach((item) => {
-            if (item.id === id) {
+            if (item.id === payload.id) {
                 item.isOpen = !item.isOpen
             }
         })
@@ -98,18 +98,18 @@ export default {
         habit !.habitInfo.habitName = value;
     },
     // 绑定激励的话
-    changInspire(state: State, id: number, value: string) {
+    changInspire(state: State, payload: {id: number, value: string}) {
         const list = state.habitList
-        const habit = _.find(list, id);
-        habit !.habitInfo.inspire = value;
+        const habit = _.find(list, payload.id);
+        habit !.habitInfo.inspire = payload.value;
     },
     // 将处于创建状态的习惯切换到完成状态
-    changeMode(state: State, id: number, value: string = 'done') {
+    changeMode(state: State, payload: {id: number, value: string}) {
         const list = state.habitList
-        const habit = _.find(list, id);
+        const habit = _.find(list, payload.id);
 
         habit !.isActive = true;
-        habit !.mode = value;
+        habit !.mode = payload.value;
     },
     // 将此习惯归档
     deleteHabit(state: State, id: number) {
@@ -135,8 +135,6 @@ export default {
     },
     // 未添加当日任务的习惯列表进行更新
     updateHabits(state: State, updateList: number[]) {
-        console.log(updateList);
-
         const today = moment();
         const newId = _.getDaysId();
         const list = state.habitList;
@@ -161,31 +159,26 @@ export default {
     //             .push({id: newId, time: today, isFinished: true, message: ''})
     // },
     // 切换是否完成习惯
-    changeFinished(state: State, id: number, daysId: number) {
-        console.log(id, daysId);
-
+    changeFinished(state: State, payload: {id: number, daysId: number}) {
         const today = moment();
         const list = state.habitList
-        const habit = _.find(list, id);
+        const habit = _.find(list, payload.id);
         const date = habit !
             .habitLog
             .date
-            .find((item) => item.id === daysId);
-        console.log(date);
-
-        date!.isFinished = true;
+            .find((item) => item.id === payload.daysId);
+        date!.isFinished = !date!.isFinished;
 
     },
     // 储存打卡日志
-    saveLog(state: State, id: number, daysId: number, messages: string) {
-        console.log(id, daysId, messages);
+    saveLog(state: State, payload: {id: number, daysId: number, message: string}) {
         const list = state.habitList
-        const habit = _.find(list, id);
+        const habit = _.find(list, payload.id);
         const day = habit !
             .habitLog
             .date
-            .find((item) => item.id === daysId);
-        day !.message = messages;
+            .find((item) => item.id === payload.daysId);
+        day !.message = payload.message;
     },
 
     // 领取卡片

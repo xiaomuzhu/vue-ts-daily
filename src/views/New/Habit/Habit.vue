@@ -65,10 +65,10 @@ import { HabitList as HabitListState } from '@/store/state';
 })
   export default class Habit extends Vue {
     @State private habitList: HabitListState[];
-    @Mutation private selectDate: (habitId: number, id: number) => void;
-    @Mutation private changeName: (id: number, value: string) => void;
-    @Mutation private changInspire: (id: number, value: string) => void;
-    @Mutation private changeMode: (id: number, value: string) => void;
+    @Mutation private selectDate: (payload: {habitId: number, id: number}) => void;
+    @Mutation private changeName: (payload: {id: number, value: string}) => void;
+    @Mutation private changInspire: (payload: {id: number, value: string}) => void;
+    @Mutation private changeMode: (payload: {id: number, value: string}) => void;
     private show ?: boolean;
     private value ?: string;
     private name ?: string;
@@ -110,14 +110,14 @@ import { HabitList as HabitListState } from '@/store/state';
       return habit.habitInfo.habitName
     }
     private set nameComputed(name) {
-      this.changeName(this.id, name)
+      this.changeName({id: this.id, value:name})
     }
     private get inspireComputed() {
       const habit = this.habitList[this.index];
       return habit.habitInfo.inspire
     }
     private set inspireComputed(name) {
-      this.changInspire(this.id, name)
+      this.changInspire({id: this.id, value:name})
     }
 
     // 计算当前颜色
@@ -168,12 +168,12 @@ import { HabitList as HabitListState } from '@/store/state';
     }
     // 重复的日期选择
     private select(id: number) {
-      this.selectDate(this.id, id);
+      this.selectDate({habitId:this.id, id});
     }
 
     // 创建此习惯
     private handleNew() {
-      this.changeMode(this.id, 'done')
+      this.changeMode({id: this.id, value:'done'})
       this.$router.go(-2);
     }
   }

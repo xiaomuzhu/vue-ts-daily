@@ -35,7 +35,7 @@ import { HabitList as HabitListState } from '@/store/state';
 })
   export default class Calendar extends Vue {
     @State private habitList: HabitListState[];
-    @Mutation private changeTimes: (habitId: number, id: number) => void
+    @Mutation private changeTimes: (payload: {habitId: number, id: number}) => void
     private radio: number;
     private id: number;
     private index: number;
@@ -74,7 +74,7 @@ import { HabitList as HabitListState } from '@/store/state';
 
     // 选择时段后触发vuex进行变动
     private change(id: number) {
-      this.changeTimes(this.id, id)
+      this.changeTimes({habitId: this.id, id})
     }
 
   }

@@ -22,6 +22,7 @@ import { State, Mutation } from 'vuex-class';
 
 import { HabitList as HabitListState } from '@/store/state';
 import config from '@/config';
+import { Payload } from '_vuex@3.0.1@vuex';
 
 
 @Component({
@@ -33,7 +34,7 @@ import config from '@/config';
 })
   export default class Calendar extends Vue {
     @State private habitList: HabitListState[];
-    @Mutation private switchRemind: (habitId: number, id: number) => void;
+    @Mutation private switchRemind: (payload: {habitId: number, id: number}) => void;
     private id: number;
     private index: number;
 
@@ -59,7 +60,7 @@ import config from '@/config';
     }
     // 切换switch按钮的状态
     private change(id: number) {
-      this.switchRemind(this.id, id);
+      this.switchRemind({habitId: this.id, id});
     }
 
   }

@@ -40,8 +40,8 @@ import { HabitList as HabitListState } from '@/store/state';
 })
     export default class IconSetting extends Vue {
         @State private habitList: HabitListState[];
-        @Mutation private selectColor: (id: number, color: string) => void
-        @Mutation private selectIcon: (id: number, icon: string) => void
+        @Mutation private selectColor: (payload: {id: number, color: string}) => void
+        @Mutation private selectIcon: (payload: {id: number, icon: string}) => void
         private id: number;
         private index: number;
 
@@ -82,10 +82,10 @@ import { HabitList as HabitListState } from '@/store/state';
             return color;
         }
         private handleColor(color: string) {
-            this.selectColor(this.id, color);
+            this.selectColor({id: this.id, color});
         }
         private handleIcon(name: string) {
-            this.selectIcon(this.id, name);
+            this.selectIcon({id: this.id, icon: name});
         }
     }
 </script>

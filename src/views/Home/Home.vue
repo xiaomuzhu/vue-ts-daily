@@ -24,11 +24,18 @@ import { Mutation, State } from 'vuex-class';
 import moment from 'moment';
 
 import config from '@/config';
-import { HabitList as HabitListState } from '@/store/state';
+import { HabitList as HabitListState, TimeSlotList } from '@/store/state';
 import _ from '@/utils';
 
 import Circles from '@/components/common/Circle/Circle.vue';
 import ClockPopup from '@/components/common/ClockPopup/ClockPopup.vue';
+
+export interface NewList {
+  habits: HabitListState[] | never[];
+  title?: string;
+  id?: number;
+}
+
 
 @Component({
   components: {
@@ -40,10 +47,10 @@ import ClockPopup from '@/components/common/ClockPopup/ClockPopup.vue';
 })
   export default class Today extends Vue {
     @Mutation private createHabit: (habit: HabitListState) => void;
-    @Mutation private changeFinished: (id: number, daysId: number) => void;
+    @Mutation private changeFinished: (payload: {id: number, daysId: number}) => void;
     @Mutation private changeCollapse: (habit: number[]| never[]) => void;
     @Mutation private updateHabits: (updateList: number[]) => void;
-    @Mutation private saveLog: (id: number, daysId: number, message: string) => void;
+    @Mutation private saveLog: (payload: {id: number, daysId: number, message: string}) => void;
     @State private habitList: HabitListState[];
     @State private today: object;
     private show: boolean;
@@ -60,11 +67,6 @@ import ClockPopup from '@/components/common/ClockPopup/ClockPopup.vue';
       }
     }
 
-
-    public created() {
-      // console.log(this.today, '!', this.dayComputed)
-
-    }
     private mounted() {
       const {needUpdate} = this.dayComputed;
       // console.log(needUpdate);
@@ -96,6 +98,7 @@ import ClockPopup from '@/components/common/ClockPopup/ClockPopup.vue';
         } else if (date[len - 1].id !== this.days) {
           needUpdate.push(element.id);
         }
+        // @ts-ignore
         const time = timeSlotList.find((e) => e.id === activeTimes);
         // time.habits.push(element);
         timeList.add(time.title);
@@ -106,7 +109,7 @@ import ClockPopup from '@/components/common/ClockPopup/ClockPopup.vue';
       const currentList = [];
       for (let index = 0; index < list.length; index++) {
         const element = list[index];
-        const k = {
+        const newList: NewList = {
               habits: [],
             };
         for (let i = 0; i < current.length; ++i) {
@@ -115,15 +118,18 @@ import ClockPopup from '@/components/common/ClockPopup/ClockPopup.vue';
             timeSlotList,
             activeTimes,
           } = item.habitInfo;
-          const time = timeSlotList.find((e) => e.id === activeTimes);
-          if (time.title === element) {
-            if (k.title === time.title) {
-              k.habits.push(item);
+
+          const time = (timeSlotList as TimeSlotList[]).find((e: TimeSlotList) => e.id === activeTimes);
+          if (time!.title === element) {
+            if (newList.title === time!.title) {
+              // @ts-ignore
+              newList.habits.push(item);
             } else {
-            k.title = element;
-            k.id = index;
-            k.habits.push(item);
-            currentList.push(k);
+            newList.title = element;
+            newList.id = index;
+            // @ts-ignore
+            newList.habits.push(item);
+            currentList.push(newList);
             }
           }
         }
@@ -151,15 +157,23 @@ import ClockPopup from '@/components/common/ClockPopup/ClockPopup.vue';
       this.changeCollapse(activeNames);
     }
     private finish(id: number) {
-      console.log(id, this.days);
       this.currentId = id;
+      if (this.habitList.find((item) => item.id === id)!.habitLog.date.find((item) => item.id === this.days)!.isFinished) {
+      this.changeFinished({
+        id,
+        daysId: this.days,
+      });
+      } else {
       this.show = true;
-      this.changeFinished(id, this.days);
+      this.changeFinished({
+        id,
+        daysId: this.days,
+      });
+      };
     }
     private saveLogs(message: string) {
       const id = _.getDaysId();
-      console.log(this.currentId, id, message);
-      this.saveLog(this.currentId, id, message);
+      this.saveLog({id: this.currentId, daysId: id, message});
       this.show = false;
     }
 
