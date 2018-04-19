@@ -37,6 +37,13 @@ const Card = (r: any) =>
 const Receive = (r: any) =>
 (require as any).ensure([], () => r(require('@/views/Card/Receive/Card'), 'Receive'))   // 菜单
 
+const Feedback = (r: any) =>
+(require as any).ensure([], () => r(require('@/views/Feedback/Feedback'), 'Feedback'))   // 菜单
+
+const UpdateLog = (r: any) =>
+(require as any).ensure([], () => r(require('@/views/UpdateLog/UpdateLog'), 'UpdateLog'))   // 菜单
+
+
 Vue.use(Router);
 
 export default new Router(
@@ -69,13 +76,23 @@ export default new Router(
       meta: {main: true},
     },
     {
+      path: '/feedback',
+      name: '反馈',
+      component: Feedback,
+    },
+    {
+      path: '/update',
+      name: '更新日志',
+      component: UpdateLog,
+    },
+    {
       path: '/card',
-      name: '今日卡片',
+      name: '卡片管理',
       component: Card,
       children: [
         {
           path: 'receive',
-          name: '习惯库',
+          name: '今日卡片',
           component: Receive,
         },
       ],

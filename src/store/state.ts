@@ -1,3 +1,23 @@
+import * as moment from 'moment';
+export interface ClockLog {
+  id: number;
+  time?: moment.Moment;
+  isFinished: boolean,
+  message?: string,
+}
+export interface UserState {
+    username: string | undefined;
+    id: number | null;
+    createdTime: string | undefined;
+    url: string;
+}
+
+
+export interface SettingState {
+  checked: boolean;
+  url: string,
+}
+
 export interface TimeSlotList {
   id: number;
   title: string,
@@ -28,7 +48,6 @@ export interface HabitList {
   iconName: string;
   color: string;
   mode: string;
-  isFinished: boolean;
   // 是否可用,否则是被归档了
   isActive: boolean;
   // 关于习惯的基本信息
@@ -57,7 +76,7 @@ export interface HabitList {
     createdTime: string;
     // 创建此习惯至今多少天
     totalDays: number;
-    date: string[] | never[];
+    date: ClockLog[];
   }
 }
 
@@ -89,14 +108,11 @@ export interface State {
   habitList: HabitList[];
   today: {
     active: string[] | never[] | number[];
-    finishedDate: string[] | never[];
+    finishedDate: moment.Moment[] | never[];
     isReceived: boolean;
   }
-  user?: {
-    username: string | undefined;
-    id: number | null;
-    createdTime: string | undefined;
-  };
+  setting: SettingState;
+  user?: UserState;
 }
 
 
@@ -137,12 +153,16 @@ const state: State = {
   headerInfo: {
       left: 'letter',
       title: 'TODAY',
-      right: 'filter',
+      right: '', // filter
   },
   today: {
     active: [0],
     finishedDate: [],
     isReceived: false,
+  },
+  setting: {
+    checked: false,
+    url: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=4216091012,4283409120&fm=27&gp=0.jpg',
   },
   card: {
       src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-5xlxmMc1UjkLOsMSPPX9sKgNr3XuCNHCCCwI__iXCx2zftWo',
@@ -153,7 +173,6 @@ const state: State = {
     iconName: 'taiyang',
     color: '#ffe884',
     mode: 'done',
-    isFinished: false,
     isActive: true,
     habitInfo: {
       // 习惯名称
@@ -209,13 +228,15 @@ const state: State = {
       // 创建此习惯至今多少天
       totalDays: 0,
       // 坚持的日期
-      date: [],
+      date: [
+      ],
     },
 }],
   user: {
     username: '',
     id: null,
     createdTime: '',
+    url: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=4216091012,4283409120&fm=27&gp=0.jpg',
   },
 }
 

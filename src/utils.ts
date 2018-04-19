@@ -100,4 +100,12 @@ export default {
         return currentList;
     },
 
+    // 以天为单位设置打卡的id
+    getDaysId() {
+    const now = (new Date()).valueOf();
+    // 之所以+8 是因为得转换成天朝的东八区
+    const hours = moment.duration((new Date()).valueOf()).as('hours') + 8;
+
+    return Math.floor(hours / 24)
+    },
 };

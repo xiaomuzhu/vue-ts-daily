@@ -5,7 +5,7 @@
             <icon name="target" />
             <div>
                 <van-field v-model="message" type="textarea" rows="5" placeholder="写出你想说的话..." />
-                <van-button @click="save" class="button" size="small">保存</van-button>
+                <van-button @click="save(message)" class="button" size="small">保存</van-button>
             </div>
         </div>
     </van-popup>
@@ -28,8 +28,6 @@ import { Field, Popup, Button } from 'vant';
         private name ?: string;
         @Prop()
         private show ?: boolean;
-        // @Prop()
-        // private messages ?: string;
         private message?: string;
 
         public data() {
@@ -38,8 +36,8 @@ import { Field, Popup, Button } from 'vant';
             }
         }
         @Emit('save')
-        private save() {
-            console.log(1);
+        private save(messages?: string) {
+            this.message = '';
 
         }
 
