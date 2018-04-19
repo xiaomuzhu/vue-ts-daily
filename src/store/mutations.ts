@@ -133,12 +133,14 @@ export default {
         const today = state.today
         today.active = activeNames;
     },
-    // 切换是否完成习惯
+    // 未添加当日任务的习惯列表进行更新
     updateHabits(state: State, updateList: number[]) {
-            const today = moment();
-            const newId = _.getDaysId();
-            const list = state.habitList;
-            for (let index = 0; index < updateList.length; index++) {
+        console.log(updateList);
+
+        const today = moment();
+        const newId = _.getDaysId();
+        const list = state.habitList;
+        for (let index = 0; index < updateList.length; index++) {
                 const id = updateList[index];
                 const habit = _.find(list, id);
                 habit !
@@ -147,27 +149,32 @@ export default {
                 .push({id: newId, time: today, isFinished: false, message: ''})
             }
     },
+    // // 切换是否完成习惯
+    // watchHabits(state: State) {
+    //         const today = moment();
+    //         const newId = _.getDaysId();
+    //         const list = state.habitList
+    //         const habit = _.find(list, id);
+    //         habit !
+    //             .habitLog
+    //             .date
+    //             .push({id: newId, time: today, isFinished: true, message: ''})
+    // },
     // 切换是否完成习惯
-    watchHabits(state: State) {
-            const today = moment();
-            const newId = _.getDaysId();
-            const list = state.habitList
-            const habit = _.find(list, id);
-            habit !
-                .habitLog
-                .date
-                .push({id: newId, time: today, isFinished: true, message: ''})
-    },
-    // 切换是否完成习惯
-    changeFinished(state: State, id: number) {
+    changeFinished(state: State, id: number, daysId: number) {
+        console.log(id, daysId);
+
         const today = moment();
-        const newId = _.getDaysId();
         const list = state.habitList
         const habit = _.find(list, id);
-        habit !
+        const date = habit !
             .habitLog
             .date
-            .push({id: newId, time: today, isFinished: true, message: ''})
+            .find((item) => item.id === daysId);
+        console.log(date);
+
+        date!.isFinished = true;
+
     },
     // 储存打卡日志
     saveLog(state: State, id: number, daysId: number, messages: string) {

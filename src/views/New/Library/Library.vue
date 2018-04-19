@@ -126,7 +126,7 @@ import { HabitList as HabitListState } from '@/store/state';
             },
         };
       this.createHabit(habit);
-      this.$router.push({ path: 'habit', query: {id}});
+      this.$router.push(`/new/habit?id=${id}`);
     }
 
   }

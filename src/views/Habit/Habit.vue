@@ -69,6 +69,7 @@ import List from '@/components/common/HabitList/List.vue';
             activeTimes,
             timeSlotList,
           } = item.habitInfo;
+          // @ts-ignore
           const timeSolt = timeSlotList.find((ele: any) => ele.id === activeTimes);
           if (timeSolt.title === this.currentTitle) {
             total.push(item);

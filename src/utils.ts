@@ -108,4 +108,11 @@ export default {
 
     return Math.floor(hours / 24)
     },
+
+    // 获取isFinished
+    getIsFinished(habit: HabitList) {
+        const {date} = habit.habitLog;
+        const {length} = date;
+        return date[length - 1].isFinished;
+    },
 };

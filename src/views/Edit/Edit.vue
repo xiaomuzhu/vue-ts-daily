@@ -68,7 +68,7 @@ import utils from '@/utils';
                 default:
                     break;
             }
-            
+
             return {
                 value: '',
                 timeSlotShow: false,
@@ -102,9 +102,6 @@ import utils from '@/utils';
         private cancel() {
             this.timeSlotShow = false;
             this.value = '';
-        }
-        public setTime(value) {
-            console.log(value);
         }
         private save() {
             if ((utils as any).getStr(this.value)) {

@@ -6,7 +6,7 @@
           <p slot="title">
             <icon name="time" />{{item.title}}</p>
           <aside v-for="ele in item.habits" :key="ele.id" @click="finish(ele.id)">
-            <Circles radius="3.5rem" :activeColor="finishedWatch(ele.id) ? ele.color : '#fff'">
+            <Circles radius="3.5rem" :activeColor="ele.habitLog.date[ele.habitLog.date.length - 1].isFinished ? ele.color : '#fff'">
               <icon :name="ele.iconName" slot="icon" />
             </Circles>
           </aside>
@@ -40,7 +40,7 @@ import ClockPopup from '@/components/common/ClockPopup/ClockPopup.vue';
 })
   export default class Today extends Vue {
     @Mutation private createHabit: (habit: HabitListState) => void;
-    @Mutation private changeFinished: (id: number) => void;
+    @Mutation private changeFinished: (id: number, daysId: number) => void;
     @Mutation private changeCollapse: (habit: number[]| never[]) => void;
     @Mutation private updateHabits: (updateList: number[]) => void;
     @Mutation private saveLog: (id: number, daysId: number, message: string) => void;
@@ -48,25 +48,34 @@ import ClockPopup from '@/components/common/ClockPopup/ClockPopup.vue';
     @State private today: object;
     private show: boolean;
     private currentId: number;
-    private isFinished: boolean;
+    private isDone: boolean;
     // 今天距离1970年1.1的天数
     private days: number;
     private data() {
-      return {
+       return {
         show: false,
-        isFinished: false,
         currentId: 0,
         days: _.getDaysId(),
+        isDone: false,
       }
     }
 
+
+    public created() {
+      // console.log(this.today, '!', this.dayComputed)
+
+    }
     private mounted() {
       const {needUpdate} = this.dayComputed;
+      // console.log(needUpdate);
+
       const len = needUpdate.length;
       if (len) {
         this.updateHabits(needUpdate);
       }
+      this.isDone = true;
     }
+
     private get dayComputed() {
       // 今天可用的习惯
       const current = _.dateComparison(this.habitList);
@@ -129,25 +138,23 @@ import ClockPopup from '@/components/common/ClockPopup/ClockPopup.vue';
     }
 
     // @Watch('currentId')
-    private finishedWatch(id: number) {
-        const daysId = _.getDaysId();
-        const list = this.habitList
-        const habit = _.find(list, id);
-        const {isFinished} = habit!.habitLog.date.find((item) => item.id === daysId)!;
-        return isFinished;
-    }
+    // private finishedWatch(id: number) {
+    //     const daysId = _.getDaysId();
+    //     const list = this.habitList
+    //     const habit = _.find(list, id);
+    //     const {isFinished} = habit!.habitLog.date.find((item) => item.id === daysId)!;
+    //     console.log(isFinished);
+
+    //     return isFinished;
+    // }
     private change(activeNames: number[]| never[]) {
       this.changeCollapse(activeNames);
     }
     private finish(id: number) {
+      console.log(id, this.days);
       this.currentId = id;
       this.show = true;
-      this.changeFinished(id);
-      const daysId = _.getDaysId();
-      const list = this.habitList
-      const habit = _.find(list, id);
-      const {isFinished} = habit!.habitLog.date.find((item) => item.id === daysId)!;
-      this.isFinished = isFinished;
+      this.changeFinished(id, this.days);
     }
     private saveLogs(message: string) {
       const id = _.getDaysId();

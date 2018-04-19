@@ -131,6 +131,7 @@ import { HabitList as HabitListState } from '@/store/state';
         activeTimes,
         timeSlotList
       } = this.habitList[this.index].habitInfo;
+      // @ts-ignore
       return timeSlotList.find((item: any) => item.id === activeTimes).title;
     }
     // 计算提醒个数
