@@ -24,6 +24,7 @@ import moment from 'moment';
 
 import { HabitList as HabitListState } from '@/store/state';
 import Card from '@/components/common/Card/Card.vue';
+import _ from '@/utils';
 
 @Component({
   components: {
@@ -55,10 +56,13 @@ import Card from '@/components/common/Card/Card.vue';
     }
 
     private mounted() {
+      const id = _.getDaysId();
       this.habitList.forEach((item) => {
-        if (!item.isFinished) {
-          this.num++
-        }
+        item.habitLog.date.filter((ele) => ele.id === id).forEach((e) => {
+          if (!e.isFinished) {
+            this.num++
+          }
+        });
       })
       if (this.num > 0) {
         this.isDone = false;

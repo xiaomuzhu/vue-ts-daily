@@ -36,13 +36,6 @@ import utils from '@/utils';
 })
     export default class CardPage extends Vue {
         private title ?: string;
-        private right ?: string;
-        private nextUrl ?: string;
-        private timeSlotShow ?: boolean;
-        private timeShow ?: boolean;
-        private value ?: string;
-        private count ?: number;
-
         private data() {
             return {
                 title: this.$route.name,
@@ -52,23 +45,6 @@ import utils from '@/utils';
 
         private onClickLeft() {
             this.$router.go(-1);
-        }
-        private onClickRight() {
-            // 如果存在下一个url,点击右侧图标跳转,否则弹出对话框
-            if (this.nextUrl) {
-                this.$router.push(this.nextUrl)
-            } else {
-                switch (this.right) {
-                    case 'new':
-                        this.timeSlotShow = true;
-                        break;
-                    case 'time':
-                        this.timeShow = true;
-                        break;
-                    default:
-                        break;
-                }
-            }
         }
     }
 </script>

@@ -69,8 +69,6 @@ export interface NewList {
 
     private mounted() {
       const {needUpdate} = this.dayComputed;
-      // console.log(needUpdate);
-
       const len = needUpdate.length;
       if (len) {
         this.updateHabits(needUpdate);
@@ -143,16 +141,6 @@ export interface NewList {
       }
     }
 
-    // @Watch('currentId')
-    // private finishedWatch(id: number) {
-    //     const daysId = _.getDaysId();
-    //     const list = this.habitList
-    //     const habit = _.find(list, id);
-    //     const {isFinished} = habit!.habitLog.date.find((item) => item.id === daysId)!;
-    //     console.log(isFinished);
-
-    //     return isFinished;
-    // }
     private change(activeNames: number[]| never[]) {
       this.changeCollapse(activeNames);
     }
