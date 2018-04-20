@@ -44,6 +44,10 @@ const UpdateLog = (r: any) =>
 (require as any).ensure([], () => r(require('@/views/UpdateLog/UpdateLog'), 'UpdateLog'))   // 菜单
 
 
+const Login = (r: any) =>
+(require as any).ensure([], () => r(require('@/views/Login/Login'), 'Login'))   // 菜单
+
+
 Vue.use(Router);
 
 export default new Router(
@@ -84,6 +88,11 @@ export default new Router(
       path: '/update',
       name: '更新日志',
       component: UpdateLog,
+    },
+    {
+      path: '/login',
+      name: '登录',
+      component: Login,
     },
     {
       path: '/card',

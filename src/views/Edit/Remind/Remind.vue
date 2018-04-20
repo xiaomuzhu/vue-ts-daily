@@ -4,7 +4,7 @@
     <section class="panel">
       <p>您打算在那个时间设置提醒呢?</p>
     </section>
-    <!-- 删除按钮 -->
+    <!-- 提醒列表 -->
     <section class="list">
       <van-cell-group v-if="!!remindComputed.length">
         <van-cell v-for="item in remindComputed" :key="item.id">
@@ -17,7 +17,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { SwitchCell, Cell, CellGroup } from 'vant';
+import { SwitchCell, Cell, CellGroup, Toast } from 'vant';
 import { State, Mutation } from 'vuex-class';
 
 import { HabitList as HabitListState } from '@/store/state';
@@ -32,20 +32,19 @@ import { Payload } from '_vuex@3.0.1@vuex';
       [CellGroup.name]: CellGroup,
   },
 })
-  export default class Calendar extends Vue {
+  export default class Remind extends Vue {
     @State private habitList: HabitListState[];
     @Mutation private switchRemind: (payload: {habitId: number, id: number}) => void;
     private id: number;
-    private index: number;
 
     // 获取当前习惯的id
     private mounted() {
       const list = this.habitList;
       for (let index = 0; index < list.length; index++) {
         const element = list[index];
+        // 如果在编辑或者在新建那一定是当前习惯了
         if (element.mode === 'creating' || element.mode === 'editing') {
         this.id = element.id;
-        this.index = index;
         return;
         }
       }
@@ -55,12 +54,20 @@ import { Payload } from '_vuex@3.0.1@vuex';
     // 计算属性得到remind相关数据
     private get remindComputed() {
       const len = this.habitList.length;
-      const habit = this.habitList[this.index];
+      const habit = this.habitList[len - 1];
+
       return habit.habitInfo.remind;
     }
     // 切换switch按钮的状态
     private change(id: number) {
+      if (this.id < 0) {
+        Toast({
+          type: 'fail',
+          message: '可能出错了',
+        });
+      } else {
       this.switchRemind({habitId: this.id, id});
+      }
     }
 
   }

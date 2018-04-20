@@ -16,9 +16,9 @@
             </van-field>
         </van-popup>
         <!-- 弹出设置提醒的对话框 -->
-        <van-popup class="time" v-model="timeShow" position="bottom" :overlay="true">
+        <!-- <van-popup class="time" v-model="timeShow" position="bottom" :overlay="true">
             <van-datetime-picker v-model="currentDate" type="time" @confirm="setTime" :visible-item-count="count" title="选择提醒时间" />
-        </van-popup>
+        </van-popup> -->
     </div>
 </template>
 

@@ -2,6 +2,22 @@ import moment from 'moment';
 
 import { State, HabitList, RepeatingDateState } from '@/store/state';
 
+const userInfo = 'xiaomuzhu'
+
+export function getInfo() {
+  return localStorage.getItem(userInfo)
+}
+
+export function setInfo(username: string) {
+  return localStorage.setItem(userInfo, username)
+}
+
+export function removeInfo() {
+  return localStorage.removeItem(userInfo)
+}
+
+
+
 function getDateList(arr: RepeatingDateState[]) {
     const list: string[] = [];
     for (let index = 0; index < arr.length; index++) {
@@ -93,6 +109,7 @@ export default {
         for (let index = 0; index < arr.length; index++) {
             const habit = arr[index];
             const element = arr[index].habitInfo.RepeatingDate;
+            // @ts-ignore
             if (getDateList(element).indexOf(current)) {
                 currentList.push(habit);
             }

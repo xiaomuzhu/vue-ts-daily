@@ -92,10 +92,10 @@ export default {
         })
     },
     // 习惯名称
-    changeName(state: State, id: number, value: string) {
+    changeName(state: State, payload: {id: number, value: string}) {
         const list = state.habitList
-        const habit = _.find(list, id);
-        habit !.habitInfo.habitName = value;
+        const habit = _.find(list, payload.id);
+        habit !.habitInfo.habitName = payload.value;
     },
     // 绑定激励的话
     changInspire(state: State, payload: {id: number, value: string}) {
@@ -191,6 +191,20 @@ export default {
             .push(today);
         state.today.isReceived = true;
     },
+        // 登陆成功后执行
+    loginLoading(state: State, data: any) {
+
+            state.user!.isLogin = 0;
+    },
+    // 登陆成功后执行
+    loginSuccess(state: State, data: any) {
+        console.log(data);
+
+        state.user!.id = data.id;
+        state.user!.username = data.username;
+        state.user!.url = data.url;
+        state.user!.isLogin = 1;
+        },
     // 是否开启整点报时
     changeHourly(state: State, checked: boolean) {
 

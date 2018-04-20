@@ -2,8 +2,12 @@
   <div class="setting">
       <!-- 头像 -->
       <section class="avatar">
-        <img v-if="user.url" :src="user.url" alt="头像">
-        <icon v-else name="user" />
+        <router-link :to="{path:'/login'}">
+          <div>
+            <img v-if="user.url" :src="user.url" alt="头像">
+            <icon v-else name="user" />
+          </div>
+        </router-link>
       </section>
     
     <!-- 系统设置 -->

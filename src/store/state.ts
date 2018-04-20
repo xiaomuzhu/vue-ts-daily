@@ -10,6 +10,7 @@ export interface UserState {
     id: number | null;
     createdTime: string | undefined;
     url: string;
+    isLogin: number;
 }
 
 
@@ -233,6 +234,7 @@ const state: State = {
     },
 }],
   user: {
+    isLogin: -1,
     username: '',
     id: null,
     createdTime: '',
