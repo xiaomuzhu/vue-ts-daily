@@ -8,7 +8,7 @@ const baseURL = config.url.basicUrl;
 const axios = Axios.default.create({
   baseURL,            // api请求的baseURL
   timeout: 0,
-  withCredentials: true, // 允许跨域 cookie
+  // withCredentials: true, // 允许跨域 cookie
   headers: {'X-Requested-With': 'XMLHttpRequest'},
   maxContentLength: 2000,
   transformResponse: [(data) => {

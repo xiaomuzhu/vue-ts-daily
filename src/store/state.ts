@@ -11,6 +11,7 @@ export interface UserState {
     createdTime: string | undefined;
     url: string;
     isLogin: number;
+    isSync: number;
 }
 
 
@@ -238,7 +239,8 @@ const state: State = {
     username: '',
     id: null,
     createdTime: '',
-    url: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=4216091012,4283409120&fm=27&gp=0.jpg',
+    isSync: -1,
+    url: 'https://is4-ssl.mzstatic.com/image/thumb/Purple71/v4/be/13/06/be1306d8-e343-2adb-2b04-9a6884300499/pr_source.jpg/1200x630bb.jpg',
   },
 }
 

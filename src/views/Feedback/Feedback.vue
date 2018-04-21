@@ -21,9 +21,10 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { Field, Button, NavBar } from 'vant';
+import { Field, Button, NavBar, Toast } from 'vant';
 import { State, Mutation } from 'vuex-class';
 import { SettingState, UserState } from '@/store/state';
+import { feedback } from '@/api/feedback';
 
 @Component({
   components: {
@@ -33,9 +34,7 @@ import { SettingState, UserState } from '@/store/state';
   },
 })
     export default class Feedback extends Vue {
-        // @State private setting: SettingState;
-        // @State private user: UserState;
-        // @Mutation private changeHourly: (checked: boolean) => void;
+        @State private user: UserState;
         private message?: string;
         private title: string;
         private loading: boolean;
@@ -49,8 +48,22 @@ import { SettingState, UserState } from '@/store/state';
         private onClickLeft() {
             this.$router.go(-1);
         }
-        private send() {
+        private async send() {
+            if (this.message) {
+                const createTime = (new Date()).valueOf();
+                const res = await feedback({
+                    content: this.message,
+                    createTime,
+                    username: this.user.username,
+                }).then((res) => res.data).catch((e: string) => Toast(e));
 
+                if (res.message) {
+                    Toast(res.message);
+                    this.$router.go(-1);
+                }
+            } else {
+                Toast('请补充完反馈信息');
+            }
         }
     }
 </script>

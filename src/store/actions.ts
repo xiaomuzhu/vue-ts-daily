@@ -3,21 +3,23 @@ import axios from 'axios';
 
 import config from '@/config';
 import { login } from '@/api/user';
+import { sync } from '@/api/sync';
 
 const actions: ActionTree<any, any> = {
-    // ajax 初始化
-    async initAjax({ dispatch }) {
-      dispatch('getModules')
-      dispatch('getHeadline')
-      setTimeout(() => dispatch('getActivity'), 2000)
-      dispatch('getSuperSale')
-      dispatch('getShops')
+    // 发起登录
+    async login({ state, commit }, data) {
+      const res: Ajax.AjaxResponse = await login(data).then((res) => res.data).catch((e: string) => console.error(e));
+      if (res) {
+      commit('loginSuccess', res)
+      }
     },
 
-    // 点评头条
-    async login({ state, commit }, data) {
-      const res: Ajax.AjaxResponse = await login(data).then((res) => res.data).catch((e: string) => console.error(e))
-      if (res && res.code === 200) { commit('loginSuccess', res.result) }
+    // 数据同步
+    async sync({ state, commit }, data) {
+      const res: Ajax.AjaxResponse = await sync(data).then((res) => res.data).catch((e: string) => console.error(e));
+      if (res) {
+      commit('sync', 1)
+      }
     },
 
   }

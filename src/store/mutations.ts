@@ -147,18 +147,6 @@ export default {
                 .push({id: newId, time: today, isFinished: false, message: ''})
             }
     },
-    // // 切换是否完成习惯
-    // watchHabits(state: State) {
-    //         const today = moment();
-    //         const newId = _.getDaysId();
-    //         const list = state.habitList
-    //         const habit = _.find(list, id);
-    //         habit !
-    //             .habitLog
-    //             .date
-    //             .push({id: newId, time: today, isFinished: true, message: ''})
-    // },
-    // 切换是否完成习惯
     changeFinished(state: State, payload: {id: number, daysId: number}) {
         const today = moment();
         const list = state.habitList
@@ -198,8 +186,6 @@ export default {
     },
     // 登陆成功后执行
     loginSuccess(state: State, data: any) {
-        console.log(data);
-
         state.user!.id = data.id;
         state.user!.username = data.username;
         state.user!.url = data.url;
@@ -209,6 +195,13 @@ export default {
     changeHourly(state: State, checked: boolean) {
 
         state.setting.checked = checked
+
+    },
+    // 是否同步成功
+    sync(state: State, isSync: number) {
+        console.log(isSync);
+
+        state.user!.isSync = isSync;
 
     },
 }
