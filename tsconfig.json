@@ -9,6 +9,11 @@
     "emitDecoratorMetadata": true,
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
+    // "lib": [
+    //   "es6",
+    //   "webworker",
+    //   "dom"
+    // ],
     "baseUrl": ".",
     "types": [
       "node",
