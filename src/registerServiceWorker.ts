@@ -1,28 +1,27 @@
 /* tslint:disable:no-console */
-// declare var self: ServiceWorkerGlobalScope;
-
-const cacheName = 'daily-v1';
 
 import { register } from 'register-service-worker';
 
 if (process.env.NODE_ENV !== 'production') {
-  register(`${process.env.BASE_URL}service-worker.js`, {
+  register(`${process.env.BASE_URL}sw.js`, {
+
     ready() {
-      self.addEventListener('install', (event: any) => {
-        event.waitUntil(
-          caches.open(cacheName)
-          .then((cache) => cache.addAll([
-            './js/main.js',
-            './js/article.js',
-            './images/newspaper.svg',
-            './css/site.css',
-            './data/latest.json',
-            './data/data-1.json',
-            './article.html',
-            './index.html',
-          ])),
-        );
-      });
+      // navigator.serviceWorker.ready.then(function(reg) {
+      //   reg.pushManager.getSubscription().then((res) => {
+      //     if (!res) {
+      //       subscribe(reg);
+      //     } else {
+      //       console.log('remain endpoint:', res.endpoint);
+      //     }
+      //   })
+      // });
+
+      // function subscribe(reg) {
+      //   reg.pushManager.subscribe({userVisibleOnly: true}).then(function(pushSubscription) {
+      //     sub = pushSubscription;
+      //     console.log('Subscribed! Endpoint:', sub.endpoint);
+      //   });
+      // }
     },
     cached() {
       console.log('Content has been cached for offline use.');
@@ -38,3 +37,4 @@ if (process.env.NODE_ENV !== 'production') {
     },
   });
 }
+

@@ -3,8 +3,12 @@ import Router from 'vue-router';
 import Home from './views/Home/Home.vue';
 import Habit from './views/Habit/Habit.vue';
 import Setting from './views/Setting/Setting.vue';
-import New from './views/New/New.vue';
-import Edit from './views/Edit/Edit.vue';
+
+const New = (r: any) =>
+(require as any).ensure([], () => r(require('@/views/New/New'), 'New'))   // 菜单
+
+const Edit = (r: any) =>
+(require as any).ensure([], () => r(require('@/views/Edit/Edit'), 'Edit'))   // 菜单
 
 
 const Library = (r: any) =>
@@ -55,7 +59,7 @@ export default new Router(
   mode: 'history',
   routes: [
     {
-      path: '/today',
+      path: '/',
       name: 'today',
       component: Home,
       meta: {main: true},

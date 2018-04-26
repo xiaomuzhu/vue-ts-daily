@@ -37,12 +37,6 @@ export interface RepeatingDateState {
   checked: boolean;
 }
 
-// export interface TodayState {
-//   habits: {
-//     id
-//   }
-// }
-
 
 // 单个习惯的状态信息
 export interface HabitList {
@@ -128,7 +122,7 @@ const state: State = {
         defaultName: 'today-o',
         activedName: 'today',
       },
-      path: '/today',
+      path: '/',
       tagName: '日常',
     },
     {
