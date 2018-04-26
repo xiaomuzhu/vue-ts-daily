@@ -19,15 +19,6 @@ import Icon from './common/Icon/FooterIcon';
 })
 export default class Footer extends Vue {
     @State private activePage: PageInfo[];
-
-    // public mounted() {
-    //     console.log(this.activePage);
-    // }
-
-    // @Watch('$route.path')
-    // private onRouteChanged(to: string, from: string) {
-
-    // }
 }
 </script>
 

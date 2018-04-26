@@ -22,6 +22,10 @@ export default class FooterIcon extends Vue {
     @Mutation private getActivePage: (pageName: number) => void
     @Mutation private changeHeaderState: (pageName: number) => void
 
+    mounted () {
+        console.log(this.path);
+    }
+
     private changeActivePage() {
         const id = this.id;
 

@@ -6,7 +6,7 @@
           <p slot="title">
             <icon name="time" />{{item.title}}</p>
           <aside v-for="ele in item.habits" :key="ele.id" @click="finish(ele.id)">
-            <Circles radius="3.5rem" :activeColor="ele.habitLog.date[ele.habitLog.date.length - 1].isFinished ? ele.color : '#fff'">
+            <Circles radius="3.5rem" v-if="!!ele.habitLog.date[ele.habitLog.date.length - 1]" :activeColor="!!ele.habitLog.date[ele.habitLog.date.length - 1].isFinished ? ele.color : '#fff'">
               <icon :name="ele.iconName" slot="icon" />
             </Circles>
           </aside>
