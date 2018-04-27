@@ -77,8 +77,10 @@ export interface NewList {
     }
 
     private get dayComputed() {
+      //
+      const habitsList = this.habitList.filter((item) => item.isActive === true);
       // 今天可用的习惯
-      const current = _.dateComparison(this.habitList);
+      const current = _.dateComparison(habitsList);
       // 检测这些习惯是否产生了当日的任务,如果没有,批量创建
       const needUpdate = [];
       const timeList = new Set();
@@ -180,7 +182,6 @@ export interface NewList {
     flex-direction: column;
     .van-collapse-item {
       margin-bottom: 1rem;
-
       p {
         display: flex;
         justify-content: flex-start;

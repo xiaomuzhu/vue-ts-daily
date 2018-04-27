@@ -17,7 +17,6 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { State } from 'vuex-class';
-// import { Popup } from 'vant';
 
 import { HeaderInfo, PageInfo } from '@/store/state';
 import config from '@/config';

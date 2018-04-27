@@ -37,7 +37,7 @@
         <van-button @click="handleShow" size="large">保存</van-button>
       </van-popup>
     </section>
-    <van-button @click="handleNew" class="button" size="large">新建</van-button>
+    <van-button @click="handleNew" class="button" size="large">{{mode === 'new' ? '新建' : '保存'}}</van-button>
   </div>
 </template>
 
@@ -49,7 +49,7 @@ import { State, Mutation } from 'vuex-class';
 import Circles from '@/components/common/Circle/Circle.vue';
 import DateBlock from '@/components/common/DateBlock/DateBlock.vue';
 import config from '@/config';
-import utils from '@/utils';
+import _ from '@/utils';
 import { HabitList as HabitListState } from '@/store/state';
 
 @Component({
@@ -69,7 +69,7 @@ import { HabitList as HabitListState } from '@/store/state';
     @Mutation private changeName: (payload: {id: number, value: string}) => void;
     @Mutation private changInspire: (payload: {id: number, value: string}) => void;
     @Mutation private changeMode: (payload: {id: number, value: string}) => void;
-    private show ?: boolean;
+    private show: boolean;
     private value ?: string;
     private name ?: string;
     private habitLibrary: object[];
@@ -77,47 +77,61 @@ import { HabitList as HabitListState } from '@/store/state';
     private index: number;
     private data() {
       const id: number = parseInt(this.$route.query.id, 10);
-      let title; // tslint:disable
-      if (id !== 0) {
-        title = config.habitLibrary[id - 1].title
-      } else {
-        title = (config as any).newHabit.title;
-      }
+      const mode = id > config.habitLibrary.length ? 'edit' : 'new';
       return {
         name,
-        title,
         value: '',
         show: false,
+        mode,
       }
     }
 
-        // 获取当前习惯的id
+    // 获取当前习惯的id
     private created() {
       const list = this.habitList;
-  
+
       for (let index = 0; index < list.length; index++) {
         const element = list[index];
         if (element.mode === 'creating') {
         this.id = element.id;
-        this.index = index;        
-        return;  
+        this.index = index;
+        return;
+        } else {
+        this.id = element.id;
+        this.index = index;
+        return;
         }
       }
       this.id = -1;
     }
+    // // title计算属性
+    // private get titleComputed() {
+    //   const id: number = parseInt(this.$route.query.id, 10);
+    //   let title; // tslint:disable
+    //   // id在新建的习惯库长度范围内我们直接进行新建,如果超过这个范围那么肯定是二此编辑了
+    //   if (0 < id && id < config.habitLibrary.length) {
+    //     title = config.habitLibrary[id - 1].title;
+    //   } else if (id === 0) {
+    //     title = (config as any).newHabit.title;
+    //   } else {
+    //     const habit = _.find(this.habitList, id);
+    //     title = habit!.habitInfo.habitName;
+    //   }
+    //   return title;
+    // }
     private get nameComputed() {
       const habit = this.habitList[this.index];
       return habit.habitInfo.habitName
     }
     private set nameComputed(name) {
-      this.changeName({id: this.id, value:name})
+      this.changeName({id: this.id, value: name})
     }
     private get inspireComputed() {
       const habit = this.habitList[this.index];
       return habit.habitInfo.inspire
     }
     private set inspireComputed(name) {
-      this.changInspire({id: this.id, value:name})
+      this.changInspire({id: this.id, value: name})
     }
 
     // 计算当前颜色
@@ -129,7 +143,7 @@ import { HabitList as HabitListState } from '@/store/state';
     private get repeatComputed() {
       const {
         activeTimes,
-        timeSlotList
+        timeSlotList,
       } = this.habitList[this.index].habitInfo;
       // @ts-ignore
       return timeSlotList.find((item: any) => item.id === activeTimes).title;
@@ -137,9 +151,9 @@ import { HabitList as HabitListState } from '@/store/state';
     // 计算提醒个数
     private get remindComputed() {
       const {
-        remind
+        remind,
       } = this.habitList[this.index].habitInfo;
-      const num = (remind as any[]).filter(item => item.open === true).length;
+      const num = (remind as any[]).filter((item) => item.open === true).length;
       return num;
     }
     // 计算当前颜色
@@ -152,14 +166,14 @@ import { HabitList as HabitListState } from '@/store/state';
       const dates = this.habitList[this.index].habitInfo.RepeatingDate;
       let value: string = '';
       for (let i = 0; i < dates.length; i++) {
-        if (dates[i]['checked']) {
-          let result = utils.getDate(dates[i]['date'])
+        if (dates[i].checked) {
+          const result = _.getDate(dates[i].date)
           value += result
         }
       }
       return {
         value,
-        dates
+        dates,
       };
     }
     // 对话框控制
@@ -168,12 +182,12 @@ import { HabitList as HabitListState } from '@/store/state';
     }
     // 重复的日期选择
     private select(id: number) {
-      this.selectDate({habitId:this.id, id});
+      this.selectDate({habitId: this.id, id});
     }
 
     // 创建此习惯
     private handleNew() {
-      this.changeMode({id: this.id, value:'done'})
+      this.changeMode({id: this.id, value: 'done'})
       this.$router.go(-2);
     }
   }

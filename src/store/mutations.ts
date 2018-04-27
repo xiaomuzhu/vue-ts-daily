@@ -147,6 +147,7 @@ export default {
                 .push({id: newId, time: today, isFinished: false, message: ''})
             }
     },
+    // 切换当前习惯是否完成
     changeFinished(state: State, payload: {id: number, daysId: number}) {
         const today = moment();
         const list = state.habitList
@@ -155,7 +156,15 @@ export default {
             .habitLog
             .date
             .find((item) => item.id === payload.daysId);
+        // 切换完成状态
         date!.isFinished = !date!.isFinished;
+        if (date!.isFinished) {
+            habit!.habitLog.currentConsecutiveDays ++
+            habit!.habitLog.totalHabitDays ++
+        } else {
+            habit!.habitLog.currentConsecutiveDays --
+            habit!.habitLog.totalHabitDays --
+        }
 
     },
     // 储存打卡日志
@@ -179,7 +188,7 @@ export default {
             .push(today);
         state.today.isReceived = true;
     },
-        // 登陆成功后执行
+    // 登陆成功后执行
     loginLoading(state: State, data: any) {
 
             state.user!.isLogin = 0;
@@ -199,8 +208,6 @@ export default {
     },
     // 是否同步成功
     sync(state: State, isSync: number) {
-        console.log(isSync);
-
         state.user!.isSync = isSync;
 
     },

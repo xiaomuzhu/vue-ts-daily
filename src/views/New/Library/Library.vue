@@ -112,7 +112,7 @@ import { HabitList as HabitListState } from '@/store/state';
             },
             habitLog: {
               // 总共坚持练习了多少天
-              totalHabitDays: '0天',
+              totalHabitDays: 0,
               // 当前连续联系了多少天
               currentConsecutiveDays: 0,
               // 历史上最多连续练习多少天

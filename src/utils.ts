@@ -79,6 +79,7 @@ export default {
     },
     getDateList,
     transformDate,
+    // 通过id查找相关习惯对象
     find(arr: HabitList[], id: number) {
         let obj;
         for (let index = 0; index < arr.length; index++) {

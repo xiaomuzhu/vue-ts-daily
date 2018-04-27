@@ -2,7 +2,7 @@
   <div class="habit">
     <van-tabs @click="onClick">
       <van-tab v-for="(item, index) in tabsComputed" :title="item" :key="index">
-        <List v-for="item in ChangeTab" :key="item.id" @click-right="del" @click-left="edit" rightValue="归档" leftValue="编辑" :id="item.id" :color="item.color" :habitLog="item.habitLog" :habitInfo="item.habitInfo" :iconName="item.iconName" />
+        <List v-for="item in ChangeTab" :key="item.id" @click-right="del" @click-left="edit(item.id)" rightValue="归档" leftValue="编辑" :id="item.id" :color="item.color" :habitLog="item.habitLog" :habitInfo="item.habitInfo" :iconName="item.iconName" />
       </van-tab>
     </van-tabs>
   </div>
@@ -34,12 +34,12 @@ import List from '@/components/common/HabitList/List.vue';
       }
     }
 
-    public edit() {
-      // this.$router.push
+    public edit(id: number) {
+      this.$router.push(`/new/habit?id=${id}`);
     }
 
     public del(id: number) {
-      this.deleteHabit(id)
+      this.deleteHabit(id);
     }
     // 计算出全部tab标签
     private get tabsComputed() {

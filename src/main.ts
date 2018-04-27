@@ -2,8 +2,7 @@ import Vue from 'vue';
 
 import FastClick from 'fastclick';
 import VueLazyload from 'vue-lazyload';
-// import VueIconFont from 'vue-icon-font';
-import VueIconFont from 'vue-iconfont';
+import VueIconFont from 'vue-icon-font-pro';
 import vueEventCalendar from 'vue2-event-calendar-pro';
 
 import 'normalize.css';

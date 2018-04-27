@@ -4,7 +4,7 @@
       <aside class="edit" v-if="leftValue" slot="left" @click="$emit('click-left', id)" >{{leftValue}}</aside>
       <slot v-else slot="left" @click="$emit('click-right', id)" name="act"></slot>
       <van-cell-group class="listGroup">
-        <van-cell class="listCell" :value="habitLog.totalHabitDays" :style="{ background: color }" >
+        <van-cell class="listCell" :value="habitLog.totalHabitDays + '天'" :style="{ background: color }" >
           <template slot="title">
             <icon :name="iconName" />
             <span>{{habitInfo.habitName}}</span>

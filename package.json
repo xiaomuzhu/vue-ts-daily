@@ -22,7 +22,7 @@
         "vue": "^2.5.13",
         "vue-class-component": "^6.0.0",
         "vue-event-calendar": "^1.5.2",
-        "vue-iconfont": "^1.1.0",
+        "vue-icon-font-pro": "^1.0.1",
         "vue-lazyload": "^1.2.2",
         "vue-property-decorator": "^6.0.0",
         "vue-router": "^3.0.1",
