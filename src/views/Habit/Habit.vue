@@ -2,7 +2,7 @@
   <div class="habit">
     <van-tabs @click="onClick">
       <van-tab v-for="(item, index) in tabsComputed" :title="item" :key="index">
-        <List v-for="item in ChangeTab" :key="item.id" @click-right="del" @click-left="edit(item.id)" rightValue="归档" leftValue="编辑" :id="item.id" :color="item.color" :habitLog="item.habitLog" :habitInfo="item.habitInfo" :iconName="item.iconName" />
+        <List v-for="item in ChangeTab" :key="item.id" @click-right="del(item.id)" @click-left="edit(item.id)" rightValue="归档" leftValue="编辑" :id="item.id" :color="item.color" :habitLog="item.habitLog" :habitInfo="item.habitInfo" :iconName="item.iconName" />
       </van-tab>
     </van-tabs>
   </div>
@@ -61,9 +61,9 @@ import List from '@/components/common/HabitList/List.vue';
     }
     // 切换tab后重新计算符合当前标准的列表
     private get ChangeTab() {
-      const total: any[] = [];
+      const total: HabitListState[] = [];
       if (this.currentTitle !== '全部') {
-        (this.habitList as any).forEach((item: HabitListState) => {
+        (this.habitList as HabitListState[]).forEach((item: HabitListState) => {
           if (item.isActive && item.mode === 'done') {
           const {
             activeTimes,
@@ -77,8 +77,7 @@ import List from '@/components/common/HabitList/List.vue';
           }
         })
       } else {
-
-        (this.habitList as any).forEach((item: HabitListState) => {
+        (this.habitList as HabitListState[]).forEach((item: HabitListState) => {
           if (item.isActive && item.mode === 'done') {
           total.push(item);
           }

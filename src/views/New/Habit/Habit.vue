@@ -75,6 +75,7 @@ import { HabitList as HabitListState } from '@/store/state';
     private habitLibrary: object[];
     private id: number;
     private index: number;
+    private mode: string;
     private data() {
       const id: number = parseInt(this.$route.query.id, 10);
       const mode = id > config.habitLibrary.length ? 'edit' : 'new';
@@ -88,15 +89,16 @@ import { HabitList as HabitListState } from '@/store/state';
 
     // 获取当前习惯的id
     private created() {
+      if (this.mode === 'edit') {
+        this.id = parseInt(this.$route.query.id, 10);
+        const Index = _.findIndex(this.habitList, this.id);
+        this.index = Index!;
+        return;
+      }
       const list = this.habitList;
-
       for (let index = 0; index < list.length; index++) {
         const element = list[index];
         if (element.mode === 'creating') {
-        this.id = element.id;
-        this.index = index;
-        return;
-        } else {
         this.id = element.id;
         this.index = index;
         return;

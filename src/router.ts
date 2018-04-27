@@ -51,6 +51,9 @@ const UpdateLog = (r: any) =>
 const Login = (r: any) =>
 (require as any).ensure([], () => r(require('@/views/Login/Login'), 'Login'))   // 菜单
 
+const Error = (r: any) =>
+(require as any).ensure([], () => r(require('@/views/404/error'), 'Error'))   // 菜单
+
 
 Vue.use(Router);
 
@@ -163,6 +166,15 @@ export default new Router(
           component: Remind,
         },
       ],
+    },
+    {
+      path: '/error',
+      name: '找不到该页面',
+      component: Error,
+    },
+    {
+      path: '*',
+      redirect: '/error',
     },
   ],
 });

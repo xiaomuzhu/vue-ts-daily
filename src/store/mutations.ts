@@ -99,38 +99,37 @@ export default {
     },
     // 绑定激励的话
     changInspire(state: State, payload: {id: number, value: string}) {
-        const list = state.habitList
+        const list = state.habitList;
         const habit = _.find(list, payload.id);
         habit !.habitInfo.inspire = payload.value;
     },
     // 将处于创建状态的习惯切换到完成状态
     changeMode(state: State, payload: {id: number, value: string}) {
-        const list = state.habitList
+        const list = state.habitList;
         const habit = _.find(list, payload.id);
-
-        habit !.isActive = true;
-        habit !.mode = payload.value;
+        habit!.isActive = true;
+        habit!.mode = payload.value;
     },
     // 将此习惯归档
     deleteHabit(state: State, id: number) {
-        const list = state.habitList
+        const list = state.habitList;
         const habit = _.find(list, id);
         habit !.isActive = false;
     },
     // 删除此习惯
     removeHabit(state: State, id: number) {
-        const list: HabitList[] = state.habitList
-        state.habitList = list.filter((item) => item.id !== id)
+        const list: HabitList[] = state.habitList;
+        state.habitList = list.filter((item) => item.id !== id);
     },
     // 重新激活此习惯
     activateHabit(state: State, id: number) {
-        const list = state.habitList
+        const list = state.habitList;
         const habit = _.find(list, id);
         habit !.isActive = true;
     },
     // 获取需要当天执行的习惯
     changeCollapse(state: State, activeNames: number[] | never[]) {
-        const today = state.today
+        const today = state.today;
         today.active = activeNames;
     },
     // 未添加当日任务的习惯列表进行更新

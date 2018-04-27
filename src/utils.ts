@@ -80,7 +80,7 @@ export default {
     getDateList,
     transformDate,
     // 通过id查找相关习惯对象
-    find(arr: HabitList[], id: number) {
+    find(arr: HabitList[], id: number ) {
         let obj;
         for (let index = 0; index < arr.length; index++) {
             const element = arr[index];
@@ -89,6 +89,18 @@ export default {
             }
         }
         return obj;
+    },
+
+    // 通过id查找相关习惯对象的Index
+    findIndex(arr: HabitList[], id: number ) {
+        let Index;
+        for (let index = 0; index < arr.length; index++) {
+            const element = arr[index];
+            if (element.id === id) {
+                Index = index;
+            }
+        }
+        return Index;
     },
 
     /**
