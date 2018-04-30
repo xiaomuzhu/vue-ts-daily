@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-import { State, HabitList, RepeatingDateState } from '@/store/state';
+import { State, HabitList, RepeatingDateState, ClockLog } from '@/store/state';
 
 const userInfo = 'xiaomuzhu'
 
@@ -55,16 +55,6 @@ function transformDate(date: string | number) {
       }
 
 export default {
-    generateGuuId() {
-    let d = new Date().getTime();
-    const uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
-        const r = (d + Math.random() * 16) % 16 | 0;
-        d = Math.floor(d / 16);
-        return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
-    });
-    return uuid;
-},
-
     getDate(str: string) {
         return str.replace(/['星期']/g, ' ');
     },
@@ -77,10 +67,18 @@ export default {
               return true;
           }
     },
+    getNewDate(str: string) {
+        const newList = str.split('/');
+        const year = newList.shift();
+        newList.push(year!);
+        return newList.join('/')
+      },
     getDateList,
     transformDate,
+
     // 通过id查找相关习惯对象
     find(arr: HabitList[], id: number ) {
+
         let obj;
         for (let index = 0; index < arr.length; index++) {
             const element = arr[index];
@@ -123,21 +121,89 @@ export default {
             const habit = arr[index];
             const element = arr[index].habitInfo.RepeatingDate;
             // @ts-ignore
-            if (getDateList(element).indexOf(current)) {
+            if (getDateList(element).indexOf(current) >= 0) {
                 currentList.push(habit);
             }
         }
+
         return currentList;
     },
 
     // 以天为单位设置打卡的id
-    getDaysId() {
-    const now = (new Date()).valueOf();
-    // 之所以+8 是因为得转换成天朝的东八区
-    const hours = moment.duration((new Date()).valueOf()).as('hours') + 8;
+    getDaysId(time?: number) {
+    const now = !time ? (new Date()).valueOf() : time;
 
+    // 之所以+8 是因为得转换成天朝的东八区
+    const hours = moment.duration(now).as('hours') + 8;
+    // console.log(now, 'zhen');
     return Math.floor(hours / 24)
     },
+
+    // 以天为单位设置打卡的id
+    getMoment(days: number) {
+        moment.locale('zh-cn');
+        return moment('1-1-1970', 'MM-DD-YYYY').add(days, 'd');
+    },
+
+    /**
+     * 查找打卡信息史上最长连续打卡的长度
+     * @param dateList ClockLog[] 储存打卡信息的数组
+     */
+    getMaxDays(dateList: ClockLog[]) {
+        const list = dateList.filter((item) => item.isFinished === true);
+        if (list.length === 0) {
+            return 0;
+        }
+        if (list.length === 1) {
+            return 1;
+        }
+        let max = 1;
+        let current = 1;
+        for (let index = 0; index < list.length; index++) {
+            const element = list[index];
+            const next = list[index + 1];
+            if (next && element.id + 1 === next.id) {
+                current ++
+                max = Math.max(max, current);
+            } else {
+                current = 1;
+            }
+        }
+
+        return max;
+    },
+
+    /**
+     * 查找打卡信息当前最长连续打卡的长度
+     * @param dateList ClockLog[] 储存打卡信息的数组
+     */
+    getCurrentMaxDays(dateList: ClockLog[]) {
+        const list = dateList.filter((item) => item.isFinished === true);
+        if (list.length === 0) {
+            return 0;
+        }
+        if (list.length === 1) {
+            return 1;
+        }
+        if (!dateList[dateList.length - 1].isFinished) {
+            return 0;
+        }
+
+        let current = 1;
+        for (let index = list.length - 1; index > 0; index--) {
+            const element = list[index];
+            const pre = list[index - 1];
+            if (element.id - 1 === pre.id) {
+                current ++
+                // max = Math.max(max, current);
+            } else {
+                return current;
+            }
+        }
+
+        return current;
+    },
+
 
     // 获取isFinished
     getIsFinished(habit: HabitList) {

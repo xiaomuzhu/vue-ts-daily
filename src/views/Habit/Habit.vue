@@ -1,6 +1,6 @@
 <template>
   <div class="habit">
-    <van-tabs @click="onClick">
+    <van-tabs @click="changeTitle">
       <van-tab v-for="(item, index) in tabsComputed" :title="item" :key="index">
         <List v-for="item in ChangeTab" :key="item.id" @click-right="del(item.id)" @click-left="edit(item.id)" rightValue="归档" leftValue="编辑" :id="item.id" :color="item.color" :habitLog="item.habitLog" :habitInfo="item.habitInfo" :iconName="item.iconName" />
       </van-tab>
@@ -28,19 +28,20 @@ import List from '@/components/common/HabitList/List.vue';
     @State private habitList: HabitListState[];
     @Mutation private deleteHabit: (id: number) => void;
     private currentTitle: string;
-    public data() {
+    private data() {
       return {
         currentTitle: '全部',
       }
     }
 
-    public edit(id: number) {
+    private edit(id: number) {
       this.$router.push(`/new/habit?id=${id}`);
     }
 
-    public del(id: number) {
+    private del(id: number) {
       this.deleteHabit(id);
     }
+
     // 计算出全部tab标签
     private get tabsComputed() {
       const total: string[] = [];
@@ -56,7 +57,7 @@ import List from '@/components/common/HabitList/List.vue';
 
       return tabs;
     }
-    private onClick(index: number, title: string) {
+    private changeTitle(index: number, title: string) {
       this.currentTitle = title;
     }
     // 切换tab后重新计算符合当前标准的列表

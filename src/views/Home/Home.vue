@@ -21,9 +21,7 @@
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import { Collapse, CollapseItem } from 'vant';
 import { Mutation, State } from 'vuex-class';
-import moment from 'moment';
 
-import config from '@/config';
 import { HabitList as HabitListState, TimeSlotList } from '@/store/state';
 import _ from '@/utils';
 
@@ -77,10 +75,11 @@ export interface NewList {
     }
 
     private get dayComputed() {
-      //
+
       const habitsList = this.habitList.filter((item) => item.isActive === true);
       // 今天可用的习惯
       const current = _.dateComparison(habitsList);
+
       // 检测这些习惯是否产生了当日的任务,如果没有,批量创建
       const needUpdate = [];
       const timeList = new Set();
@@ -91,9 +90,11 @@ export interface NewList {
           activeTimes,
         } = element.habitInfo;
         const {date} = element.habitLog;
+
         const len = date.length;
         // 当习惯的历史任务数组里是空那么放入待更新数组,如果最近的历史任务与今日的数字不匹配,说明没有创建今日任务,也放入更新
         if (len === 0) {
+
           needUpdate.push(element.id);
         } else if (date[len - 1].id !== this.days) {
           needUpdate.push(element.id);
@@ -148,6 +149,7 @@ export interface NewList {
     }
     private finish(id: number) {
       this.currentId = id;
+      // 如果已经完成那么则是取消操作,否则是标记完成的操作
       if (this.habitList.find((item) => item.id === id)!.habitLog.date.find((item) => item.id === this.days)!.isFinished) {
       this.changeFinished({
         id,

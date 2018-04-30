@@ -144,27 +144,64 @@ export default {
                 .habitLog
                 .date
                 .push({id: newId, time: today, isFinished: false, message: ''})
+        }
+    },
+    // 对习惯的打卡信息进行补签
+    supplementHabits(state: State, payload: {id: number, daysId: number}) {
+        const list = state.habitList;
+        const today = _.getMoment(payload.daysId);
+        const habit = _.find(list, payload.id);
+        // 储存date信息的数组
+        const dateList = habit!.habitLog.date;
+        if (dateList.length > 0) {
+            for (let index = 0; index < dateList.length; index++) {
+                const element = dateList[index];
+                if (element.id > payload.daysId) {
+                    dateList.splice(index, 0, {id: payload.daysId, time: today, isFinished: true, message: ''});
+                    habit!.habitLog.currentConsecutiveDays = _.getCurrentMaxDays(dateList);
+
+                    habit!.habitLog.totalHabitDays ++;
+                    console.log(_.getMaxDays(dateList));
+
+                    habit!.habitLog.mostConsecutiveDays = _.getMaxDays(dateList);
+                    return;
+                };
             }
+        } else {
+            dateList.push({id: payload.daysId, time: today, isFinished: true, message: ''})
+        };
     },
     // 切换当前习惯是否完成
     changeFinished(state: State, payload: {id: number, daysId: number}) {
-        const today = moment();
         const list = state.habitList
         const habit = _.find(list, payload.id);
-        const date = habit !
-            .habitLog
-            .date
-            .find((item) => item.id === payload.daysId);
+        // 储存date信息的数组
+        const dateList = habit!.habitLog.date;
+        const len = dateList.length;
+        // 找到id相关信息
+        const date = dateList.find((item) => item.id === payload.daysId);
         // 切换完成状态
         date!.isFinished = !date!.isFinished;
+        // 当当前信息被切换成"已完成"
         if (date!.isFinished) {
-            habit!.habitLog.currentConsecutiveDays ++
-            habit!.habitLog.totalHabitDays ++
+            // 当当前打卡信息属于当天的时候
+            if (dateList[len - 1].id === payload.daysId) {
+                habit!.habitLog.currentConsecutiveDays ++;
+            } else {
+                habit!.habitLog.currentConsecutiveDays = _.getCurrentMaxDays(dateList);
+            }
+            habit!.habitLog.totalHabitDays ++;
         } else {
-            habit!.habitLog.currentConsecutiveDays --
-            habit!.habitLog.totalHabitDays --
+            // 当当前打卡信息属于当天的时候
+            if (dateList[len - 1].id === payload.daysId) {
+                habit!.habitLog.currentConsecutiveDays --;
+            } else {
+                habit!.habitLog.currentConsecutiveDays = _.getCurrentMaxDays(dateList);
+            }
+            habit!.habitLog.totalHabitDays --;
+            date!.message = '';
         }
-
+        habit!.habitLog.mostConsecutiveDays = _.getMaxDays(dateList);
     },
     // 储存打卡日志
     saveLog(state: State, payload: {id: number, daysId: number, message: string}) {

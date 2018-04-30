@@ -46,17 +46,8 @@ import { Field, Popup, Button } from 'vant';
             this.show = val
         }
 
-        // @Watch('messages')
-        // private changeMessage(val: boolean, oldVal: boolean) {
-
-        //     this.message = val;
-        //     console.log(this.message);
-        //     this.ChangeValue(val)
-        // }
-
         @Emit('hide')
         private handleHide() {
-            console.log(1)
         }
     }
 </script>
