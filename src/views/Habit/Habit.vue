@@ -24,79 +24,77 @@ import List from '@/components/common/HabitList/List.vue';
     List,
   },
 })
-  export default class Habit extends Vue {
-    @State private habitList: HabitListState[];
-    @Mutation private deleteHabit: (id: number) => void;
-    private currentTitle: string;
-    private data() {
-      return {
-        currentTitle: '全部',
-      }
-    }
+export default class Habit extends Vue {
+  @State private habitList: HabitListState[];
+  @Mutation private deleteHabit: (id: number) => void;
+  private currentTitle: string;
+  private data() {
+    return {
+      currentTitle: '全部',
+    };
+  }
 
-    private edit(id: number) {
-      this.$router.push(`/new/habit?id=${id}`);
-    }
+  private edit(id: number) {
+    this.$router.push(`/new/habit?id=${id}`);
+  }
 
-    private del(id: number) {
-      this.deleteHabit(id);
-    }
+  private del(id: number) {
+    this.deleteHabit(id);
+  }
 
-    // 计算出全部tab标签
-    private get tabsComputed() {
-      const total: string[] = [];
-      (this.habitList as any).forEach((item: any) => {
-        item.habitInfo.timeSlotList.forEach((element: any) => {
-          if (item.mode === 'done') {
-            total.push(element.title)
-          }
-        });
-      })
-      const tabs = [...new Set(total)];
-      tabs.unshift('全部');
+  // 计算出全部tab标签
+  private get tabsComputed() {
+    const total: string[] = [];
+    (this.habitList as any).forEach((item: any) => {
+      item.habitInfo.timeSlotList.forEach((element: any) => {
+        if (item.mode === 'done') {
+          total.push(element.title);
+        }
+      });
+    });
+    const tabs = [...new Set(total)];
+    tabs.unshift('全部');
 
-      return tabs;
-    }
-    private changeTitle(index: number, title: string) {
-      this.currentTitle = title;
-    }
-    // 切换tab后重新计算符合当前标准的列表
-    private get ChangeTab() {
-      const total: HabitListState[] = [];
-      if (this.currentTitle !== '全部') {
-        (this.habitList as HabitListState[]).forEach((item: HabitListState) => {
-          if (item.isActive && item.mode === 'done') {
-          const {
-            activeTimes,
-            timeSlotList,
-          } = item.habitInfo;
+    return tabs;
+  }
+  private changeTitle(index: number, title: string) {
+    this.currentTitle = title;
+  }
+  // 切换tab后重新计算符合当前标准的列表
+  private get ChangeTab() {
+    const total: HabitListState[] = [];
+    if (this.currentTitle !== '全部') {
+      (this.habitList as HabitListState[]).forEach((item: HabitListState) => {
+        if (item.isActive && item.mode === 'done') {
+          const { activeTimes, timeSlotList } = item.habitInfo;
           // @ts-ignore
-          const timeSolt = timeSlotList.find((ele: any) => ele.id === activeTimes);
+          const timeSolt = timeSlotList.find(
+            (ele: any) => ele.id === activeTimes,
+          );
           if (timeSolt.title === this.currentTitle) {
             total.push(item);
           }
-          }
-        })
-      } else {
-        (this.habitList as HabitListState[]).forEach((item: HabitListState) => {
-          if (item.isActive && item.mode === 'done') {
+        }
+      });
+    } else {
+      (this.habitList as HabitListState[]).forEach((item: HabitListState) => {
+        if (item.isActive && item.mode === 'done') {
           total.push(item);
-          }
-        })
-      }
-      return total
+        }
+      });
     }
+    return total;
   }
+}
 </script>
 
 <style lang="scss" scoped>
-  @import '../../style/mixin';
-  .habit {
-    width: 100%;
-    height: calc(100vh - 7rem);
-    display: flex;
-    justify-content: flex-start;
-    flex-direction: column;
-  }
+@import '../../style/mixin';
+.habit {
+  width: 100%;
+  height: calc(100vh - 7rem);
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+}
 </style>
-

@@ -7,15 +7,14 @@
 @import '../../style/mixin';
 
 .error {
-    width: 100vw;
-    height: 100vh; 
-    @include bis('../../assets/404.jpg');
-    .redirect {
-        display: block;
-        position: relative;
-        top: 70%;
-        color: antiquewhite;
-    }
+  width: 100vw;
+  height: 100vh;
+  @include bis('../../assets/404.jpg');
+  .redirect {
+    display: block;
+    position: relative;
+    top: 70%;
+    color: antiquewhite;
+  }
 }
-
 </style>

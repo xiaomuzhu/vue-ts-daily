@@ -37,66 +37,64 @@ import { UserState } from '@/store/state';
     [Loading.name]: Loading,
   },
 })
-    export default class Login extends Vue {
-        @Action public login: (data: { username: string, password: string}) => void;
-        @Mutation private loginLoading: () => void;
-        @State private user: UserState;
-        private message ?: string;
-        private title: string;
-        private username: string;
-        private password: string;
-        public data() {
-            return {
-                username: '',
-                title: this.$route.name,
-                password: '',
-            }
-        }
+export default class Login extends Vue {
+  @Action public login: (data: { username: string; password: string }) => void;
+  @Mutation private loginLoading: () => void;
+  @State private user: UserState;
+  private message?: string;
+  private title: string;
+  private username: string;
+  private password: string;
+  public data() {
+    return {
+      username: '',
+      title: this.$route.name,
+      password: '',
+    };
+  }
 
-        @Watch('user', { immediate: true, deep: true })
-        private onUserChanged(val: UserState, oldVal: UserState) {
-            if (val.isLogin === 1) {
-               this.$router.go(-1);
-            }
-         }
-
-        private handleLogin() {
-            const { username, password } = this;
-            if (!username || !password) {
-                Toast('请输入完整的用户名和密码');
-            } else {
-                this.login({username, password});
-                this.loginLoading();
-            }
-
-        }
-        private onClickLeft() {
-            this.$router.go(-1);
-        }
+  @Watch('user', { immediate: true, deep: true })
+  private onUserChanged(val: UserState, oldVal: UserState) {
+    if (val.isLogin === 1) {
+      this.$router.go(-1);
     }
+  }
+
+  private handleLogin() {
+    const { username, password } = this;
+    if (!username || !password) {
+      Toast('请输入完整的用户名和密码');
+    } else {
+      this.login({ username, password });
+      this.loginLoading();
+    }
+  }
+  private onClickLeft() {
+    this.$router.go(-1);
+  }
+}
 </script>
 
 <style lang="scss" scoped>
-    @import '../../style/mixin';
-    .van-nav-bar {
-        height: 3.5rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        svg {
-            @include iconSize(1.4rem);
-        }
-    }
+@import '../../style/mixin';
+.van-nav-bar {
+  height: 3.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  svg {
+    @include iconSize(1.4rem);
+  }
+}
 
-    main {
-        section {
-            margin-bottom: 3rem;
-        }
-        height: calc(50vh - 6rem);
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        
-    }
+main {
+  section {
+    margin-bottom: 3rem;
+  }
+  height: calc(50vh - 6rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 </style>

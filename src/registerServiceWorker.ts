@@ -4,7 +4,6 @@ import { register } from 'register-service-worker';
 
 if (process.env.NODE_ENV !== 'production') {
   register(`${process.env.BASE_URL}sw.js`, {
-
     ready() {
       // navigator.serviceWorker.ready.then(function(reg) {
       //   reg.pushManager.getSubscription().then((res) => {
@@ -15,7 +14,6 @@ if (process.env.NODE_ENV !== 'production') {
       //     }
       //   })
       // });
-
       // function subscribe(reg) {
       //   reg.pushManager.subscribe({userVisibleOnly: true}).then(function(pushSubscription) {
       //     sub = pushSubscription;
@@ -30,11 +28,12 @@ if (process.env.NODE_ENV !== 'production') {
       console.log('New content is available; please refresh.');
     },
     offline() {
-      console.log('No internet connection found. App is running in offline mode.');
+      console.log(
+        'No internet connection found. App is running in offline mode.',
+      );
     },
     error(error) {
       console.error('Error during service worker registration:', error);
     },
   });
 }
-

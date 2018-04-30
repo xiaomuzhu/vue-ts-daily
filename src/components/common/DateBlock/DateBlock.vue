@@ -5,29 +5,25 @@
 </template>
 
 <script lang="ts">
-    import { Component, Vue, Prop } from 'vue-property-decorator';
+import { Component, Vue, Prop } from 'vue-property-decorator';
 
+@Component
+export default class DateBlock extends Vue {
+  private checked: boolean;
 
-    @Component
-    export default class DateBlock extends Vue {
-        private checked: boolean;
+  @Prop() private title: string;
 
-        @Prop()
-        private title: string
+  private data() {
+    return {
+      checked: true,
+    };
+  }
 
-        private data() {
-            return {
-                checked: true,
-            }
-        }
-
-        private changeColor() {
-            this.checked = !this.checked;
-        }
-    }
+  private changeColor() {
+    this.checked = !this.checked;
+  }
+}
 </script>
 
 <style src="./style.scss" lang="scss" scoped>
-
 </style>
-

@@ -33,52 +33,52 @@ import { feedback } from '@/api/feedback';
     [NavBar.name]: NavBar,
   },
 })
-    export default class Feedback extends Vue {
-        @State private user: UserState;
-        private message?: string;
-        private title: string;
-        private loading: boolean;
-        public data() {
-            return {
-                message: '',
-                title: this.$route.name,
-                loading: false,
-            }
-        }
-        private onClickLeft() {
-            this.$router.go(-1);
-        }
-        private async send() {
-            if (this.message) {
-                const createTime = (new Date()).valueOf();
-                const res = await feedback({
-                    content: this.message,
-                    createTime,
-                    username: this.user.username,
-                }).then((res) => res.data).catch((e: string) => Toast(e));
+export default class Feedback extends Vue {
+  @State private user: UserState;
+  private message?: string;
+  private title: string;
+  private loading: boolean;
+  public data() {
+    return {
+      message: '',
+      title: this.$route.name,
+      loading: false,
+    };
+  }
+  private onClickLeft() {
+    this.$router.go(-1);
+  }
+  private async send() {
+    if (this.message) {
+      const createTime = new Date().valueOf();
+      const res = await feedback({
+        content: this.message,
+        createTime,
+        username: this.user.username,
+      })
+        .then(res => res.data)
+        .catch((e: string) => Toast(e));
 
-                if (res.message) {
-                    Toast(res.message);
-                    this.$router.go(-1);
-                }
-            } else {
-                Toast('请补充完反馈信息');
-            }
-        }
+      if (res.message) {
+        Toast(res.message);
+        this.$router.go(-1);
+      }
+    } else {
+      Toast('请补充完反馈信息');
     }
+  }
+}
 </script>
 
 <style lang="scss" scoped>
-    @import '../../style/mixin';
-    .van-nav-bar {
-    height: 3.5rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    svg {
-        @include iconSize(1.4rem);
-    }
+@import '../../style/mixin';
+.van-nav-bar {
+  height: 3.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  svg {
+    @include iconSize(1.4rem);
+  }
 }
-
-
 </style>

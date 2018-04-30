@@ -24,62 +24,60 @@ import { State, Mutation } from 'vuex-class';
 
 import { HabitList as HabitListState } from '@/store/state';
 
-
 @Component({
   components: {
-      [Radio.name]: Radio,
-      [Cell.name]: Cell,
-      [CellGroup.name]: CellGroup,
-      [RadioGroup.name]: RadioGroup,
+    [Radio.name]: Radio,
+    [Cell.name]: Cell,
+    [CellGroup.name]: CellGroup,
+    [RadioGroup.name]: RadioGroup,
   },
 })
-  export default class Calendar extends Vue {
-    @State private habitList: HabitListState[];
-    @Mutation private changeTimes: (payload: {habitId: number, id: number}) => void
-    private radio: number;
-    private id: number;
-    private index: number;
-    public data() {
-      return {
-        radio: -1,
-      }
-    }
+export default class Calendar extends Vue {
+  @State private habitList: HabitListState[];
+  @Mutation
+  private changeTimes: (payload: { habitId: number; id: number }) => void;
+  private radio: number;
+  private id: number;
+  private index: number;
+  public data() {
+    return {
+      radio: -1,
+    };
+  }
 
-    // 加载完毕后将radio重新赋值
-    public mounted() {
-      this.radio = this.timesComputed.radio;
+  // 加载完毕后将radio重新赋值
+  public mounted() {
+    this.radio = this.timesComputed.radio;
 
-      const list = this.habitList;
-      for (let index = 0; index < list.length; index++) {
-        const element = list[index];
-        if (element.mode === 'creating' || element.mode === 'editing') {
+    const list = this.habitList;
+    for (let index = 0; index < list.length; index++) {
+      const element = list[index];
+      if (element.mode === 'creating' || element.mode === 'editing') {
         this.id = element.id;
         this.index = index;
         return;
-        }
-      }
-      this.id = -1;
-    }
-
-    // 计算当前时间段的状态
-    private get timesComputed() {
-      const len = this.habitList.length;
-      const habit = this.habitList[len - 1];
-      const activeTimes = habit.habitInfo
-      return {
-        timeSlotList: habit.habitInfo!.timeSlotList,
-        radio: habit.habitInfo.activeTimes,
       }
     }
-
-    // 选择时段后触发vuex进行变动
-    private change(id: number) {
-      this.changeTimes({habitId: this.id, id})
-    }
-
+    this.id = -1;
   }
+
+  // 计算当前时间段的状态
+  private get timesComputed() {
+    const len = this.habitList.length;
+    const habit = this.habitList[len - 1];
+    const activeTimes = habit.habitInfo;
+    return {
+      timeSlotList: habit.habitInfo!.timeSlotList,
+      radio: habit.habitInfo.activeTimes,
+    };
+  }
+
+  // 选择时段后触发vuex进行变动
+  private change(id: number) {
+    this.changeTimes({ habitId: this.id, id });
+  }
+}
 </script>
 
 <style src="./style.scss" lang="scss" scoped>
-
 </style>

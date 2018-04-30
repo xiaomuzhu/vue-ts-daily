@@ -5,73 +5,91 @@ import Habit from './views/Habit/Habit.vue';
 import Setting from './views/Setting/Setting.vue';
 
 const New = (r: any) =>
-(require as any).ensure([], () => r(require('@/views/New/New'), 'New'))   // 菜单
+  (require as any).ensure([], () => r(require('@/views/New/New'), 'New')); // 菜单
 
 const Edit = (r: any) =>
-(require as any).ensure([], () => r(require('@/views/Edit/Edit'), 'Edit'))   // 菜单
-
+  (require as any).ensure([], () => r(require('@/views/Edit/Edit'), 'Edit')); // 菜单
 
 const Library = (r: any) =>
-(require as any).ensure([], () => r(require('@/views/New/Library/Library'), 'Library'))   // 菜单
+  (require as any).ensure([], () =>
+    r(require('@/views/New/Library/Library'), 'Library'),
+  ); // 菜单
 
 const NewHabit = (r: any) =>
-(require as any).ensure([], () => r(require('@/views/New/Habit/Habit'), 'Habit'))   // 菜单
+  (require as any).ensure([], () =>
+    r(require('@/views/New/Habit/Habit'), 'Habit'),
+  ); // 菜单
 
 const Calendar = (r: any) =>
-(require as any).ensure([], () => r(require('@/views/Edit/Calendar/Calendar'), 'Calendar'))   // 菜单
+  (require as any).ensure([], () =>
+    r(require('@/views/Edit/Calendar/Calendar'), 'Calendar'),
+  ); // 菜单
 
 const Times = (r: any) =>
-(require as any).ensure([], () => r(require('@/views/Edit/Times/Times'), 'Times'))   // 菜单
+  (require as any).ensure([], () =>
+    r(require('@/views/Edit/Times/Times'), 'Times'),
+  ); // 菜单
 
 const Manage = (r: any) =>
-(require as any).ensure([], () => r(require('@/views/Edit/Manage/Manage'), 'Manage'))   // 菜单
+  (require as any).ensure([], () =>
+    r(require('@/views/Edit/Manage/Manage'), 'Manage'),
+  ); // 菜单
 
 const Remind = (r: any) =>
-(require as any).ensure([], () => r(require('@/views/Edit/Remind/Remind'), 'Remind'))   // 菜单
+  (require as any).ensure([], () =>
+    r(require('@/views/Edit/Remind/Remind'), 'Remind'),
+  ); // 菜单
 
 const IconSetting = (r: any) =>
-(require as any).ensure([], () => r(require('@/views/Edit/IconSetting/IconSetting'), 'IconSetting'))   // 菜单
+  (require as any).ensure([], () =>
+    r(require('@/views/Edit/IconSetting/IconSetting'), 'IconSetting'),
+  ); // 菜单
 
 const Recycle = (r: any) =>
-(require as any).ensure([], () => r(require('@/views/Edit/Recycle/Recycle'), 'Recycle'))   // 菜单
+  (require as any).ensure([], () =>
+    r(require('@/views/Edit/Recycle/Recycle'), 'Recycle'),
+  ); // 菜单
 
 const Card = (r: any) =>
-(require as any).ensure([], () => r(require('@/views/Card/Card'), 'Card'))   // 菜单
+  (require as any).ensure([], () => r(require('@/views/Card/Card'), 'Card')); // 菜单
 
 const Receive = (r: any) =>
-(require as any).ensure([], () => r(require('@/views/Card/Receive/Card'), 'Receive'))   // 菜单
+  (require as any).ensure([], () =>
+    r(require('@/views/Card/Receive/Card'), 'Receive'),
+  ); // 菜单
 
 const Feedback = (r: any) =>
-(require as any).ensure([], () => r(require('@/views/Feedback/Feedback'), 'Feedback'))   // 菜单
+  (require as any).ensure([], () =>
+    r(require('@/views/Feedback/Feedback'), 'Feedback'),
+  ); // 菜单
 
 const UpdateLog = (r: any) =>
-(require as any).ensure([], () => r(require('@/views/UpdateLog/UpdateLog'), 'UpdateLog'))   // 菜单
-
+  (require as any).ensure([], () =>
+    r(require('@/views/UpdateLog/UpdateLog'), 'UpdateLog'),
+  ); // 菜单
 
 const Login = (r: any) =>
-(require as any).ensure([], () => r(require('@/views/Login/Login'), 'Login'))   // 菜单
+  (require as any).ensure([], () => r(require('@/views/Login/Login'), 'Login')); // 菜单
 
 const Error = (r: any) =>
-(require as any).ensure([], () => r(require('@/views/404/error'), 'Error'))   // 菜单
-
+  (require as any).ensure([], () => r(require('@/views/404/error'), 'Error')); // 菜单
 
 Vue.use(Router);
 
-export default new Router(
-  {
+export default new Router({
   mode: 'history',
   routes: [
     {
       path: '/',
       name: 'today',
       component: Home,
-      meta: {main: true},
+      meta: { main: true },
     },
     {
       path: '/habit',
       name: 'habit',
       component: Habit,
-      meta: {main: true},
+      meta: { main: true },
       children: [
         // {
         //   path: 'new',
@@ -84,7 +102,7 @@ export default new Router(
       path: '/setting',
       name: '设置',
       component: Setting,
-      meta: {main: true},
+      meta: { main: true },
     },
     {
       path: '/feedback',

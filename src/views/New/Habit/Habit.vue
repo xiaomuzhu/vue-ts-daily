@@ -54,147 +54,145 @@ import { HabitList as HabitListState } from '@/store/state';
 
 @Component({
   components: {
-      [Field.name]: Field,
-      [Cell.name]: Cell,
-      [CellGroup.name]: CellGroup,
-      [Popup.name]: Popup,
-      [Button.name]: Button,
-      DateBlock,
-      Circles,
+    [Field.name]: Field,
+    [Cell.name]: Cell,
+    [CellGroup.name]: CellGroup,
+    [Popup.name]: Popup,
+    [Button.name]: Button,
+    DateBlock,
+    Circles,
   },
 })
-  export default class Habit extends Vue {
-    @State private habitList: HabitListState[];
-    @Mutation private selectDate: (payload: {habitId: number, id: number}) => void;
-    @Mutation private changeName: (payload: {id: number, value: string}) => void;
-    @Mutation private changInspire: (payload: {id: number, value: string}) => void;
-    @Mutation private changeMode: (payload: {id: number, value: string}) => void;
-    private show: boolean;
-    private value ?: string;
-    private name ?: string;
-    private habitLibrary: object[];
-    private id: number;
-    private index: number;
-    private mode: string;
-    private data() {
-      const id: number = parseInt(this.$route.query.id, 10);
-      const mode = id > config.habitLibrary.length ? 'edit' : 'new';
-      return {
-        name,
-        value: '',
-        show: false,
-        mode,
-      }
-    }
+export default class Habit extends Vue {
+  @State private habitList: HabitListState[];
+  @Mutation
+  private selectDate: (payload: { habitId: number; id: number }) => void;
+  @Mutation
+  private changeName: (payload: { id: number; value: string }) => void;
+  @Mutation
+  private changInspire: (payload: { id: number; value: string }) => void;
+  @Mutation
+  private changeMode: (payload: { id: number; value: string }) => void;
+  private show: boolean;
+  private value?: string;
+  private name?: string;
+  private habitLibrary: object[];
+  private id: number;
+  private index: number;
+  private mode: string;
+  private data() {
+    const id: number = parseInt(this.$route.query.id, 10);
+    const mode = id > config.habitLibrary.length ? 'edit' : 'new';
+    return {
+      name,
+      value: '',
+      show: false,
+      mode,
+    };
+  }
 
-    // 获取当前习惯的id
-    private created() {
-      if (this.mode === 'edit') {
-        this.id = parseInt(this.$route.query.id, 10);
-        const Index = _.findIndex(this.habitList, this.id);
-        this.index = Index!;
-        return;
-      }
-      const list = this.habitList;
-      for (let index = 0; index < list.length; index++) {
-        const element = list[index];
-        if (element.mode === 'creating') {
+  // 获取当前习惯的id
+  private created() {
+    if (this.mode === 'edit') {
+      this.id = parseInt(this.$route.query.id, 10);
+      const Index = _.findIndex(this.habitList, this.id);
+      this.index = Index!;
+      return;
+    }
+    const list = this.habitList;
+    for (let index = 0; index < list.length; index++) {
+      const element = list[index];
+      if (element.mode === 'creating') {
         this.id = element.id;
         this.index = index;
         return;
-        }
       }
-      this.id = -1;
     }
-    // // title计算属性
-    // private get titleComputed() {
-    //   const id: number = parseInt(this.$route.query.id, 10);
-    //   let title; // tslint:disable
-    //   // id在新建的习惯库长度范围内我们直接进行新建,如果超过这个范围那么肯定是二此编辑了
-    //   if (0 < id && id < config.habitLibrary.length) {
-    //     title = config.habitLibrary[id - 1].title;
-    //   } else if (id === 0) {
-    //     title = (config as any).newHabit.title;
-    //   } else {
-    //     const habit = _.find(this.habitList, id);
-    //     title = habit!.habitInfo.habitName;
-    //   }
-    //   return title;
-    // }
-    private get nameComputed() {
-      const habit = this.habitList[this.index];
-      return habit.habitInfo.habitName
-    }
-    private set nameComputed(name) {
-      this.changeName({id: this.id, value: name})
-    }
-    private get inspireComputed() {
-      const habit = this.habitList[this.index];
-      return habit.habitInfo.inspire
-    }
-    private set inspireComputed(name) {
-      this.changInspire({id: this.id, value: name})
-    }
-
-    // 计算当前颜色
-    private get iconComputed() {
-      const habit = this.habitList[this.index];
-      return habit.iconName;
-    }
-    // 计算重复时间段
-    private get repeatComputed() {
-      const {
-        activeTimes,
-        timeSlotList,
-      } = this.habitList[this.index].habitInfo;
-      // @ts-ignore
-      return timeSlotList.find((item: any) => item.id === activeTimes).title;
-    }
-    // 计算提醒个数
-    private get remindComputed() {
-      const {
-        remind,
-      } = this.habitList[this.index].habitInfo;
-      const num = (remind as any[]).filter((item) => item.open === true).length;
-      return num;
-    }
-    // 计算当前颜色
-    private get colorComputed() {
-      const habit = this.habitList[this.index];
-      return habit.color;
-    }
-    // 通过计算属性获取当前每周哪几天需要重复训练
-    private get dateComputed() {
-      const dates = this.habitList[this.index].habitInfo.RepeatingDate;
-      let value: string = '';
-      for (let i = 0; i < dates.length; i++) {
-        if (dates[i].checked) {
-          const result = _.getDate(dates[i].date)
-          value += result
-        }
-      }
-      return {
-        value,
-        dates,
-      };
-    }
-    // 对话框控制
-    private handleShow() {
-      this.show = !this.show;
-    }
-    // 重复的日期选择
-    private select(id: number) {
-      this.selectDate({habitId: this.id, id});
-    }
-
-    // 创建此习惯
-    private handleNew() {
-      this.changeMode({id: this.id, value: 'done'})
-      this.$router.go(-2);
-    }
+    this.id = -1;
   }
+  // // title计算属性
+  // private get titleComputed() {
+  //   const id: number = parseInt(this.$route.query.id, 10);
+  //   let title; // tslint:disable
+  //   // id在新建的习惯库长度范围内我们直接进行新建,如果超过这个范围那么肯定是二此编辑了
+  //   if (0 < id && id < config.habitLibrary.length) {
+  //     title = config.habitLibrary[id - 1].title;
+  //   } else if (id === 0) {
+  //     title = (config as any).newHabit.title;
+  //   } else {
+  //     const habit = _.find(this.habitList, id);
+  //     title = habit!.habitInfo.habitName;
+  //   }
+  //   return title;
+  // }
+  private get nameComputed() {
+    const habit = this.habitList[this.index];
+    return habit.habitInfo.habitName;
+  }
+  private set nameComputed(name) {
+    this.changeName({ id: this.id, value: name });
+  }
+  private get inspireComputed() {
+    const habit = this.habitList[this.index];
+    return habit.habitInfo.inspire;
+  }
+  private set inspireComputed(name) {
+    this.changInspire({ id: this.id, value: name });
+  }
+
+  // 计算当前颜色
+  private get iconComputed() {
+    const habit = this.habitList[this.index];
+    return habit.iconName;
+  }
+  // 计算重复时间段
+  private get repeatComputed() {
+    const { activeTimes, timeSlotList } = this.habitList[this.index].habitInfo;
+    // @ts-ignore
+    return timeSlotList.find((item: any) => item.id === activeTimes).title;
+  }
+  // 计算提醒个数
+  private get remindComputed() {
+    const { remind } = this.habitList[this.index].habitInfo;
+    const num = (remind as any[]).filter(item => item.open === true).length;
+    return num;
+  }
+  // 计算当前颜色
+  private get colorComputed() {
+    const habit = this.habitList[this.index];
+    return habit.color;
+  }
+  // 通过计算属性获取当前每周哪几天需要重复训练
+  private get dateComputed() {
+    const dates = this.habitList[this.index].habitInfo.RepeatingDate;
+    let value: string = '';
+    for (let i = 0; i < dates.length; i++) {
+      if (dates[i].checked) {
+        const result = _.getDate(dates[i].date);
+        value += result;
+      }
+    }
+    return {
+      value,
+      dates,
+    };
+  }
+  // 对话框控制
+  private handleShow() {
+    this.show = !this.show;
+  }
+  // 重复的日期选择
+  private select(id: number) {
+    this.selectDate({ habitId: this.id, id });
+  }
+
+  // 创建此习惯
+  private handleNew() {
+    this.changeMode({ id: this.id, value: 'done' });
+    this.$router.go(-2);
+  }
+}
 </script>
 
 <style src="./style.scss" lang="scss" scoped>
-
 </style>

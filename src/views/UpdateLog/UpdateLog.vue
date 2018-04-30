@@ -21,40 +21,37 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { NavBar } from 'vant';
 
-
 @Component({
   components: {
     [NavBar.name]: NavBar,
   },
 })
-    export default class UpdateLog extends Vue {
-        private message?: string;
-        private title: string;
-        private loading: boolean;
-        public data() {
-            return {
-                message: '',
-                title: this.$route.name,
-                loading: false,
-            }
-        }
-        private onClickLeft() {
-            this.$router.go(-1);
-        }
-    }
+export default class UpdateLog extends Vue {
+  private message?: string;
+  private title: string;
+  private loading: boolean;
+  public data() {
+    return {
+      message: '',
+      title: this.$route.name,
+      loading: false,
+    };
+  }
+  private onClickLeft() {
+    this.$router.go(-1);
+  }
+}
 </script>
 
 <style lang="scss" scoped>
-    @import '../../style/mixin';
-    .van-nav-bar {
-    height: 3.5rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    svg {
-        @include iconSize(1.4rem);
-    }
+@import '../../style/mixin';
+.van-nav-bar {
+  height: 3.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  svg {
+    @include iconSize(1.4rem);
+  }
 }
-
-
 </style>

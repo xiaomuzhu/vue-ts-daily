@@ -19,61 +19,59 @@ import List from '@/components/common/HabitList/List.vue';
     List,
   },
 })
-  export default class Recycle extends Vue {
-    @State private habitList: HabitListState[];
-    @Mutation private removeHabit: (id: number) => void;
-    @Mutation private activateHabit: (id: number) => void;
-    private currentTitle: string;
+export default class Recycle extends Vue {
+  @State private habitList: HabitListState[];
+  @Mutation private removeHabit: (id: number) => void;
+  @Mutation private activateHabit: (id: number) => void;
+  private currentTitle: string;
 
-    public activate(id: number) {
-      this.activateHabit(id);
-
-    }
-
-    public remove(id: number) {
-      this.removeHabit(id);
-    }
-
-    private onClick(index: number, title: string) {
-      this.currentTitle = title;
-    }
-    // 获取被归档的列表
-    private get recycleList() {
-      const total: any[] = [];
-      (this.habitList as any).forEach((item: HabitListState) => {
-          if (!item.isActive) {
-          total.push(item);
-          }
-        })
-      return total
-    }
+  public activate(id: number) {
+    this.activateHabit(id);
   }
+
+  public remove(id: number) {
+    this.removeHabit(id);
+  }
+
+  private onClick(index: number, title: string) {
+    this.currentTitle = title;
+  }
+  // 获取被归档的列表
+  private get recycleList() {
+    const total: any[] = [];
+    (this.habitList as any).forEach((item: HabitListState) => {
+      if (!item.isActive) {
+        total.push(item);
+      }
+    });
+    return total;
+  }
+}
 </script>
 
 <style lang="scss" scoped>
-  @import '../../../style/mixin';
-  .recycle {
-    overflow: auto;
-    width: 100%;
-    height: calc(100vh - 7rem);
-    display: flex;
-    flex: none;
-    justify-content: flex-start;
-    flex-direction: column;
-    aside {
-      display: inline-flex;
-      background-color: $warn;
-      @include font(0.9rem);
-      color: #fff;
-      width: 3rem;
-      height: 100%;
-      margin: 0;
-      justify-content: center;
-      align-items: center;
-    }
-    .act {
-      background-color: $edit;
-    }
+@import '../../../style/mixin';
+.recycle {
+  overflow: auto;
+  width: 100%;
+  height: calc(100vh - 7rem);
+  display: flex;
+  flex: none;
+  justify-content: flex-start;
+  flex-direction: column;
+  aside {
+    display: inline-flex;
+    background-color: $warn;
+    @include font(0.9rem);
+    color: #fff;
+    width: 3rem;
+    height: 100%;
+    margin: 0;
+    justify-content: center;
+    align-items: center;
   }
+  .act {
+    background-color: $edit;
+  }
+}
 </style>
-

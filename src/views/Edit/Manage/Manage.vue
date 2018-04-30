@@ -20,43 +20,40 @@
 </template>
 
 <script lang="ts">
-
 import { Component, Vue } from 'vue-property-decorator';
 import { CellSwipe, Cell, CellGroup } from 'vant';
 
 import config from '@/config';
 import ClockPopup from '@/components/common/ClockPopup/ClockPopup.vue';
 
-
 @Component({
   components: {
-      [CellSwipe.name]: CellSwipe,
-      [Cell.name]: Cell,
-      [CellGroup.name]: CellGroup,
-      ClockPopup,
+    [CellSwipe.name]: CellSwipe,
+    [Cell.name]: Cell,
+    [CellGroup.name]: CellGroup,
+    ClockPopup,
   },
 })
-    export default class Manage extends Vue {
-        private times: any[];
-        private radio: string;
-        private show: boolean;
-        public data() {
-            return {
-                times: (config as any).defaultTimes,
-                show: false,
-            }
-        }
-        public edit(id: number, title: string) {
-          this.show = true;
-        //   this.message = value;
-        }
+export default class Manage extends Vue {
+  private times: any[];
+  private radio: string;
+  private show: boolean;
+  public data() {
+    return {
+      times: (config as any).defaultTimes,
+      show: false,
+    };
+  }
+  public edit(id: number, title: string) {
+    this.show = true;
+    //   this.message = value;
+  }
 
-            public handleHide() {
-      this.show = false;
-    }
-    }
+  public handleHide() {
+    this.show = false;
+  }
+}
 </script>
 
 <style src="./style.scss" lang="scss" scoped>
-
 </style>

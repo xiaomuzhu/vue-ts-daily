@@ -49,26 +49,24 @@ import { SettingState, UserState } from '@/store/state';
   },
 })
 export default class Setting extends Vue {
-    @State private setting: SettingState;
-    @State private user: UserState;
-    @Getter private syncData: any;
-    @Mutation private changeHourly: (checked: boolean) => void;
-    @Action private sync: (data: any) => void;
-    private isOpen: boolean;
-    public data() {
+  @State private setting: SettingState;
+  @State private user: UserState;
+  @Getter private syncData: any;
+  @Mutation private changeHourly: (checked: boolean) => void;
+  @Action private sync: (data: any) => void;
+  private isOpen: boolean;
+  public data() {
     return {
-        isOpen: false,
-        checked: false,
-    }
+      isOpen: false,
+      checked: false,
+    };
   }
 
   private change(checked: boolean) {
     this.changeHourly(checked);
-
   }
 
   private globelSync() {
-
     if (!this.user.id) {
       Toast('请先登录');
       return;
@@ -86,14 +84,13 @@ export default class Setting extends Vue {
   private handleToast() {
     Toast('敬请期待!');
   }
-
 }
 </script>
 <style lang="scss" scoped>
 @import '../../style/mixin';
 
 section {
-    width: 100%;
+  width: 100%;
 }
 
 .setting {
@@ -104,18 +101,17 @@ section {
   align-items: center;
   flex-direction: column;
   .avatar {
-      width: 4.5rem;
-      height: 4.5rem;
-      img {
-        width: 100%;
-        height: 100%;
-        @include borderRadius(50%);
-      }
+    width: 4.5rem;
+    height: 4.5rem;
+    img {
+      width: 100%;
+      height: 100%;
+      @include borderRadius(50%);
+    }
   }
   svg {
-      width: 5rem;
-      height: 5rem;
+    width: 5rem;
+    height: 5rem;
   }
 }
-
 </style>

@@ -26,91 +26,87 @@ import utils from '@/utils';
 
 @Component({
   components: {
-      [NavBar.name]: NavBar,
-      [Popup.name]: Popup,
-      [Field.name]: Field,
-      [Button.name]: Button,
-      [DatetimePicker.name]: DatetimePicker,
+    [NavBar.name]: NavBar,
+    [Popup.name]: Popup,
+    [Field.name]: Field,
+    [Button.name]: Button,
+    [DatetimePicker.name]: DatetimePicker,
   },
 })
-    export default class Edit extends Vue {
-        private title ?: string;
-        private right ?: string;
-        private nextUrl ?: string;
-        private timeSlotShow ?: boolean;
-        private timeShow ?: boolean;
-        private value ?: string;
-        private count ?: number;
-        private data() {
-            const {
-                path,
-                query,
-            } = this.$route;
-            switch (query.mode ? `${path}?mode=${query.mode}` : path) {
-                case '/edit':
-                    this.right = 'edit';
-                    this.nextUrl = '/edit/times/?mode=new';
-                    break;
-                case '/edit/times/?mode=new':
-                    this.right = 'setting-edit';
-                    this.nextUrl = '/edit/manage/?mode=new';
-                    break;
-                case '/edit/manage/?mode=new':
-                    this.right = 'new'
-                    break;
-                case '/edit/remind/?mode=new':
-                    this.right = 'time'
-                    break;
-                default:
-                    break;
-            }
-
-            return {
-                value: '',
-                timeSlotShow: false,
-                timeShow: false,
-                title: this.$route.name,
-                right: this.right,
-                currentDate: '12:00',
-                count: 3,
-            }
-        }
-        private onClickLeft() {
-            this.$router.go(-1);
-        }
-        private onClickRight() {
-            // 如果存在下一个url,点击右侧图标跳转,否则弹出对话框
-            if (this.nextUrl) {
-                this.$router.push(this.nextUrl)
-            } else {
-                switch (this.right) {
-                    case 'new':
-                        this.timeSlotShow = true;
-                        break;
-                    case 'time':
-                        this.timeShow = true;
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
-        private cancel() {
-            this.timeSlotShow = false;
-            this.value = '';
-        }
-        private save() {
-            if ((utils as any).getStr(this.value)) {
-                this.timeSlotShow = false;
-                this.value = '';
-                this.$toast('创建成功');
-            } else {
-                this.$toast('只允许输入2-6位的汉字、字母、数字、下划线');
-            }
-        }
+export default class Edit extends Vue {
+  private title?: string;
+  private right?: string;
+  private nextUrl?: string;
+  private timeSlotShow?: boolean;
+  private timeShow?: boolean;
+  private value?: string;
+  private count?: number;
+  private data() {
+    const { path, query } = this.$route;
+    switch (query.mode ? `${path}?mode=${query.mode}` : path) {
+      case '/edit':
+        this.right = 'edit';
+        this.nextUrl = '/edit/times/?mode=new';
+        break;
+      case '/edit/times/?mode=new':
+        this.right = 'setting-edit';
+        this.nextUrl = '/edit/manage/?mode=new';
+        break;
+      case '/edit/manage/?mode=new':
+        this.right = 'new';
+        break;
+      case '/edit/remind/?mode=new':
+        this.right = 'time';
+        break;
+      default:
+        break;
     }
+
+    return {
+      value: '',
+      timeSlotShow: false,
+      timeShow: false,
+      title: this.$route.name,
+      right: this.right,
+      currentDate: '12:00',
+      count: 3,
+    };
+  }
+  private onClickLeft() {
+    this.$router.go(-1);
+  }
+  private onClickRight() {
+    // 如果存在下一个url,点击右侧图标跳转,否则弹出对话框
+    if (this.nextUrl) {
+      this.$router.push(this.nextUrl);
+    } else {
+      switch (this.right) {
+        case 'new':
+          this.timeSlotShow = true;
+          break;
+        case 'time':
+          this.timeShow = true;
+          break;
+        default:
+          break;
+      }
+    }
+  }
+  private cancel() {
+    this.timeSlotShow = false;
+    this.value = '';
+  }
+  private save() {
+    if ((utils as any).getStr(this.value)) {
+      this.timeSlotShow = false;
+      this.value = '';
+      this.$toast('创建成功');
+    } else {
+      this.$toast('只允许输入2-6位的汉字、字母、数字、下划线');
+    }
+  }
+}
 </script>
 
 <style src="./style.scss" lang="scss" scoped>
-
 </style>

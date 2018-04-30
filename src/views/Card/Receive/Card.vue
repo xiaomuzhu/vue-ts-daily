@@ -32,66 +32,68 @@ import _ from '@/utils';
     Card,
   },
 })
-  export default class Library extends Vue {
-    @Mutation private receiveCard: () => void;
-    @State private habitList: HabitListState[];
-    @State private today: {
+export default class Library extends Vue {
+  @Mutation private receiveCard: () => void;
+  @State private habitList: HabitListState[];
+  @State
+  private today: {
     active: string[] | never[] | number[];
     finishedDate: string[] | never[];
     isReceived: boolean;
   };
 
-    private title ?: string;
-    private num: number;
-    private isDone: boolean;
-    private isReceived: boolean;
-    private data() {
-        return {
-            saying: '卡尔德隆',
-            id: 1,
-            num: 0,
-            isDone: false,
-            isReceived: false,
-        };
-    }
+  private title?: string;
+  private num: number;
+  private isDone: boolean;
+  private isReceived: boolean;
+  private data() {
+    return {
+      saying: '卡尔德隆',
+      id: 1,
+      num: 0,
+      isDone: false,
+      isReceived: false,
+    };
+  }
 
-    private mounted() {
-      const id = _.getDaysId();
-      this.habitList.forEach((item) => {
-        item.habitLog.date.filter((ele) => ele.id === id).forEach((e) => {
-          if (!e.isFinished) {
-            this.num++
-          }
-        });
-      })
-      if (this.num > 0) {
-        this.isDone = false;
-      } else {
-        this.isDone = true;
-      }
-    }
-
-    private receive() {
-      if (!this.isDone) {
-        Toast('请完成全部任务再来领取~');
-      } else {
-        const {length} = this.today.finishedDate;
-
-        const today = this.today.finishedDate[length - 1];
-        if (!length) {
-          Toast('领取成功~');
-          this.receiveCard();
-          this.$router.go(-1);
-          return;
+  private mounted() {
+    const id = _.getDaysId();
+    this.habitList.forEach(item => {
+      item.habitLog.date.filter(ele => ele.id === id).forEach(e => {
+        if (!e.isFinished) {
+          this.num++;
         }
-        const tip = moment(today).isSame(moment()) ? '今天您已经领取过了' : '领取成功~';
-        Toast(tip);
+      });
+    });
+    if (this.num > 0) {
+      this.isDone = false;
+    } else {
+      this.isDone = true;
+    }
+  }
+
+  private receive() {
+    if (!this.isDone) {
+      Toast('请完成全部任务再来领取~');
+    } else {
+      const { length } = this.today.finishedDate;
+
+      const today = this.today.finishedDate[length - 1];
+      if (!length) {
+        Toast('领取成功~');
         this.receiveCard();
         this.$router.go(-1);
+        return;
       }
+      const tip = moment(today).isSame(moment())
+        ? '今天您已经领取过了'
+        : '领取成功~';
+      Toast(tip);
+      this.receiveCard();
+      this.$router.go(-1);
     }
-
   }
+}
 </script>
 
 <style  lang="scss" scoped>

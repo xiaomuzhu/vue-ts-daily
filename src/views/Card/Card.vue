@@ -30,25 +30,23 @@ import utils from '@/utils';
 
 @Component({
   components: {
-      [NavBar.name]: NavBar,
-      [Popup.name]: Popup,
+    [NavBar.name]: NavBar,
+    [Popup.name]: Popup,
   },
 })
-    export default class CardPage extends Vue {
-        private title ?: string;
-        private data() {
-            return {
-                title: this.$route.name,
-            }
-        }
+export default class CardPage extends Vue {
+  private title?: string;
+  private data() {
+    return {
+      title: this.$route.name,
+    };
+  }
 
-
-        private onClickLeft() {
-            this.$router.go(-1);
-        }
-    }
+  private onClickLeft() {
+    this.$router.go(-1);
+  }
+}
 </script>
 
 <style src="./style.scss" lang="scss" scoped>
-
 </style>

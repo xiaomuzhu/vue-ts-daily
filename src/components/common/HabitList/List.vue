@@ -18,53 +18,30 @@
 </template>
 
 <script lang="ts">
-  import {
-    Component,
-    Prop,
-    Vue,
-  } from 'vue-property-decorator';
-  import {
-    Progress,
-    Step,
-    Steps,
-    CellSwipe,
-    Cell,
-    CellGroup,
-  } from 'vant';
-  import {
-    HabitList as HabitListState,
-  } from '@/store/state';
-  @Component({
-    components: {
-      [Progress.name]: Progress,
-      [Step.name]: Step,
-      [Steps.name]: Steps,
-      [CellSwipe.name]: CellSwipe,
-      [Cell.name]: Cell,
-      [CellGroup.name]: CellGroup,
-    },
-  })
-  export default class HabitList extends Vue {
-    @Prop()
-    private habitInfo: object;
-    @Prop()
-    private habitLog: object;
-    @Prop()
-    private iconName: string;
-    @Prop()
-    private color: string;
-    @Prop()
-    private id: number;
-    @Prop()
-    private rightValue?: string;
-    @Prop()
-    private leftValue?: string;
-
-  }
+import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Progress, Step, Steps, CellSwipe, Cell, CellGroup } from 'vant';
+import { HabitList as HabitListState } from '@/store/state';
+@Component({
+  components: {
+    [Progress.name]: Progress,
+    [Step.name]: Step,
+    [Steps.name]: Steps,
+    [CellSwipe.name]: CellSwipe,
+    [Cell.name]: Cell,
+    [CellGroup.name]: CellGroup,
+  },
+})
+export default class HabitList extends Vue {
+  @Prop() private habitInfo: object;
+  @Prop() private habitLog: object;
+  @Prop() private iconName: string;
+  @Prop() private color: string;
+  @Prop() private id: number;
+  @Prop() private rightValue?: string;
+  @Prop() private leftValue?: string;
+}
 </script>
 
 
 <style src="./style.scss" lang="scss" scoped>
-
 </style>
-

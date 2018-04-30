@@ -16,25 +16,23 @@ import { NavBar, Toast } from 'vant';
 
 @Component({
   components: {
-      [NavBar.name]: NavBar,
+    [NavBar.name]: NavBar,
   },
 })
-  export default class New extends Vue {
-    private title?: string;
+export default class New extends Vue {
+  private title?: string;
 
-    private data() {
-      return {
-        title: this.$route.name,
-      }
-    }
-
-
-    private onClickLeft() {
-      this.$router.go(-1);
-    }
+  private data() {
+    return {
+      title: this.$route.name,
+    };
   }
+
+  private onClickLeft() {
+    this.$router.go(-1);
+  }
+}
 </script>
 
 <style src="./style.scss" lang="scss" scoped>
-
 </style>
