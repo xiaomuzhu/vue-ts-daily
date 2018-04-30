@@ -321,6 +321,6 @@ export default {
     '#770077',
   ],
   url: {
-    basicUrl: 'http://127.0.0.1:7001/',
+    basicUrl: process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:7001/' : '',
   },
 };

@@ -15,7 +15,7 @@
       </ul>
     </section>
     <!-- 删除按钮 -->
-    <van-button type="danger" size="mini">删除</van-button>
+    <!-- <van-button type="danger" size="mini">删除</van-button> -->
     <ClockPopup :show="show" @save="saveLogs"></ClockPopup>
   </div>
 </template>
@@ -107,7 +107,7 @@ export default class Calendar extends Vue {
   private get habitEventsComputed() {
     this.currentHabit = _.find(this.habitList, this.id);
     const { date } = this.currentHabit!.habitLog;
-    const habitEvents = date.filter(item => item.isFinished).map(ele => {
+    const habitEvents = date.filter((item) => item.isFinished).map((ele) => {
       moment.locale('zh-cn');
       const date = moment(ele.time!)
         .format('L')
@@ -152,7 +152,7 @@ export default class Calendar extends Vue {
 
     if (dateLog) {
       // 如果已经完成那么则是取消操作,否则是标记完成的操作
-      if (habit!.habitLog.date.find(item => item.id === daysId)!.isFinished) {
+      if (habit!.habitLog.date.find((item) => item.id === daysId)!.isFinished) {
         this.changeFinished({
           id: this.id,
           daysId,

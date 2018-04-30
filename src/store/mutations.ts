@@ -7,7 +7,7 @@ import _ from '@/utils';
 export default {
   // 切换活动图标的状态
   getActivePage(state: State, id: number) {
-    state.activePage.map(item => {
+    state.activePage.map((item) => {
       // 将当前活动的页脚图表点亮
       if (item.id !== id) {
         item.isActived = false;
@@ -48,7 +48,7 @@ export default {
     const len = list.length;
     const { RepeatingDate } = _.find(list, payload.habitId)!.habitInfo;
 
-    (RepeatingDate as any[]).forEach(element => {
+    (RepeatingDate as any[]).forEach((element) => {
       if (element.id === payload.id) {
         element.checked = false;
       }
@@ -79,7 +79,7 @@ export default {
   switchRemind(state: State, payload: { habitId: number; id: number }) {
     const list = state.habitList;
     const { remind } = _.find(list, payload.habitId)!.habitInfo;
-    (remind as any[]).forEach(item => {
+    (remind as any[]).forEach((item) => {
       if (item.id === payload.id) {
         item.isOpen = !item.isOpen;
       }
@@ -113,7 +113,7 @@ export default {
   // 删除此习惯
   removeHabit(state: State, id: number) {
     const list: HabitList[] = state.habitList;
-    state.habitList = list.filter(item => item.id !== id);
+    state.habitList = list.filter((item) => item.id !== id);
   },
   // 重新激活此习惯
   activateHabit(state: State, id: number) {
@@ -187,7 +187,7 @@ export default {
     const dateList = habit!.habitLog.date;
     const len = dateList.length;
     // 找到id相关信息
-    const date = dateList.find(item => item.id === payload.daysId);
+    const date = dateList.find((item) => item.id === payload.daysId);
     // 切换完成状态
     date!.isFinished = !date!.isFinished;
     // 当当前信息被切换成"已完成"
@@ -218,7 +218,7 @@ export default {
   ) {
     const list = state.habitList;
     const habit = _.find(list, payload.id);
-    const day = habit!.habitLog.date.find(item => item.id === payload.daysId);
+    const day = habit!.habitLog.date.find((item) => item.id === payload.daysId);
     day!.message = payload.message;
   },
 
@@ -235,11 +235,27 @@ export default {
   },
   // 登陆成功后执行
   loginSuccess(state: State, data: any) {
+    const currentState = JSON.parse(data.content);
+
+    state.activePage = currentState.activePage;
+    state.headerInfo = currentState.headerInfo;
+    state.card = currentState.card;
+    state.habitList = currentState.habitList;
+    state.today = currentState.today;
+    state.setting = currentState.setting;
+
     state.user!.id = data.id;
     state.user!.username = data.username;
     state.user!.url = data.url;
     state.user!.isLogin = 1;
   },
+  // 退出登录
+  logoutSuccess(state: State) {
+      state.user!.id = null;
+      state.user!.username = '';
+      state.user!.url = 'https://is4-ssl.mzstatic.com/image/thumb/Purple71/v4/be/13/06/be1306d8-e343-2adb-2b04-9a6884300499/pr_source.jpg/1200x630bb.jpg';
+      state.user!.isLogin = -1;
+    },
   // 是否开启整点报时
   changeHourly(state: State, checked: boolean) {
     state.setting.checked = checked;

@@ -31,13 +31,15 @@
             </router-link>
         </van-cell-group>
       </section>
-
+    <section>
+      <van-button v-if="user.id" bottom-action @click="logout" >退出登录</van-button>
+    </section>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'; // @ is an alias to /src
-import { Cell, CellGroup, SwitchCell, Toast } from 'vant';
+import { Cell, CellGroup, SwitchCell, Toast, Button } from 'vant';
 import { State, Mutation, Action, Getter } from 'vuex-class';
 import { SettingState, UserState } from '@/store/state';
 
@@ -46,6 +48,7 @@ import { SettingState, UserState } from '@/store/state';
     [Cell.name]: Cell,
     [CellGroup.name]: CellGroup,
     [SwitchCell.name]: SwitchCell,
+    [Button.name]: Button,
   },
 })
 export default class Setting extends Vue {
@@ -53,6 +56,7 @@ export default class Setting extends Vue {
   @State private user: UserState;
   @Getter private syncData: any;
   @Mutation private changeHourly: (checked: boolean) => void;
+  @Mutation private logoutSuccess: () => void;
   @Action private sync: (data: any) => void;
   private isOpen: boolean;
   public data() {
@@ -81,6 +85,14 @@ export default class Setting extends Vue {
     }
   }
 
+  private logout() {
+    // 先同步再退出
+    this.globelSync();
+    this.logoutSuccess();
+    // 清楚本地缓存
+    localStorage.removeItem('vuex');
+  }
+
   private handleToast() {
     Toast('敬请期待!');
   }
@@ -103,6 +115,7 @@ section {
   .avatar {
     width: 4.5rem;
     height: 4.5rem;
+    margin-bottom: 1rem;
     img {
       width: 100%;
       height: 100%;
@@ -113,5 +126,9 @@ section {
     width: 5rem;
     height: 5rem;
   }
+  .van-button {
+    background-color: $warn;
+
+  }  
 }
 </style>

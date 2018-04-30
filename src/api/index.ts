@@ -12,7 +12,7 @@ const axios = Axios.default.create({
   headers: { 'X-Requested-With': 'XMLHttpRequest' },
   maxContentLength: 2000,
   transformResponse: [
-    data => {
+    (data) => {
       try {
         data = JSON.parse(data);
       } catch (e) {
@@ -45,14 +45,4 @@ export const _put = (req: any) => {
 // delete
 export const _delete = (req: any) => {
   return axios({ method: 'delete', url: `/${req.url}`, data: req.data });
-};
-
-// post and no withCredentials
-export const _postNoWithCredentials = (req: any) => {
-  return axios({
-    method: 'post',
-    url: `/${req.url}`,
-    data: req.data,
-    withCredentials: false,
-  });
 };
