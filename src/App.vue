@@ -2,7 +2,7 @@
   <main id="app">
     <div v-if="$route.meta.main">
       <Header></Header>
-        <router-view />
+        <router-view />  
       <Footer></Footer>
     </div>
     <div v-if="!$route.meta.main">

@@ -1,5 +1,5 @@
 <template>
-  <div class="habit">
+  <div class="habit" v-if="!!habitList[index]">
     <!-- 习惯图标 -->
     <section class="icon">
       <router-link v-if="!!colorComputed" :to="{path:'/edit/icon/',query:{mode: 'new'}}">
@@ -127,6 +127,7 @@ export default class Habit extends Vue {
   // }
   private get nameComputed() {
     const habit = this.habitList[this.index];
+
     return habit.habitInfo.habitName;
   }
   private set nameComputed(name) {
@@ -140,7 +141,7 @@ export default class Habit extends Vue {
     this.changInspire({ id: this.id, value: name });
   }
 
-  // 计算当前颜色
+  // 计算当前图标
   private get iconComputed() {
     const habit = this.habitList[this.index];
     return habit.iconName;
@@ -154,13 +155,15 @@ export default class Habit extends Vue {
   // 计算提醒个数
   private get remindComputed() {
     const { remind } = this.habitList[this.index].habitInfo;
-    const num = (remind as any[]).filter(item => item.open === true).length;
+    const num = (remind as any[]).filter((item) => item.open === true).length;
     return num;
   }
   // 计算当前颜色
   private get colorComputed() {
     const habit = this.habitList[this.index];
-    return habit.color;
+    const color = habit && habit.color ? habit.color : '#fff';
+
+    return color;
   }
   // 通过计算属性获取当前每周哪几天需要重复训练
   private get dateComputed() {

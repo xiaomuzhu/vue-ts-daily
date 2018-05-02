@@ -1,7 +1,6 @@
 import Vue from 'vue';
 
 import FastClick from 'fastclick';
-import VueLazyload from 'vue-lazyload';
 import VueIconFont from 'vue-icon-font-pro';
 import vueEventCalendar from 'vue2-event-calendar-pro';
 
@@ -28,7 +27,6 @@ if ('addEventListener' in document) {
 
 Vue.use(vueEventCalendar, { locale: 'zh', weekStartOn: 1 });
 Vue.use(VueIconFont);
-Vue.use(VueLazyload, { preLoad: 1 });
 
 Vue.config.productionTip = false;
 

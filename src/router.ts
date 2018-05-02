@@ -5,74 +5,74 @@ import Habit from './views/Habit/Habit.vue';
 import Setting from './views/Setting/Setting.vue';
 
 const New = (r: any) =>
-  (require as any).ensure([], () => r(require('@/views/New/New'), 'New')); // 菜单
+  (require as any).ensure([], () => r(require('@/views/New/New'), 'New')); // 新建
 
 const Edit = (r: any) =>
-  (require as any).ensure([], () => r(require('@/views/Edit/Edit'), 'Edit')); // 菜单
+  (require as any).ensure([], () => r(require('@/views/Edit/Edit'), 'Edit')); // 编辑
 
 const Library = (r: any) =>
   (require as any).ensure([], () =>
     r(require('@/views/New/Library/Library'), 'Library'),
-  ); // 菜单
+  ); // 习惯库
 
 const NewHabit = (r: any) =>
   (require as any).ensure([], () =>
     r(require('@/views/New/Habit/Habit'), 'Habit'),
-  ); // 菜单
+  ); // 新建习惯
 
 const Calendar = (r: any) =>
   (require as any).ensure([], () =>
     r(require('@/views/Edit/Calendar/Calendar'), 'Calendar'),
-  ); // 菜单
+  ); // 日历
 
 const Times = (r: any) =>
   (require as any).ensure([], () =>
     r(require('@/views/Edit/Times/Times'), 'Times'),
-  ); // 菜单
+  ); // 时间段
 
 const Manage = (r: any) =>
   (require as any).ensure([], () =>
     r(require('@/views/Edit/Manage/Manage'), 'Manage'),
-  ); // 菜单
+  ); // 管理
 
 const Remind = (r: any) =>
   (require as any).ensure([], () =>
     r(require('@/views/Edit/Remind/Remind'), 'Remind'),
-  ); // 菜单
+  ); // 提醒
 
 const IconSetting = (r: any) =>
   (require as any).ensure([], () =>
     r(require('@/views/Edit/IconSetting/IconSetting'), 'IconSetting'),
-  ); // 菜单
+  ); // 图标设置
 
 const Recycle = (r: any) =>
   (require as any).ensure([], () =>
     r(require('@/views/Edit/Recycle/Recycle'), 'Recycle'),
-  ); // 菜单
+  ); // 回收站
 
 const Card = (r: any) =>
-  (require as any).ensure([], () => r(require('@/views/Card/Card'), 'Card')); // 菜单
+  (require as any).ensure([], () => r(require('@/views/Card/Card'), 'Card')); // 打卡
 
 const Receive = (r: any) =>
   (require as any).ensure([], () =>
     r(require('@/views/Card/Receive/Card'), 'Receive'),
-  ); // 菜单
+  ); // 打卡
 
 const Feedback = (r: any) =>
   (require as any).ensure([], () =>
     r(require('@/views/Feedback/Feedback'), 'Feedback'),
-  ); // 菜单
+  ); // 反馈
 
 const UpdateLog = (r: any) =>
   (require as any).ensure([], () =>
     r(require('@/views/UpdateLog/UpdateLog'), 'UpdateLog'),
-  ); // 菜单
+  ); // 更新日志
 
 const Login = (r: any) =>
-  (require as any).ensure([], () => r(require('@/views/Login/Login'), 'Login')); // 菜单
+  (require as any).ensure([], () => r(require('@/views/Login/Login'), 'Login')); // 登录
 
 const Error = (r: any) =>
-  (require as any).ensure([], () => r(require('@/views/404/error'), 'Error')); // 菜单
+  (require as any).ensure([], () => r(require('@/views/404/error'), 'Error')); // 错误
 
 Vue.use(Router);
 

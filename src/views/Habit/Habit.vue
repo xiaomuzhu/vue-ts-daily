@@ -2,7 +2,9 @@
   <div class="habit">
     <van-tabs @click="changeTitle">
       <van-tab v-for="(item, index) in tabsComputed" :title="item" :key="index">
+        <transition-group name="fade" tag="ul" class="list-group">
         <List v-for="item in ChangeTab" :key="item.id" @click-right="del(item.id)" @click-left="edit(item.id)" rightValue="归档" leftValue="编辑" :id="item.id" :color="item.color" :habitLog="item.habitLog" :habitInfo="item.habitInfo" :iconName="item.iconName" />
+        </transition-group>
       </van-tab>
     </van-tabs>
   </div>

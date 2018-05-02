@@ -43,6 +43,11 @@ export default {
   createHabit(state: State, habit: HabitList) {
     state.habitList.push(habit);
   },
+  // 删除未定义好的习惯
+  RemoveHabit(state: State) {
+    state.habitList.pop();
+  },
+  // 选择执行的星期
   selectDate(state: State, payload: { habitId: number; id: number }) {
     const list = state.habitList;
     const len = list.length;
