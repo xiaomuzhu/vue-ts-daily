@@ -95,6 +95,7 @@ export default class Habit extends Vue {
   private created() {
     if (this.mode === 'edit') {
       this.id = parseInt(this.$route.query.id, 10);
+      // @ts-ignore
       const Index = _.findIndex(this.habitList, this.id);
       this.index = Index!;
       return;

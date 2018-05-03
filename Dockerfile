@@ -1,10 +1,8 @@
-FROM node:10.0.0
-RUN apt-get update \    && apt-get install -y nginx
-WORKDIR /app
-COPY . /app/
+FROM node:9.2.1
+
+RUN mkdir -p /usr/local/app
+WORKDIR /usr/local/app
+COPY . /usr/local/app
+RUN npm install
+CMD [ "npm", "run", "build" ]
 EXPOSE 80
-RUN npm install \     
-    && npm run build \     
-    && cp -r dist/* /var/www/html \     
-    && rm -rf /app
-CMD ["nginx","-g","daemon off;"]
