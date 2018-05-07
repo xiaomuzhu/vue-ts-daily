@@ -78,7 +78,7 @@ export default class Today extends Vue {
   }
 
   private get dayComputed() {
-    const habitsList = this.habitList.filter(item => item.isActive === true);
+    const habitsList = this.habitList.filter((item) => item.isActive === true);
     // 今天可用的习惯
     const current = _.dateComparison(habitsList);
 
@@ -98,7 +98,7 @@ export default class Today extends Vue {
         needUpdate.push(element.id);
       }
       // @ts-ignore
-      const time = timeSlotList.find(e => e.id === activeTimes);
+      const time = timeSlotList.find((e) => e.id === activeTimes);
       // time.habits.push(element);
       timeList.add(time.title);
     }
@@ -149,8 +149,8 @@ export default class Today extends Vue {
     // 如果已经完成那么则是取消操作,否则是标记完成的操作
     if (
       this.habitList
-        .find(item => item.id === id)!
-        .habitLog.date.find(item => item.id === this.days)!.isFinished
+        .find((item) => item.id === id)!
+        .habitLog.date.find((item) => item.id === this.days)!.isFinished
     ) {
       this.changeFinished({
         id,
@@ -207,6 +207,7 @@ export default class Today extends Vue {
         display: flex;
         justify-content: center;
         align-items: center;
+        overflow: hidden;
         box-shadow: 0 0 3px 3px rgba(130, 130, 130, 0.3);
         svg {
           width: 3rem;

@@ -4,20 +4,22 @@
     justify-content: space-around;
     align-items: center;
     .icon {
-        width: 100%;
-        height: 4rem;
         display: flex;
         justify-content: center;
-        // width: 3.5rem;
-        // height: 3.5rem;
+        width: 100%;
+        height: 4rem;
         margin-top: 1rem;
         .cir {
             border-radius: 50%;
             border: solid black 2px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
             svg {
                 margin: 0;
-                width: 3.5rem;
-                height: 3.5rem;
+                width: 95%;
+                height: 95%;
             }
         }
     }

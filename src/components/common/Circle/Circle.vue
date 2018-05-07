@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
-// import { Icon } from 'vant';
+
 @Component({})
 export default class Circles extends Vue {
   @Prop() private radius: string;
