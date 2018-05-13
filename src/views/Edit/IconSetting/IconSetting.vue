@@ -77,6 +77,7 @@ export default class IconSetting extends Vue {
   private get colorComputed() {
     const len = this.habitList.length;
     const { color } = this.habitList[this.index];
+
     return color;
   }
   private handleColor(color: string) {

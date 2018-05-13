@@ -2,7 +2,7 @@
   <div class="habit" v-if="!!habitList[index]">
     <!-- 习惯图标 -->
     <section class="icon">
-      <router-link v-if="!!colorComputed" :to="{path:'/edit/icon/',query:{mode: 'new'}}">
+      <router-link v-if="!!colorComputed" :to="{path:'/edit/icon/',query:{mode}}">
         <div class="cir">
           <Circles radius="3.5rem" :activeColor="colorComputed">
             <icon :name="iconComputed" slot="icon" />

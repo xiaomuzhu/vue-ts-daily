@@ -183,6 +183,11 @@ export default new Router({
           name: '提醒设置',
           component: Remind,
         },
+        {
+          path: 'habit',
+          name: '编辑习惯',
+          component: NewHabit,
+        },
       ],
     },
     {

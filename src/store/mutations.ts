@@ -102,7 +102,7 @@ export default {
     const habit = _.find(list, payload.id);
     habit!.habitInfo.inspire = payload.value;
   },
-  // 将处于创建状态的习惯切换到完成状态
+  // 切换习惯当前的状态
   changeMode(state: State, payload: { id: number; value: string }) {
     const list = state.habitList;
     const habit = _.find(list, payload.id);

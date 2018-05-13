@@ -321,6 +321,6 @@ export default {
     '#770077',
   ],
   url: {
-    basicUrl: process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:7001/' : 'http://xiaomuzhu.top/api/',
+    basicUrl: process.env.NODE_ENV === 'development' ? 'http://xiaomuzhu.top/api/' : 'http://xiaomuzhu.top/api/',
   },
 };
