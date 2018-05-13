@@ -15,6 +15,7 @@ svg {
 .van-cell {
     height: 3.5rem;
     display: flex;
+    text-align: left;
     justify-content: space-between;
     @include font(1rem);
 }
@@ -22,6 +23,7 @@ svg {
 .field {
     width: 100%;
     margin: 0 auto;
+    text-align: text;
 }
 
 .van-popup {

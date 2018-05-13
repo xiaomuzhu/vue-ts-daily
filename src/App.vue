@@ -24,15 +24,15 @@ import Footer from './components/Footer.vue';
 export default class App extends Vue {}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import './style/mixin';
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: $font;
   display: flex;
+  text-align: center;
   flex-direction: column;
   justify-content: space-between;
   max-width: 100vw;

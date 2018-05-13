@@ -14,7 +14,7 @@
     <!-- 系统设置 -->
       <section>
         <van-cell-group>
-            <van-cell title="数据备份" @click="globelSync" is-link />
+            <van-cell clickable title="数据备份" @click="globelSync" :is-link="false" />
             <van-switch-cell v-model="setting.checked"  @change="change" title="整点报时" />
         </van-cell-group>
       </section>
@@ -38,7 +38,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'; // @ is an alias to /src
+import { Component, Vue } from 'vue-property-decorator';
 import { Cell, CellGroup, SwitchCell, Toast, Button } from 'vant';
 import { State, Mutation, Action, Getter } from 'vuex-class';
 import { SettingState, UserState } from '@/store/state';
@@ -103,6 +103,7 @@ export default class Setting extends Vue {
 
 section {
   width: 100%;
+  text-align: left;
 }
 
 .setting {
@@ -130,9 +131,10 @@ section {
     background-color: $warn;
   }
   .van-cell {
-    .van-cell__title {
-      background-color: aqua;
-    }
+    display: flex;
+    // justify-content: flex-start;
+    // flex-direction: row;
+    // align-items: center;
   }
 }
 </style>

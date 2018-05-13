@@ -16,18 +16,20 @@
         <section>
             <van-button :loading="loading" @click="send" size="small" >发送</van-button>
         </section>
+        <van-cell title="给作者反馈" is-link />
     </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { Field, Button, NavBar, Toast } from 'vant';
+import { Field, Button, NavBar, Toast, Cell } from 'vant';
 import { State, Mutation } from 'vuex-class';
 import { SettingState, UserState } from '@/store/state';
 import { feedback } from '@/api/feedback';
 
 @Component({
   components: {
+    [Cell.name]: Cell,
     [Field.name]: Field,
     [Button.name]: Button,
     [NavBar.name]: NavBar,
@@ -56,7 +58,7 @@ export default class Feedback extends Vue {
         createTime,
         username: this.user.username,
       })
-        .then(res => res.data)
+        .then((res) => res.data)
         .catch((e: string) => Toast(e));
 
       if (res.message) {

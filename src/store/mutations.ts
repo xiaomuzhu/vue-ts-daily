@@ -139,6 +139,7 @@ export default {
     for (let index = 0; index < updateList.length; index++) {
       const id = updateList[index];
       const habit = _.find(list, id);
+
       habit!.habitLog.date.push({
         id: newId,
         time: today,

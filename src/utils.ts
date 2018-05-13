@@ -77,7 +77,7 @@ const utils =  {
   // 通过id查找相关习惯对象
   find(arr: HabitList[], id: number) {
     const index = utils.findIndex(arr, id);
-    if (index) {
+    if (index >= 0) {
       return arr[index];
     }
   },

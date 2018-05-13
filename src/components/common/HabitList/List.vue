@@ -39,6 +39,7 @@ export default class HabitList extends Vue {
   @Prop() private id: number;
   @Prop() private rightValue?: string;
   @Prop() private leftValue?: string;
+
 }
 </script>
 

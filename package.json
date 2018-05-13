@@ -13,11 +13,12 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "circular-json": "^0.5.4",
     "fastclick": "^1.0.6",
     "moment": "^2.22.1",
     "normalize.css": "^8.0.0",
     "register-service-worker": "^1.0.0",
-    "vant": "^1.0.4",
+    "vant": "^1.1.3",
     "vue": "^2.5.13",
     "vue-class-component": "^6.0.0",
     "vue-icon-font-pro": "^1.0.1",
