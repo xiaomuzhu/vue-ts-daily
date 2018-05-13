@@ -128,7 +128,11 @@ section {
   }
   .van-button {
     background-color: $warn;
-
-  }  
+  }
+  .van-cell {
+    .van-cell__title {
+      background-color: aqua;
+    }
+  }
 }
 </style>

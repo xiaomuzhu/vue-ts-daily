@@ -52,7 +52,7 @@ function transformDate(date: string | number) {
   }
 }
 
-export default {
+const utils =  {
   getDate(str: string) {
     return str.replace(/['星期']/g, ' ');
   },
@@ -76,26 +76,30 @@ export default {
 
   // 通过id查找相关习惯对象
   find(arr: HabitList[], id: number) {
-    let obj;
-    for (let index = 0; index < arr.length; index++) {
-      const element = arr[index];
-      if (element.id === id) {
-        obj = element;
-      }
+    const index = utils.findIndex(arr, id);
+    if (index) {
+      return arr[index];
     }
-    return obj;
   },
 
   // 通过id查找相关习惯对象的Index
   findIndex(arr: HabitList[], id: number) {
-    let Index;
-    for (let index = 0; index < arr.length; index++) {
-      const element = arr[index];
-      if (element.id === id) {
-        Index = index;
+    let low = 0;
+    let high = arr.length - 1;
+    let mid: number;
+    let currentId: number;
+    while (low <= high) {
+      mid = Math.floor(low + (high - low) / 2);
+      currentId = arr[mid].id;
+      if (currentId < id) {
+        low = mid + 1;
+      } else if (currentId > id) {
+        high = mid - 1;
+      } else {
+        return mid;
       }
     }
-    return Index;
+    return -1;
   },
 
   /**
@@ -210,3 +214,6 @@ export default {
     return date[length - 1].isFinished;
   },
 };
+
+
+export default utils;
