@@ -55,7 +55,7 @@ export default {
 
     (RepeatingDate as any[]).forEach((element) => {
       if (element.id === payload.id) {
-        element.checked = false;
+        element.checked = !element.checked;
       }
     });
   },

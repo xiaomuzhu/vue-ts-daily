@@ -184,7 +184,7 @@ export default new Router({
           component: Remind,
         },
         {
-          path: 'edit-habit',
+          path: 'habit',
           name: '编辑习惯',
           component: NewHabit,
         },

@@ -1,5 +1,5 @@
 <template>
-    <div class="date" :class="{checked: checked}" :checked="checked" @click="changeColor">
+    <div class="date" :class="{checked: checked}" :checked="checked">
         {{title}}
     </div>
 </template>
@@ -9,19 +9,9 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
 
 @Component
 export default class DateBlock extends Vue {
-  private checked: boolean;
-
   @Prop() private title: string;
+  @Prop() private checked: boolean;
 
-  private data() {
-    return {
-      checked: true,
-    };
-  }
-
-  private changeColor() {
-    this.checked = !this.checked;
-  }
 }
 </script>
 

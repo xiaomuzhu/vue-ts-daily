@@ -111,21 +111,7 @@ export default class Habit extends Vue {
     }
     this.id = -1;
   }
-  // // title计算属性
-  // private get titleComputed() {
-  //   const id: number = parseInt(this.$route.query.id, 10);
-  //   let title; // tslint:disable
-  //   // id在新建的习惯库长度范围内我们直接进行新建,如果超过这个范围那么肯定是二此编辑了
-  //   if (0 < id && id < config.habitLibrary.length) {
-  //     title = config.habitLibrary[id - 1].title;
-  //   } else if (id === 0) {
-  //     title = (config as any).newHabit.title;
-  //   } else {
-  //     const habit = _.find(this.habitList, id);
-  //     title = habit!.habitInfo.habitName;
-  //   }
-  //   return title;
-  // }
+
   private get nameComputed() {
     const habit = this.habitList[this.index];
 
@@ -169,16 +155,20 @@ export default class Habit extends Vue {
   // 通过计算属性获取当前每周哪几天需要重复训练
   private get dateComputed() {
     const dates = this.habitList[this.index].habitInfo.RepeatingDate;
+    const currentDates = [];
     let value: string = '';
     for (let i = 0; i < dates.length; i++) {
       if (dates[i].checked) {
+        currentDates.push(dates[i]);
         const result = _.getDate(dates[i].date);
         value += result;
       }
     }
+
     return {
       value,
       dates,
+      currentDates,
     };
   }
   // 对话框控制
