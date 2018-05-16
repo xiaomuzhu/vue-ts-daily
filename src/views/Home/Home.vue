@@ -9,7 +9,6 @@
             <Circles radius="3.5rem" v-if="!!ele.habitLog.date.find(item =>(item.id === days))" :activeColor="!!ele.habitLog.date.find(item =>(item.id === days)).isFinished ? ele.color : '#fff'">             
               <icon :name="ele.iconName" slot="icon" />
             </Circles>
-            {{ele.habitLog.date.find(item =>(item.id === days))}}
           </aside>
         </van-collapse-item>
       </van-collapse>
