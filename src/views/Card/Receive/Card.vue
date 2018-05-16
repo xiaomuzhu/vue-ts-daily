@@ -48,7 +48,7 @@ export default class Library extends Vue {
   private isReceived!: boolean;
   private data() {
     return {
-      saying: '卡尔德隆',
+      saying: '自己打败自己是最可悲的失败，自己战胜自己是最可贵的胜利。',
       id: 1,
       num: 0,
       isDone: false,
