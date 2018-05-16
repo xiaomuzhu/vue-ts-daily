@@ -6,6 +6,10 @@
 
 ![扫描二维码](http://omrbgpqyl.bkt.clouddn.com/18-5-15/73469590.jpg)
 
+建议直接添加到主屏幕(ios端体验差一些).
+
+![](http://omrbgpqyl.bkt.clouddn.com/18-5-16/49737422.jpg)
+
 ## 前言
 
 为什么做这个项目？
