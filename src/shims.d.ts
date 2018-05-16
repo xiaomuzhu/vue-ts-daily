@@ -9,4 +9,4 @@ declare module 'vue-lazyload';
 
 declare module 'vue-icon-font-pro';
 
-declare module 'vue2-event-calendar-pro';
+declare module 'vue-event-calendar-pro';

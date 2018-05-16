@@ -13,8 +13,8 @@ import moment from 'moment';
 moment.locale('zh-cn');
 @Component({})
 export default class Card extends Vue {
-  @Prop() private saying: string;
-  @Prop() private id: number;
+  @Prop() private saying!: string;
+  @Prop() private id!: number;
   private data() {
     return {
       date: moment().format('MMMM Do YYYY a'),

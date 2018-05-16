@@ -32,10 +32,10 @@ import { Payload } from '_vuex@3.0.1@vuex';
   },
 })
 export default class Remind extends Vue {
-  @State private habitList: HabitListState[];
+  @State private habitList!: HabitListState[];
   @Mutation
-  private switchRemind: (payload: { habitId: number; id: number }) => void;
-  private id: number;
+  private switchRemind!: (payload: { habitId: number; id: number }) => void;
+  private id!: number;
 
   // 获取当前习惯的id
   private mounted() {

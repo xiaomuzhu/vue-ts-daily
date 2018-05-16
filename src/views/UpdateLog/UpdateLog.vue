@@ -28,8 +28,8 @@ import { NavBar } from 'vant';
 })
 export default class UpdateLog extends Vue {
   private message?: string;
-  private title: string;
-  private loading: boolean;
+  private title!: string;
+  private loading!: boolean;
   public data() {
     return {
       message: '',

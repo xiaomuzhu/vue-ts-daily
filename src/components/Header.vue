@@ -30,9 +30,9 @@ import Popup from './common/Popup/Popup.vue';
   },
 })
 export default class Header extends Vue {
-  @State private headerInfo: HeaderInfo;
+  @State private headerInfo!: HeaderInfo;
 
-  private show: boolean;
+  private show!: boolean;
   private habitLibrary?: string = '';
   private navTitle: any;
 

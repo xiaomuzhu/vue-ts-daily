@@ -25,7 +25,7 @@
           <van-cell center title="提醒的时间" :value="`${remindComputed}个提醒`" />
         </router-link>
         <van-cell center title="激励的话">
-          <input v-model="inspireComputed" style="float: right" placeholder="输入一句激励的话" />
+          <input v-model="inspireComputed" placeholder="输入激励的话" />
         </van-cell>
       </van-cell-group>
       <van-popup v-model="show" position="right">
@@ -64,22 +64,22 @@ import { HabitList as HabitListState } from '@/store/state';
   },
 })
 export default class Habit extends Vue {
-  @State private habitList: HabitListState[];
+  @State private habitList!: HabitListState[];
   @Mutation
-  private selectDate: (payload: { habitId: number; id: number }) => void;
+  private selectDate!: (payload: { habitId: number; id: number }) => void;
   @Mutation
-  private changeName: (payload: { id: number; value: string }) => void;
+  private changeName!: (payload: { id: number; value: string }) => void;
   @Mutation
-  private changInspire: (payload: { id: number; value: string }) => void;
+  private changInspire!: (payload: { id: number; value: string }) => void;
   @Mutation
-  private changeMode: (payload: { id: number; value: string }) => void;
-  private show: boolean;
+  private changeMode!: (payload: { id: number; value: string }) => void;
+  private show!: boolean;
   private value?: string;
   private name?: string;
-  private habitLibrary: object[];
-  private id: number;
-  private index: number;
-  private mode: string;
+  private habitLibrary!: object[];
+  private id!: number;
+  private index!: number;
+  private mode!: string;
   private data() {
     const id: number = parseInt(this.$route.query.id, 10);
     const mode = id > config.habitLibrary.length ? 'edit' : 'new';

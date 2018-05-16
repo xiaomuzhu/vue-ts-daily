@@ -52,13 +52,13 @@ import { SettingState, UserState } from '@/store/state';
   },
 })
 export default class Setting extends Vue {
-  @State private setting: SettingState;
-  @State private user: UserState;
+  @State private setting!: SettingState;
+  @State private user!: UserState;
   @Getter private syncData: any;
-  @Mutation private changeHourly: (checked: boolean) => void;
-  @Mutation private logoutSuccess: () => void;
-  @Action private sync: (data: any) => void;
-  private isOpen: boolean;
+  @Mutation private changeHourly!: (checked: boolean) => void;
+  @Mutation private logoutSuccess!: () => void;
+  @Action private sync!: (data: any) => void;
+  private isOpen!: boolean;
   public data() {
     return {
       isOpen: false,

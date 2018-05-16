@@ -35,9 +35,9 @@ import ClockPopup from '@/components/common/ClockPopup/ClockPopup.vue';
   },
 })
 export default class Manage extends Vue {
-  private times: any[];
-  private radio: string;
-  private show: boolean;
+  private times!: any[];
+  private radio!: string;
+  private show!: boolean;
   public data() {
     return {
       times: (config as any).defaultTimes,

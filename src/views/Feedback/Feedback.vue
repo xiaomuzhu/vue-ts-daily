@@ -36,10 +36,10 @@ import { feedback } from '@/api/feedback';
   },
 })
 export default class Feedback extends Vue {
-  @State private user: UserState;
+  @State private user!: UserState;
   private message?: string;
-  private title: string;
-  private loading: boolean;
+  private title!: string;
+  private loading!: boolean;
   public data() {
     return {
       message: '',

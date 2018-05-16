@@ -4,7 +4,7 @@
       <aside class="edit" v-if="leftValue" slot="left" @click="$emit('click-left', id)" >{{leftValue}}</aside>
       <slot v-else slot="left" @click="$emit('click-right', id)" name="act"></slot>
       <van-cell-group class="listGroup">
-        <van-cell class="listCell" :url="`/edit/calendar?id=${id}`" :value="habitLog.totalHabitDays + '天'" :style="{ background: color }" >
+        <van-cell   class="van-ellipsis listCell" :url="`/edit/calendar?id=${id}`" :value="habitLog.totalHabitDays + '天'" :style="{ background: color }" >
           <template slot="title">
             <icon :name="iconName" />
             <span>{{habitInfo.habitName}}</span>
@@ -32,11 +32,11 @@ import { HabitList as HabitListState } from '@/store/state';
   },
 })
 export default class HabitList extends Vue {
-  @Prop() private habitInfo: object;
-  @Prop() private habitLog: object;
-  @Prop() private iconName: string;
-  @Prop() private color: string;
-  @Prop() private id: number;
+  @Prop() private habitInfo!: object;
+  @Prop() private habitLog!: object;
+  @Prop() private iconName!: string;
+  @Prop() private color!: string;
+  @Prop() private id!: number;
   @Prop() private rightValue?: string;
   @Prop() private leftValue?: string;
 

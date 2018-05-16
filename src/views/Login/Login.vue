@@ -38,13 +38,13 @@ import { UserState } from '@/store/state';
   },
 })
 export default class Login extends Vue {
-  @Action public login: (data: { username: string; password: string }) => void;
-  @Mutation private loginLoading: () => void;
-  @State private user: UserState;
+  @Action public login!: (data: { username: string; password: string }) => void;
+  @Mutation private loginLoading!: () => void;
+  @State private user!: UserState;
   private message?: string;
-  private title: string;
-  private username: string;
-  private password: string;
+  private title!: string;
+  private username!: string;
+  private password!: string;
   public data() {
     return {
       username: '',

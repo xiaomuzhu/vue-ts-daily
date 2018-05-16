@@ -33,19 +33,19 @@ import _ from '@/utils';
   },
 })
 export default class Library extends Vue {
-  @Mutation private receiveCard: () => void;
-  @State private habitList: HabitListState[];
+  @Mutation private receiveCard!: () => void;
+  @State private habitList!: HabitListState[];
   @State
-  private today: {
+  private today!: {
     active: string[] | never[] | number[];
     finishedDate: string[] | never[];
     isReceived: boolean;
   };
 
   private title?: string;
-  private num: number;
-  private isDone: boolean;
-  private isReceived: boolean;
+  private num!: number;
+  private isDone!: boolean;
+  private isReceived!: boolean;
   private data() {
     return {
       saying: '卡尔德隆',
@@ -58,8 +58,8 @@ export default class Library extends Vue {
 
   private mounted() {
     const id = _.getDaysId();
-    this.habitList.forEach(item => {
-      item.habitLog.date.filter(ele => ele.id === id).forEach(e => {
+    this.habitList.forEach((item) => {
+      item.habitLog.date.filter((ele) => ele.id === id).forEach((e) => {
         if (!e.isFinished) {
           this.num++;
         }

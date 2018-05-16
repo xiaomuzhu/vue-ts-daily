@@ -23,7 +23,7 @@ import { Mutation } from 'vuex-class';
 })
 export default class New extends Vue {
   private title?: string;
-  @Mutation private RemoveHabit: () => void;
+  @Mutation private RemoveHabit!: () => void;
   private data() {
     return {
       title: this.$route.name,

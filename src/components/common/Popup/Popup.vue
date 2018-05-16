@@ -22,17 +22,9 @@ import { Popup, NavBar, Toast } from 'vant';
   },
 })
 export default class PopupNav extends Vue {
-  @Prop() private show: boolean;
-  @Prop() private title: string;
+  @Prop() private show!: boolean;
+  @Prop() private title!: string;
 
-  // public mounted() {
-  //     console.log(this.$props);
-
-  // }
-  // @Emit('handleShow')
-  // private handleShow() {
-  //     this.show = true;
-  // }
   @Watch('show')
   private changeShow(val: boolean, oldVal: boolean) {
     this.show = val;
@@ -40,7 +32,6 @@ export default class PopupNav extends Vue {
   @Emit('hide')
   private onClickLeft() {
     Toast('返回');
-    console.log(this.title);
   }
   private onClickRight() {
     Toast('按钮');

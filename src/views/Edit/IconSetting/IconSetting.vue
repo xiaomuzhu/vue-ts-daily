@@ -39,15 +39,15 @@ import { HabitList as HabitListState } from '@/store/state';
   },
 })
 export default class IconSetting extends Vue {
-  @State private habitList: HabitListState[];
+  @State private habitList!: HabitListState[];
   @Mutation
-  private selectColor: (payload: { id: number; color: string }) => void;
-  @Mutation private selectIcon: (payload: { id: number; icon: string }) => void;
-  private id: number;
-  private index: number;
+  private selectColor!: (payload: { id: number; color: string }) => void;
+  @Mutation private selectIcon!: (payload: { id: number; icon: string }) => void;
+  private id!: number;
+  private index!: number;
 
-  private iconSetting: string[];
-  private colorSetting: string[];
+  private iconSetting!: string[];
+  private colorSetting!: string[];
   private data() {
     return {
       iconSetting: (config as any).iconSetting,

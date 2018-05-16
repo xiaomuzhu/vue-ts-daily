@@ -14,8 +14,6 @@
         <li><span><icon name="total"/>总共加入天数</span><span>{{habitLogComputed.totalTodays}}天</span></li>
       </ul>
     </section>
-    <!-- 删除按钮 -->
-    <!-- <van-button type="danger" size="mini">删除</van-button> -->
     <ClockPopup :show="show" @save="saveLogs"></ClockPopup>
   </div>
 </template>
@@ -45,13 +43,13 @@ import _ from '@/utils';
 export default class Calendar extends Vue {
   private name?: string;
   private show?: boolean;
-  private id: number;
-  private habitLibrary: object[];
-  private habitEvents: any[];
+  private id!: number;
+  private habitLibrary!: object[];
+  private habitEvents!: any[];
   private currentHabit?: HabitListState;
-  @State private habitList: HabitListState[];
+  @State private habitList!: HabitListState[];
   @Mutation
-  private saveLog: (
+  private saveLog!: (
     payload: {
       id: number;
       daysId: number;
@@ -59,14 +57,14 @@ export default class Calendar extends Vue {
     },
   ) => void;
   @Mutation
-  private changeFinished: (
+  private changeFinished!: (
     payload: {
       id: number;
       daysId: number;
     },
   ) => void;
   @Mutation
-  private supplementHabits: (
+  private supplementHabits!: (
     payload: {
       id: number;
       daysId: number;
@@ -117,6 +115,7 @@ export default class Calendar extends Vue {
         title: ele.message,
       };
     });
+    console.log(habitEvents);
 
     return habitEvents;
   }
@@ -140,6 +139,12 @@ export default class Calendar extends Vue {
 
     // 获取id
     const daysId = _.getDaysId(time);
+    // 获取当前距离1970的天数
+    const curId = _.getDaysId();
+
+    if (curId < daysId) {
+      return;
+    }
 
     // 用获取到的id与date数组中的对象进行查找,如果发现有维护中的打卡记录则修改,若没有则创建
     let dateLog;
@@ -149,7 +154,6 @@ export default class Calendar extends Vue {
         dateLog = element;
       }
     }
-
     if (dateLog) {
       // 如果已经完成那么则是取消操作,否则是标记完成的操作
       if (habit!.habitLog.date.find((item) => item.id === daysId)!.isFinished) {
@@ -165,7 +169,6 @@ export default class Calendar extends Vue {
         });
       }
     } else {
-      console.log(this.id);
 
       this.show = true;
       this.supplementHabits({

@@ -20,10 +20,10 @@ import List from '@/components/common/HabitList/List.vue';
   },
 })
 export default class Recycle extends Vue {
-  @State private habitList: HabitListState[];
-  @Mutation private removeHabit: (id: number) => void;
-  @Mutation private activateHabit: (id: number) => void;
-  private currentTitle: string;
+  @State private habitList!: HabitListState[];
+  @Mutation private removeHabit!: (id: number) => void;
+  @Mutation private activateHabit!: (id: number) => void;
+  private currentTitle!: string;
 
   public activate(id: number) {
     this.activateHabit(id);

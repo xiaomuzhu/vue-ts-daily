@@ -43,8 +43,8 @@ import { HabitList as HabitListState } from '@/store/state';
 })
 export default class Library extends Vue {
   private title?: string;
-  private habitLibrary: object[];
-  @Mutation private createHabit: (habit: HabitListState) => void;
+  private habitLibrary!: object[];
+  @Mutation private createHabit!: (habit: HabitListState) => void;
   private data() {
     return {
       title: this.$route.name,
@@ -58,7 +58,7 @@ export default class Library extends Vue {
     const iconInfo =
       id === 0
         ? config.newHabit
-        : config.habitLibrary.find(item => item.id === id);
+        : config.habitLibrary.find((item) => item.id === id);
     const habit = {
       id: timestamp,
       iconName: iconInfo!.name,

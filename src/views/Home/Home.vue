@@ -6,9 +6,10 @@
           <p slot="title">
             <icon name="time" />{{item.title}}</p>
           <aside v-for="ele in item.habits" :key="ele.id" @click="finish(ele.id)">
-            <Circles radius="3.5rem" v-if="!!ele.habitLog.date[ele.habitLog.date.length - 1]" :activeColor="!!ele.habitLog.date[ele.habitLog.date.length - 1].isFinished ? ele.color : '#fff'">
+            <Circles radius="3.5rem" v-if="!!ele.habitLog.date.find(item =>(item.id === days))" :activeColor="!!ele.habitLog.date.find(item =>(item.id === days)).isFinished ? ele.color : '#fff'">             
               <icon :name="ele.iconName" slot="icon" />
             </Circles>
+            {{ele.habitLog.date.find(item =>(item.id === days))}}
           </aside>
         </van-collapse-item>
       </van-collapse>
@@ -43,22 +44,23 @@ export interface NewList {
   },
 })
 export default class Today extends Vue {
-  @Mutation private createHabit: (habit: HabitListState) => void;
+  @Mutation private createHabit!: (habit: HabitListState) => void;
   @Mutation
-  private changeFinished: (payload: { id: number; daysId: number }) => void;
-  @Mutation private changeCollapse: (habit: number[] | never[]) => void;
-  @Mutation private updateHabits: (updateList: number[]) => void;
+  private changeFinished!: (payload: { id: number; daysId: number }) => void;
+  @Mutation private changeCollapse!: (habit: number[] | never[]) => void;
+  @Mutation private updateHabits!: (updateList: number[]) => void;
   @Mutation
-  private saveLog: (
+  private saveLog!: (
     payload: { id: number; daysId: number; message: string },
   ) => void;
-  @State private habitList: HabitListState[];
-  @State private today: object;
-  private show: boolean;
-  private currentId: number;
-  private isDone: boolean;
+  @State private habitList!: HabitListState[];
+  @State private today!: object;
+  private show!: boolean;
+  private currentId!: number;
+  private isDone!: boolean;
   // 今天距离1970年1.1的天数
-  private days: number;
+  private days!: number;
+
   private data() {
     return {
       show: false,
@@ -152,10 +154,11 @@ export default class Today extends Vue {
         .find((item) => item.id === id)!
         .habitLog.date.find((item) => item.id === this.days)!.isFinished
     ) {
-      this.changeFinished({
-        id,
-        daysId: this.days,
-      });
+      // TODO/bug 将Finished重新设置为false时不触发视图更新
+      // this.changeFinished({
+      //   id,
+      //   daysId: this.days,
+      // });
     } else {
       this.show = true;
       this.changeFinished({
@@ -163,6 +166,7 @@ export default class Today extends Vue {
         daysId: this.days,
       });
     }
+
   }
   private saveLogs(message: string) {
     const id = _.getDaysId();

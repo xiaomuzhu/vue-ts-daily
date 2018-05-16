@@ -2,11 +2,11 @@ import Vue from 'vue';
 
 import FastClick from 'fastclick';
 import VueIconFont from 'vue-icon-font-pro';
-import vueEventCalendar from 'vue2-event-calendar-pro';
+import vueEventCalendar from 'vue-event-calendar-pro';
 
 import 'normalize.css';
 import 'vue2-animate/dist/vue2-animate.min.css';
-import 'vue2-event-calendar-pro/dist/style.css';
+import 'vue-event-calendar-pro/dist/style.css';
 
 import App from './App.vue';
 import router from './router';

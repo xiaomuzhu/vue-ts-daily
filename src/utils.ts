@@ -138,7 +138,6 @@ const utils =  {
 
     // 之所以+8 是因为得转换成天朝的东八区
     const hours = moment.duration(now).as('hours') + 8;
-    // console.log(now, 'zhen');
     return Math.floor(hours / 24);
   },
 
@@ -147,6 +146,35 @@ const utils =  {
     moment.locale('zh-cn');
     return moment('1-1-1970', 'MM-DD-YYYY').add(days, 'd');
   },
+
+  // 获取当天需要更新的打卡对象的index
+  getHabitLogDateIndex(dateList: ClockLog[], days: number) {
+    let low = 0;
+    let high = dateList.length - 1;
+    let mid: number;
+    let currentId: number;
+    while (low <= high) {
+      mid = Math.floor(low + (high - low) / 2);
+      currentId = dateList[mid].id;
+      if (currentId < days) {
+        low = mid + 1;
+      } else if (currentId > days) {
+        high = mid - 1;
+      } else {
+        return mid;
+      }
+    }
+    return -1;
+  },
+
+  // 通过id查找相关习惯对象
+  getHabitLogDate(dateList: ClockLog[], days: number) {
+    const index = utils.getHabitLogDateIndex(dateList, days);
+    if (index >= 0) {
+      return dateList[index];
+    }
+  },
+
 
   /**
    * 查找打卡信息史上最长连续打卡的长度

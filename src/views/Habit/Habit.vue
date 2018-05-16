@@ -27,10 +27,10 @@ import List from '@/components/common/HabitList/List.vue';
   },
 })
 export default class Habit extends Vue {
-  @State private habitList: HabitListState[];
-  @Mutation private deleteHabit: (id: number) => void;
-  @Mutation private changeMode: (payload: { id: number; value: string }) => void;
-  private currentTitle: string;
+  @State private habitList!: HabitListState[];
+  @Mutation private deleteHabit!: (id: number) => void;
+  @Mutation private changeMode!: (payload: { id: number; value: string }) => void;
+  private currentTitle!: string;
   private data() {
     return {
       currentTitle: '全部',

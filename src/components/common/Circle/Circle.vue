@@ -9,9 +9,9 @@ import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 
 @Component({})
 export default class Circles extends Vue {
-  @Prop() private radius: string;
-  @Prop() private activeColor: string;
-  private styleObj: {
+  @Prop() private radius!: string;
+  @Prop() private activeColor!: string;
+  private styleObj!: {
     background: string;
     width: string;
     height: string;

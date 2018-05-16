@@ -36,7 +36,7 @@ import utils from '@/utils';
   },
 })
 export default class Edit extends Vue {
-  @Mutation private changeMode: (payload: { id: number; value: string }) => void;
+  @Mutation private changeMode!: (payload: { id: number; value: string }) => void;
   private title?: string;
   private right?: string;
   private nextUrl?: string;

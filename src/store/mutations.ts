@@ -196,6 +196,7 @@ export default {
     const date = dateList.find((item) => item.id === payload.daysId);
     // 切换完成状态
     date!.isFinished = !date!.isFinished;
+
     // 当当前信息被切换成"已完成"
     if (date!.isFinished) {
       // 当当前打卡信息属于当天的时候

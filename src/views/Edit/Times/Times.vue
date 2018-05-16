@@ -33,12 +33,12 @@ import { HabitList as HabitListState } from '@/store/state';
   },
 })
 export default class Calendar extends Vue {
-  @State private habitList: HabitListState[];
+  @State private habitList!: HabitListState[];
   @Mutation
-  private changeTimes: (payload: { habitId: number; id: number }) => void;
-  private radio: number;
-  private id: number;
-  private index: number;
+  private changeTimes!: (payload: { habitId: number; id: number }) => void;
+  private radio!: number;
+  private id!: number;
+  private index!: number;
   public data() {
     return {
       radio: -1,
