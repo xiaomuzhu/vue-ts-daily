@@ -33,7 +33,11 @@
 vue2.5 + Typescript + vuex + vue-router
 
 ## 项目启动
+```
+git clone https://github.com/xiaomuzhu/vue-ts-daily
+npm i && npm run dev
 
+```
 
 ## 开发环境
 > MacOS 10.12.6 node10.0.0
