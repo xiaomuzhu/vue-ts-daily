@@ -183,6 +183,10 @@ export default class Habit extends Vue {
   // 创建此习惯
   private handleNew() {
     this.changeMode({ id: this.id, value: 'done' });
+    if (this.mode === 'edit') {
+      this.$router.go(-1);
+      return;
+    }
     this.$router.go(-2);
   }
 }

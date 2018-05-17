@@ -186,6 +186,7 @@ export default class Today extends Vue {
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
+  overflow: auto;
   .van-collapse-item {
     margin-bottom: 1rem;
     p {

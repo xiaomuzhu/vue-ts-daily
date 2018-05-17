@@ -115,8 +115,6 @@ export default class Calendar extends Vue {
         title: ele.message,
       };
     });
-    console.log(habitEvents);
-
     return habitEvents;
   }
   private saveLogs(message: string) {
