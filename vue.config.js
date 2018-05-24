@@ -1,3 +1,7 @@
+const path = require('path')
+const fs = require('fs')
+const PrerenderSPAPlugin = require('prerender-spa-plugin')
+
 module.exports = {
     lintOnSave: false,
     pwa: {
@@ -14,5 +18,17 @@ module.exports = {
             swSrc: 'src/sw.js',
             // ...other Workbox options...
         }
-    }
+    },
+    configureWebpack(config) {
+        return {
+            plugins: [
+                new PrerenderSPAPlugin({
+                    // Required - The path to the webpack-outputted app to prerender.
+                    staticDir: path.join(__dirname, 'dist'),
+                    // Required - Routes to render.
+                    routes: ['/', '/habit', '/setting'],
+                }),
+            ],
+        }
+    },
 }
