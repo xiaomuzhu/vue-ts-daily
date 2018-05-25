@@ -3,6 +3,8 @@ import Vue from 'vue';
 import FastClick from 'fastclick';
 import VueIconFont from 'vue-icon-font-pro';
 import vueEventCalendar from 'vue-event-calendar-pro';
+import VueLazyComponent from '@xunlei/vue-lazy-component';
+import VueSkeletonLoading from 'vue-skeleton-loading';
 
 import 'normalize.css';
 import 'vue2-animate/dist/vue2-animate.min.css';
@@ -25,6 +27,8 @@ if ('addEventListener' in document) {
   );
 }
 
+Vue.use(VueLazyComponent);
+Vue.use(VueSkeletonLoading);
 Vue.use(vueEventCalendar, { locale: 'zh', weekStartOn: 1 });
 Vue.use(VueIconFont);
 

@@ -58,7 +58,7 @@ export default class Library extends Vue {
     const iconInfo =
       id === 0
         ? config.newHabit
-        : config.habitLibrary.find((item) => item.id === id);
+        : config.habitLibrary.find(item => item.id === id);
     const habit = {
       id: timestamp,
       iconName: iconInfo!.name,

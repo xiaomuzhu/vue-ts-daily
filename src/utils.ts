@@ -52,7 +52,7 @@ function transformDate(date: string | number) {
   }
 }
 
-const utils =  {
+const utils = {
   getDate(str: string) {
     return str.replace(/['星期']/g, ' ');
   },
@@ -175,13 +175,12 @@ const utils =  {
     }
   },
 
-
   /**
    * 查找打卡信息史上最长连续打卡的长度
    * @param dateList ClockLog[] 储存打卡信息的数组
    */
   getMaxDays(dateList: ClockLog[]) {
-    const list = dateList.filter((item) => item.isFinished === true);
+    const list = dateList.filter(item => item.isFinished === true);
     if (list.length === 0) {
       return 0;
     }
@@ -209,7 +208,7 @@ const utils =  {
    * @param dateList ClockLog[] 储存打卡信息的数组
    */
   getCurrentMaxDays(dateList: ClockLog[]) {
-    const list = dateList.filter((item) => item.isFinished === true);
+    const list = dateList.filter(item => item.isFinished === true);
     if (list.length === 0) {
       return 0;
     }
@@ -242,6 +241,5 @@ const utils =  {
     return date[length - 1].isFinished;
   },
 };
-
 
 export default utils;

@@ -42,7 +42,8 @@ export default class IconSetting extends Vue {
   @State private habitList!: HabitListState[];
   @Mutation
   private selectColor!: (payload: { id: number; color: string }) => void;
-  @Mutation private selectIcon!: (payload: { id: number; icon: string }) => void;
+  @Mutation
+  private selectIcon!: (payload: { id: number; icon: string }) => void;
   private id!: number;
   private index!: number;
 

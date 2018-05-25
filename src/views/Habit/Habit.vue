@@ -29,7 +29,8 @@ import List from '@/components/common/HabitList/List.vue';
 export default class Habit extends Vue {
   @State private habitList!: HabitListState[];
   @Mutation private deleteHabit!: (id: number) => void;
-  @Mutation private changeMode!: (payload: { id: number; value: string }) => void;
+  @Mutation
+  private changeMode!: (payload: { id: number; value: string }) => void;
   private currentTitle!: string;
   private data() {
     return {
@@ -39,7 +40,7 @@ export default class Habit extends Vue {
 
   private edit(id: number) {
     this.$router.push(`/edit/habit?id=${id}`);
-    this.changeMode({id, value: 'editing'})
+    this.changeMode({ id, value: 'editing' });
   }
 
   private del(id: number) {

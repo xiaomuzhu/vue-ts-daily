@@ -58,8 +58,8 @@ export default class Library extends Vue {
 
   private mounted() {
     const id = _.getDaysId();
-    this.habitList.forEach((item) => {
-      item.habitLog.date.filter((ele) => ele.id === id).forEach((e) => {
+    this.habitList.forEach(item => {
+      item.habitLog.date.filter(ele => ele.id === id).forEach(e => {
         if (!e.isFinished) {
           this.num++;
         }

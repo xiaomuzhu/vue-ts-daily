@@ -11,7 +11,6 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
 export default class DateBlock extends Vue {
   @Prop() private title!: string;
   @Prop() private checked!: boolean;
-
 }
 </script>
 

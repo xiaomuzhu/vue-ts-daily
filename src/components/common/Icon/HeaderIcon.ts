@@ -14,5 +14,4 @@ export default class FooterIcon extends Vue {
       isTouched: false,
     };
   }
-
 }

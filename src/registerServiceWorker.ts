@@ -4,8 +4,7 @@ import { register } from 'register-service-worker';
 
 if (process.env.NODE_ENV !== 'production') {
   register(`${process.env.BASE_URL}sw.js`, {
-    ready() {
-    },
+    ready() {},
     cached() {
       console.log('Content has been cached for offline use.');
     },

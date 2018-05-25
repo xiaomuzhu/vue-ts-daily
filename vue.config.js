@@ -20,6 +20,7 @@ module.exports = {
         }
     },
     configureWebpack(config) {
+        if (process.env.NODE_ENV !== 'production') return;
         return {
             plugins: [
                 new PrerenderSPAPlugin({

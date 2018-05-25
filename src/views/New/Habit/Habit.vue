@@ -142,7 +142,7 @@ export default class Habit extends Vue {
   // 计算提醒个数
   private get remindComputed() {
     const { remind } = this.habitList[this.index].habitInfo;
-    const num = (remind as any[]).filter((item) => item.open === true).length;
+    const num = (remind as any[]).filter(item => item.open === true).length;
     return num;
   }
   // 计算当前颜色

@@ -2,6 +2,7 @@
   <div class="setting">
       <!-- 头像 -->
       <section class="avatar">
+      <vue-lazy-component :timeout="1000">
         <router-link :to="{path:'/login'}">
           <div>
             <img v-if="user.url" :src="user.url" alt="头像">
@@ -9,6 +10,8 @@
             <p v-if="user.username">{{user.username}}</p>
           </div>
         </router-link>
+        <Skeleton slot="skeleton"/>
+        </vue-lazy-component>
       </section>
     
     <!-- 系统设置 -->
@@ -18,7 +21,6 @@
             <van-switch-cell v-model="setting.checked"  @change="change" title="整点报时" />
         </van-cell-group>
       </section>
-
         <!-- 反馈与商店 -->
       <section>
         <van-cell-group>
@@ -43,12 +45,15 @@ import { Cell, CellGroup, SwitchCell, Toast, Button } from 'vant';
 import { State, Mutation, Action, Getter } from 'vuex-class';
 import { SettingState, UserState } from '@/store/state';
 
+import Skeleton from '@/components/common/Skeleton/SkeletonCircle.vue';
+
 @Component({
   components: {
     [Cell.name]: Cell,
     [CellGroup.name]: CellGroup,
     [SwitchCell.name]: SwitchCell,
     [Button.name]: Button,
+    Skeleton,
   },
 })
 export default class Setting extends Vue {

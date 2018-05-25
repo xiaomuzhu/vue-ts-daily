@@ -12,7 +12,7 @@ const axios = Axios.default.create({
   headers: { 'X-Requested-With': 'XMLHttpRequest' },
   maxContentLength: 2000,
   transformResponse: [
-    (data) => {
+    data => {
       try {
         data = JSON.parse(data);
       } catch (e) {

@@ -58,7 +58,7 @@ export default class Feedback extends Vue {
         createTime,
         username: this.user.username,
       })
-        .then((res) => res.data)
+        .then(res => res.data)
         .catch((e: string) => Toast(e));
 
       if (res.message) {

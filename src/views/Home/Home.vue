@@ -1,6 +1,6 @@
 <template>
   <div class="today">
-    <section>
+        <section>
       <van-collapse v-for="(item, index) in dayComputed.habits" :key="item.id" @change="change" v-model="today.active">
         <van-collapse-item :name="index">
           <p slot="title">
@@ -165,7 +165,6 @@ export default class Today extends Vue {
         daysId: this.days,
       });
     }
-
   }
   private saveLogs(message: string) {
     const id = _.getDaysId();
