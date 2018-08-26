@@ -2,7 +2,7 @@
     <div class="times">
         <!-- 时段列表 -->
         <section>
-            <van-cell-swipe v-for="item in times" :key="item.id" :right-width="65" :left-width="65">
+            <van-swipe-cell v-for="item in times" :key="item.id" :right-width="65" :left-width="65">
                 <aside @click="edit(item.id, item.title)" slot="left">编辑</aside>
                 <van-cell-group>
                     <van-cell :value="item.title">
@@ -13,7 +13,7 @@
                     </van-cell>
                 </van-cell-group>
             <aside class="delete" slot="right">删除</aside>
-        </van-cell-swipe>
+        </van-swipe-cell>
     </section>
     <ClockPopup @hide="handleHide" :show="show" @save="handleHide"></ClockPopup>
   </div>
@@ -21,14 +21,14 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { CellSwipe, Cell, CellGroup } from 'vant';
+import { SwipeCell, Cell, CellGroup } from 'vant';
 
 import config from '@/config';
 import ClockPopup from '@/components/common/ClockPopup/ClockPopup.vue';
 
 @Component({
   components: {
-    [CellSwipe.name]: CellSwipe,
+    [SwipeCell.name]: SwipeCell,
     [Cell.name]: Cell,
     [CellGroup.name]: CellGroup,
     ClockPopup,

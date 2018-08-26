@@ -1,6 +1,6 @@
 <template>
   <div class="habitList">
-    <van-cell-swipe :right-width="65" :left-width="65" class="listSwipe">
+    <van-swipe-cell :right-width="65" :left-width="65" class="listSwipe">
       <aside class="edit" v-if="leftValue" slot="left" @click="$emit('click-left', id)" >{{leftValue}}</aside>
       <slot v-else slot="left" @click="$emit('click-right', id)" name="act"></slot>
       <van-cell-group class="listGroup">
@@ -13,20 +13,20 @@
       </van-cell-group>
       <aside class="delete" v-if="rightValue" slot="right" @click="$emit('click-right', id)">{{rightValue}}</aside>
       <slot v-else slot="right" @click="$emit('click-right', id)" name="del"></slot>
-    </van-cell-swipe>
+    </van-swipe-cell>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { Progress, Step, Steps, CellSwipe, Cell, CellGroup } from 'vant';
+import { Progress, Step, Steps, SwipeCell, Cell, CellGroup } from 'vant';
 import { HabitList as HabitListState } from '@/store/state';
 @Component({
   components: {
     [Progress.name]: Progress,
     [Step.name]: Step,
     [Steps.name]: Steps,
-    [CellSwipe.name]: CellSwipe,
+    [SwipeCell.name]: SwipeCell,
     [Cell.name]: Cell,
     [CellGroup.name]: CellGroup,
   },

@@ -23,7 +23,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { CellSwipe, Cell, CellGroup } from 'vant';
+import { SwipeCell, Cell, CellGroup } from 'vant';
 import { State, Mutation } from 'vuex-class';
 
 import config from '@/config';
@@ -32,7 +32,7 @@ import { HabitList as HabitListState } from '@/store/state';
 
 @Component({
   components: {
-    [CellSwipe.name]: CellSwipe,
+    [SwipeCell.name]: SwipeCell,
     [Cell.name]: Cell,
     [CellGroup.name]: CellGroup,
     Circles,
