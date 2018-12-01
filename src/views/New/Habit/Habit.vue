@@ -81,7 +81,7 @@ export default class Habit extends Vue {
   private index!: number;
   private mode!: string;
   private data() {
-    const id: number = parseInt(this.$route.query.id, 10);
+    const id: number = parseInt((this.$route.query.id) as string, 10);
     const mode = id > config.habitLibrary.length ? 'edit' : 'new';
     return {
       name,
@@ -94,7 +94,7 @@ export default class Habit extends Vue {
   // 获取当前习惯的id
   private created() {
     if (this.mode === 'edit') {
-      this.id = parseInt(this.$route.query.id, 10);
+      this.id = parseInt((this.$route.query.id) as string, 10);
       // @ts-ignore
       const Index = _.findIndex(this.habitList, this.id);
       this.index = Index!;
@@ -142,7 +142,7 @@ export default class Habit extends Vue {
   // 计算提醒个数
   private get remindComputed() {
     const { remind } = this.habitList[this.index].habitInfo;
-    const num = (remind as any[]).filter(item => item.open === true).length;
+    const num = (remind as any[]).filter((item) => item.open === true).length;
     return num;
   }
   // 计算当前颜色

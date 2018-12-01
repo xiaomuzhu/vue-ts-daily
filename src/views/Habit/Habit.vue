@@ -76,7 +76,7 @@ export default class Habit extends Vue {
           const timeSolt = timeSlotList.find(
             (ele: any) => ele.id === activeTimes,
           );
-          if (timeSolt.title === this.currentTitle) {
+          if (timeSolt!.title === this.currentTitle) {
             total.push(item);
           }
         }

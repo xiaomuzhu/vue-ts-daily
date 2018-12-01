@@ -78,7 +78,7 @@ export default class Edit extends Vue {
   }
   private onClickLeft() {
     if (this.$route.name === '编辑习惯') {
-      const id: number = parseInt(this.$route.query.id, 10);
+      const id: number = parseInt((this.$route.query.id) as string, 10);
       this.changeMode({ id, value: 'done' });
     }
     this.$router.go(-1);

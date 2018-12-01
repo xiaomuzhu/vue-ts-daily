@@ -6,7 +6,7 @@
           <p slot="title">
             <icon name="time" />{{item.title}}</p>
           <aside v-for="ele in item.habits" :key="ele.id" @click="finish(ele.id)">
-            <Circles radius="3.5rem" v-if="!!ele.habitLog.date.find(item =>(item.id === days))" :activeColor="!!ele.habitLog.date.find(item =>(item.id === days)).isFinished ? ele.color : '#fff'">             
+            <Circles radius="3.5rem" v-if="!!ele.habitLog.date.find(item =>(item.id === days))" :activeColor="!!ele.habitLog.date.find(item =>(item.id === days)).isFinished ? ele.color : '#fff'">
               <icon :name="ele.iconName" slot="icon" />
             </Circles>
           </aside>
@@ -101,7 +101,7 @@ export default class Today extends Vue {
       // @ts-ignore
       const time = timeSlotList.find((e) => e.id === activeTimes);
       // time.habits.push(element);
-      timeList.add(time.title);
+      timeList.add(time!.title);
     }
     // 今天生效的时间段
     const list = Array.from(timeList);
