@@ -2,6 +2,9 @@ const path = require('path')
 const fs = require('fs')
 const PrerenderSPAPlugin = require('prerender-spa-plugin')
 
+const PurgecssPlugin = require('purgecss-webpack-plugin');
+const glob = require('glob-all');
+
 module.exports = {
     lintOnSave: false,
     pwa: {
@@ -20,16 +23,61 @@ module.exports = {
         }
     },
     configureWebpack(config) {
-        if (process.env.NODE_ENV !== 'production') return;
-        return {
-            plugins: [
-                new PrerenderSPAPlugin({
-                    // Required - The path to the webpack-outputted app to prerender.
-                    staticDir: path.join(__dirname, 'dist'),
-                    // Required - Routes to render.
-                    routes: ['/', '/habit', '/setting'],
-                }),
-            ],
-        }
+        if (process.env.NODE_ENV === 'production') {
+            return {
+                performance: {
+                    hints: false
+                  },
+                  optimization: {
+                    splitChunks: {
+                      minSize: 10000,
+                      maxSize: 300000,
+                    }
+                },
+                plugins: [
+                    new PrerenderSPAPlugin({
+                        // Required - The path to the webpack-outputted app to prerender.
+                        staticDir: path.join(__dirname, 'dist'),
+                        // Required - Routes to render.
+                        routes: ['/', '/habit', '/setting'],
+                    }),
+                    new PurgecssPlugin({
+                        paths: glob.sync([
+                          path.join(__dirname, "./public/index.html"),
+                          path.join(__dirname, "./../**/*.vue"),
+                          path.join(__dirname, "./src/**/*.js")
+                        ])
+                    }),
+                ],
+            }
+        };
     },
+
+    chainWebpack: config => {
+        config.optimization
+          .clear('splitChunks')
+          .splitChunks({
+            cacheGroups: {
+              vue: {
+                name: 'vue',
+                test: /[\\/]node_modules[\\/]vue[\\/]/,
+                priority: 0,
+                chunks: 'initial'
+              },
+              vendors: {
+                name: 'chunk-vendors',
+                test: /[\\/]node_modules[\\/]/,
+                priority: -10,
+                chunks: 'initial'
+              },
+              common: {
+                name: 'chunk-common',
+                minChunks: 2,
+                priority: -20,
+                chunks: 'initial',
+                reuseExistingChunk: true
+              }
+            }
+          })
+    }
 }

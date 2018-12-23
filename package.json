@@ -9,6 +9,7 @@
     "e2e": "vue-cli-service e2e",
     "lint": "vue-cli-service lint",
     "serve": "serve dist/",
+    "commit": "git-cz",
     "prettier": "prettier --config ./.prettierrc --write 'src/**/*.ts' 'src/**/*.vue' "
   },
   "config": {
@@ -18,7 +19,8 @@
   },
   "husky": {
     "hooks": {
-      "commit-msg": "commitlint -e $GIT_PARAMS"
+      "commit-msg": "commitlint -e $GIT_PARAMS",
+      "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {
@@ -66,10 +68,12 @@
     "babel-plugin-lodash": "^3.3.4",
     "babel-plugin-transform-runtime": "^6.23.0",
     "commitizen": "^3.0.5",
+    "glob-all": "^3.1.0",
     "husky": "^1.2.0",
     "lint-staged": "^8.1.0",
     "node-sass": "^4.10.0",
     "prerender-spa-plugin": "^3.4.0",
+    "purgecss-webpack-plugin": "^1.4.0",
     "sass-loader": "^7.1.0",
     "serve": "^10.1.1",
     "ts-jest": "^23.10.5",
