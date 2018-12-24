@@ -25,28 +25,13 @@ module.exports = {
     configureWebpack(config) {
         if (process.env.NODE_ENV === 'production') {
             return {
-                performance: {
-                    hints: false
-                  },
-                  optimization: {
-                    splitChunks: {
-                      minSize: 10000,
-                      maxSize: 300000,
-                    }
-                },
+
                 plugins: [
                     new PrerenderSPAPlugin({
                         // Required - The path to the webpack-outputted app to prerender.
                         staticDir: path.join(__dirname, 'dist'),
                         // Required - Routes to render.
                         routes: ['/', '/habit', '/setting'],
-                    }),
-                    new PurgecssPlugin({
-                        paths: glob.sync([
-                          path.join(__dirname, "./public/index.html"),
-                          path.join(__dirname, "./../**/*.vue"),
-                          path.join(__dirname, "./src/**/*.js")
-                        ])
                     }),
                 ],
             }

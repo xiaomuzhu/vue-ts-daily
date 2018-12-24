@@ -73,6 +73,7 @@
     "lint-staged": "^8.1.0",
     "node-sass": "^4.10.0",
     "prerender-spa-plugin": "^3.4.0",
+    "prettier": "^1.15.3",
     "purgecss-webpack-plugin": "^1.4.0",
     "sass-loader": "^7.1.0",
     "serve": "^10.1.1",
