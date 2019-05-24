@@ -1,36 +1,39 @@
 {
   "compilerOptions": {
+    // 与 Vue 的浏览器支持保持一致
     "target": "es2015",
-    "module": "esnext",
+    // 这可以对 `this` 上的数据属性进行更严格的推断
     "strict": true,
-    "jsx": "preserve",
+    // 如果使用 webpack 2+ 或 rollup，可以利用 tree-shake:
+    "module": "es2015",
     "moduleResolution": "node",
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "allowSyntheticDefaultImports": true,
-    "sourceMap": true,
-    // "lib": [
-    //   "es6",
-    //   "webworker",
-    //   "dom"
-    // ],
-    "baseUrl": ".",
-    "types": [
-      "node",
-      "jest"
-    ],
+    "baseUrl": "./",
+    "outDir": "./dist/",
     "paths": {
+      "vue": [
+        "node_modules/mpvue"
+      ],
       "@/*": [
         "src/*"
       ]
-    }
+    },
+    "types": [
+      "@types/weixin-app"
+    ],
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": false,
+    "skipLibCheck": true,
+    "strictPropertyInitialization": false,
+    "experimentalDecorators": true
   },
   "include": [
-    "src/**/*.ts",
-    "src/**/*.vue",
-    "tests/**/*.ts"
+    "./src/**/*"
   ],
   "exclude": [
     "node_modules"
-  ]
+  ],
+  "typeAcquisition": {
+    "enable": true
+  }
 }

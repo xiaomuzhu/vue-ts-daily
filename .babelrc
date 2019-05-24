@@ -1,9 +1,18 @@
 {
-    "presets": [
-        "@vue/app"
-    ],
-    "plugins": [
-        ["import", { "libraryName": "vant", "style": true }],
-        "lodash"
-    ]
+  "presets": [
+    ["env", {
+      "modules": false,
+      "targets": {
+        "browsers": ["> 1%", "last 2 versions", "not ie <= 8"]
+      }
+    }],
+    "stage-2"
+  ],
+  "plugins": ["transform-runtime", "transform-decorators-legacy"],
+  "env": {
+    "test": {
+      "presets": ["env", "stage-2"],
+      "plugins": ["istanbul"]
+    }
+  }
 }
